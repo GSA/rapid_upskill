@@ -3,14 +3,14 @@ title: "Authoring conventions"
 parent: "Contributing"
 nav_order: 1
 status: "draft"
-last_reviewed: "2026-09-19"
+last_reviewed: "2026-09-21"
 ---
 
 # Authoring conventions
 
 These are the rules for writing pages, prompts, and scripts. Every convention carries one of two labels.
 
-- `[checked R##]` means the checker (`python3 scripts/site/check.py`) tests it. `R##` is the rule number. The [Release checklist](release-checklist.md) lists every rule.
+- `[checked R##]` means the checker (`python3 -B scripts/site/check.py`) tests it. `R##` is the rule number. The [Release checklist](release-checklist.md) lists every rule.
 - `[guidance]` means no tool tests it. A reviewer applies it.
 
 ## Terminology
@@ -21,19 +21,7 @@ These are the rules for writing pages, prompts, and scripts. Every convention ca
 
 ## Page template
 
-A stage page has these sections, in this order. A page out of order gets a warning. [checked R21]
-
-1. Outcome: what the reader will have when they finish.
-2. Where it fits: what comes before and after, and what this part takes in and hands on.
-3. Why this way: the reasons for the approach, with sources.
-4. Steps: numbered, verb first, one action each.
-5. Artifacts and formats: each file the steps produce, and its format.
-6. Prompts: the prompts used, each linked to its generated page.
-7. Scripts: the scripts used, each linked to its generated page.
-8. Definition of done: conditions the reader can check.
-9. Common failures: what goes wrong, and how to spot it.
-10. Adapting to your platform: how to swap tools, using capability names.
-11. Where humans decide: the points that need a person's judgment or approval.
+A stage page has these sections, in this order: Outcome, Where it fits, Why this way, Steps, Artifacts and formats, Prompts, Scripts, Definition of done, Common failures, Adapting to your platform, and Where humans decide. A page with sections out of order gets a warning. [checked R21]
 
 Copy this stub to start a page. Replace every value. [guidance]
 
@@ -43,7 +31,7 @@ title: "S1.4a Title of this sub-stage"
 parent: "Title of the parent page"
 nav_order: 4
 status: "draft"
-last_reviewed: "2026-09-19"
+last_reviewed: "2026-09-21"
 stage: "S1"
 sub_stage: "S1.4a"
 prompts: []
@@ -109,13 +97,13 @@ List each point where a person must decide or approve.
 The keys:
 
 - `title`: required. It must be unique across the site. [checked R02] Do not use `&`, `<`, or `>`. Write "and". [checked R01]
-- `nav_order`: an integer. It is required on hand-written pages unless `nav_exclude` is `true`. [checked R01] It must be unique among siblings, which are pages with the same `parent` and `grand_parent`. [checked R03]
+- `nav_order`: required on hand-written pages unless `nav_exclude` is `true`. [checked R01] Write a bare integer such as `4`. Do not quote it, and do not use a decimal. It must be unique among siblings, which are pages with the same `parent` and `grand_parent`. [checked R03]
 - `parent`: required on a nested page. It must equal the title of an existing page. A wrong value makes the page vanish from the navigation. [checked R02]
 - `grand_parent`: required on a three-level page. It must equal the parent's own parent. [checked R02]
 - `has_children`: not needed with the pinned theme version. Never set it to `false`, which hides the children. [checked R02]
-- `status`: required on hand-written pages. [checked R01] Use `"draft"` while the page is being written. Use `"reviewed"` after a second person or agent has checked it against sources. Use `"stable"` after it is reviewed and has been rendered and read on the live site. [guidance]
-- `last_reviewed`: required on hand-written pages, as `"YYYY-MM-DD"`. [checked R01] Set it to the date of the last review. [guidance]
-- `stage` and `sub_stage`: on stage pages, as in `"S1"` and `"S1.4a"`. They must agree with the IDs and folders of the page's prompts and scripts. [checked R07]
+- `status`: required on hand-written pages, and it must be `"draft"`, `"reviewed"`, or `"stable"`. [checked R01] Use `"draft"` while the page is being written. Use `"reviewed"` after a second person or agent has checked it against sources. Use `"stable"` after it is reviewed and has been rendered and read on the live site. [guidance]
+- `last_reviewed`: required on hand-written pages, as a real date written `"YYYY-MM-DD"`. [checked R01] Set it to the date of the last review. [guidance]
+- `stage` and `sub_stage`: on stage pages, as in `"S1"` and `"S1.4a"`. The stage must agree with the stage of each prompt and script the page lists. `OP` items are the exception, because any stage may list them. [checked R07]
 - `prompts` and `scripts`: optional lists of IDs. Each ID must exist. [checked R07] Link each generated page in the body. [checked R21]
 - `generated`: set to `true` only by `sync.py`. Never add or edit it by hand. [checked R11]
 - `layout`, `permalink`, `nav_exclude`, and `has_toc`: optional. They pass to the theme unchanged. [guidance]
@@ -124,9 +112,10 @@ The keys:
 
 ## IDs, folders, and names
 
-- Prompt IDs look like `P-<code>-<nn>`. Script IDs look like `X-<code>-<nn>`. The code is a stage code, and `nn` has two digits. Examples are `P-S1-04` and `X-OP-01`. [guidance]
+- Prompt IDs look like `P-<code>-<nn>`. Script IDs look like `X-<code>-<nn>`. The code is a stage code, and `nn` has two digits. Examples are `P-S1-04` and `X-OP-01`. An ID such as `P-OP-7` is an error. [checked R07]
 - Every ID is unique. The folder, the ID code, and the `stage` value must agree. The folder is the stage code in lowercase, as in `prompts/s1/`. [checked R07]
-- Keep IDs in metadata only. Name files with a lowercase slug of letters, digits, hyphens, and underscores, as in `prompts/s1/search-plan.md` and `scripts/s1/search_plan.py`. [guidance]
+- Name each file with a slug of lowercase letters, digits, hyphens, and underscores, as in `prompts/s1/search-plan.md` and `scripts/s1/search_plan.py`. A name such as `Bad_Name` is an error. [checked R07]
+- Keep IDs in metadata only. Do not put them in file names. [guidance]
 - Files in `scripts/common/` are published too. Their stage is `OP`. [guidance]
 - Lists sort by stage in the order S1 to S5, CA, DL, OP, and then by number. So `S1.4` comes before `S1.4a`, which comes before `S1.10`. [guidance]
 - Some ID forms are reserved for the running example: `SRC-001`, `KI-c.n-NNN`, `MC-c-NNN`, `STEM-c.n-NNN`, and `CB-d.n`. Do not reuse them for anything else. [guidance]
@@ -179,7 +168,7 @@ A script starts with a header. In Python, the header is the module docstring. In
 - Required fields: `ID`, `Purpose`, `Usage`, `Dependencies`, `Writes files`, and `License`. [checked R09]
 - `Dependencies` is `stdlib` or a list. Every imported module that is not in the standard library must be listed. Modules in `scripts/common/` count as declared. [checked R09]
 - `Writes files` is `yes` or `no`. `License` is `CC0-1.0`. [checked R09]
-- Optional fields: `Title`, `Stage`, `Inputs`, and `Outputs`. The stage already comes from the ID, so `Stage` is redundant. If you write it, it must agree with the ID. [checked R07]
+- Optional fields: `Title`, `Stage`, `Inputs`, and `Outputs`. [guidance] The stage already comes from the ID, so `Stage` is redundant. If you write it, it must equal the ID code. [checked R07]
 - A script that writes or deletes anything makes a dry run unless `--write` is passed. [guidance]
 - Keys and tokens come only from environment variables. Never write one in a file. [checked R09]
 - A script that calls a language model should use the shared adapter in `scripts/common/llm_adapter.py`, not a vendor library. Its `mock` provider runs offline. [guidance]
@@ -251,7 +240,8 @@ A prompt lists what it needs from a platform, using only these words. [checked R
 ### Code, images, and files
 
 - Give every code fence a language. Use `text` when none applies. [checked R13]
-- Make sure every image exists and has alt text. Do not add decorative images. [checked R06]
+- Make sure every image exists and has alt text. [checked R06]
+- Do not add decorative images. The checker cannot detect them, so a reviewer does. [guidance]
 - Do not include local paths, keys, tokens, or email addresses. Only reserved example addresses are allowed. [checked R10]
 - Save text files as UTF-8 with `\n` line endings and no byte order mark. [checked R17]
 - Do not use symlinks, or names that differ only by letter case, under `docs/`. [checked R18]

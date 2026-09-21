@@ -77,6 +77,14 @@ from dataclasses import dataclass, field
 from pathlib import Path
 
 sys.dont_write_bytecode = True
+if sys.version_info < (3, 10):
+    print(
+        "sync: this tool needs Python 3.10 or newer, but this is "
+        f"{sys.version_info.major}.{sys.version_info.minor}. "
+        "Run it with a newer python3.",
+        file=sys.stderr,
+    )
+    sys.exit(2)
 sys.path.insert(0, str(Path(__file__).resolve().parent))
 
 import sitelib  # noqa: E402  # pylint: disable=wrong-import-position

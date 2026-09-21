@@ -1,6 +1,6 @@
 # scripts
 
-Small tools for the Rapid Upskilling Pipeline. They use only the Python 3.12 standard library (or plain shell), run offline by default, and are released under [CC0 1.0](../LICENSE.md).
+Small tools for the Rapid Upskilling Pipeline. They use only the Python standard library (or plain shell), and need Python 3.10 or newer. They run offline by default, and are released under [CC0 1.0](../LICENSE.md). Check your version with `python3 --version`. On an older Python, the site tools and `run_all.py` stop with one line on standard error and exit with status 2.
 
 ## Folder layout
 
@@ -23,7 +23,7 @@ Stage folders are added as scripts arrive, so not all of them may exist yet.
 python3 -B scripts/tests/run_all.py
 ```
 
-The command works from any directory. It needs no network, no API key and no installs, prints one summary line, and exits 1 on any failure or error. The `-B` flag stops Python from writing `__pycache__` folders.
+The command works from any directory. It needs no network, no API key and no installs, prints one summary line, and exits 1 on any failure or error. On macOS, one skipped test is normal, because it needs a case-sensitive file system. The `-B` flag stops Python from writing `__pycache__` folders.
 
 ## Script header
 

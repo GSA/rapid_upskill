@@ -1,11 +1,12 @@
 # Images
 
-Source images for the site live in this folder. `python3 scripts/site/sync.py --write` copies them into `docs/assets/images/`, which the sync tool owns. Never edit that folder by hand. The full rules are in the [authoring conventions](../docs/contributing/authoring-conventions.md).
+Source images for the site live in this folder. `python3 -B scripts/site/sync.py --write` copies them into `docs/assets/images/`, which the sync tool owns. Never edit that folder by hand. The tools need Python 3.10 or newer. The full rules are in the [authoring conventions](../docs/contributing/authoring-conventions.md).
 
 ## Naming
 
-- Use lowercase letters, digits, hyphens, and underscores, then the file extension, as in `pipeline-overview.svg`.
+- Use lowercase letters, digits, hyphens, underscores, and dots, then the file extension, as in `pipeline-overview.svg`. A name with a space or a capital letter stops the sync tool with `sync: <path>: image names may use only a-z, 0-9, '.', '_', '-' and '/'` and exit status 2.
 - Name what the image shows. Do not use a bare number, or the name of the page that uses it.
+- The sync tool copies files that end in `.svg`, `.png`, `.jpg`, `.jpeg`, `.gif`, or `.webp`. It ignores other files, such as this README. A subfolder is copied with its path.
 
 ## Format
 
@@ -27,7 +28,7 @@ For a diagram, also give a visible text version of the same information next to 
 
 ## No decorative images
 
-Add an image only when it carries information the reader needs. If the page reads the same without it, leave it out. The checker treats decorative images as errors.
+Add an image only when it carries information the reader needs. If the page reads the same without it, leave it out. The checker cannot tell whether an image is decorative, because it only reports missing files and empty alt text. Checking this is up to you and your reviewer.
 
 ## Licensing and privacy
 
@@ -37,7 +38,7 @@ Add an image only when it carries information the reader needs. If the page read
 ## How an image reaches the site
 
 1. Save the source file in this folder.
-2. Run `python3 scripts/site/sync.py` to preview the copy. It writes nothing.
-3. Run `python3 scripts/site/sync.py --write` to copy the file into `docs/assets/images/`.
+2. Run `python3 -B scripts/site/sync.py` to preview the copy. It writes nothing.
+3. Run `python3 -B scripts/site/sync.py --write` to copy the file into `docs/assets/images/`.
 4. Reference the copy from a page with Markdown, as shown above.
-5. Run `python3 scripts/site/check.py`.
+5. Run `python3 -B scripts/site/check.py`.

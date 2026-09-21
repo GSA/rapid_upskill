@@ -2,7 +2,7 @@
 title: "Contributing"
 nav_order: 90
 status: "draft"
-last_reviewed: "2026-09-19"
+last_reviewed: "2026-09-21"
 ---
 
 # Contributing
@@ -21,9 +21,9 @@ If you are unsure about anything, ask, or submit the issue or pull request anywa
 ## How to contribute
 
 1. Read [Authoring conventions](authoring-conventions.md). Each convention says whether the checker tests it or it is guidance.
-2. Try [Your first prompt](first-prompt.md) if you have never used the tools.
+2. Try [Your first prompt](first-prompt.md) if you have never used the tools. The tools need Python 3.10 or newer.
 3. Fork the repository, and make your change on a branch of your fork.
-4. Run the checks described in [Tooling](tooling.md) and fix every error.
+4. Run the tools described in [Tooling](tooling.md). If you changed a prompt, a script, or an image, run the sync tool first. Then run the checker, and fix every error.
 5. Open a pull request. Say what changed, and give a source for every fact or number you added.
 6. Before a page's status moves to "stable", follow the [Release checklist](release-checklist.md).
 

@@ -98,6 +98,14 @@ from typing import Any, TypeVar
 from urllib.parse import unquote
 
 sys.dont_write_bytecode = True
+if sys.version_info < (3, 10):
+    print(
+        "check: this tool needs Python 3.10 or newer, but this is "
+        f"{sys.version_info.major}.{sys.version_info.minor}. "
+        "Run it with a newer python3.",
+        file=sys.stderr,
+    )
+    sys.exit(2)
 SITE_DIR = Path(__file__).resolve().parent
 if str(SITE_DIR) not in sys.path:
     sys.path.insert(0, str(SITE_DIR))
@@ -1170,6 +1178,14 @@ def check_generated(site: Site) -> None:
     try:
         outputs = _import_sync().compute_outputs(root)
     except (Exception, SystemExit) as exc:  # pylint: disable=broad-exception-caught
+        issues = getattr(exc, "issues", None)
+        if isinstance(issues, list) and issues:
+            # sync names the file that is wrong ("path: message"); report it there.
+            for issue in issues[:5]:
+                where, _sep, message = str(issue).partition(": ")
+                text = f"cannot generate pages: {message or where}"
+                rep.error(where if message else sync_rel, 1, "R11", text)
+            return
         why = (str(exc).splitlines() or [""])[0][:160]
         rep.error(
             sync_rel, 1, "R11", f"cannot compute outputs: {type(exc).__name__} {why}"

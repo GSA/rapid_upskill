@@ -22,6 +22,14 @@ TESTS_DIR = Path(__file__).resolve().parent
 
 def main() -> int:
     """Discover and run the tests; return the process exit code."""
+    if sys.version_info < (3, 10):
+        print(
+            "run_all: the tests need Python 3.10 or newer, but this is "
+            f"{sys.version_info.major}.{sys.version_info.minor}. "
+            "Run them with a newer python3.",
+            file=sys.stderr,
+        )
+        return 2
     suite = unittest.TestLoader().discover(
         str(TESTS_DIR), pattern="test_*.py", top_level_dir=str(TESTS_DIR)
     )

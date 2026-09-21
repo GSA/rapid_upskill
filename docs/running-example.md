@@ -1,8 +1,8 @@
 ---
 title: "The running example"
-nav_order: 2
+nav_order: 4
 status: "draft"
-last_reviewed: "2026-09-19"
+last_reviewed: "2026-09-21"
 ---
 
 # The running example
