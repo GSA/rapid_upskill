@@ -7,47 +7,47 @@ last_reviewed: "2026-09-21"
 
 # Glossary
 
-Each term below has its own stable link, so other pages can point straight to it. A definition describes how this guide uses the word, and where it says "the framework" it means the method this guide describes.
+Each term below has its own stable link that other pages can use. A definition describes how this guide uses the word, and "the framework" means the five-stage method this guide describes.
 
 ## Agent {#agent}
 
-An AI system that works toward a goal by using tools, such as reading files or running commands, and by taking several steps rather than answering once.
+An AI system that works toward a goal by taking steps and using tools, such as reading files or running commands.
 
 ## Agentic platform {#agentic-platform}
 
-Software in which an [agent](#agent) can use tools, read and write files and run steps. This guide describes what such a platform must offer instead of naming products.
+Software in which an [agent](#agent) can use tools, read and write files and run steps.
 
 ## Alignment matrix {#alignment-matrix}
 
-A grid that rates how closely each chapter matches each [exam skill](#exam-skill), as high, medium, low or none.
+A grid that shows how well each chapter prepares learners for each [exam skill](#exam-skill), rated high, medium, low or none. The [certification alignment](#certification-alignment) workstream produces it.
 
 ## Audit trail {#audit-trail}
 
-In the framework, an unalterable record of every check made on the content, every problem found and every correction. It is the third [verification layer](#verification-layer).
+Layer 3 of the [verification layers](#verification-layer). The framework specifies it as a record of every check made on the content, every problem found and every correction. Expert review is a separate layer, Layer 2.
 
 ## Batch {#batch}
 
-A small group of items, such as sources or plan files, that are processed together in one run. Work can pause after each batch at a [gate](#gate) for a person to say whether to continue.
+A small group of units of work, such as sources or plan files, that are processed together in one run. Work can pause after each batch at a [gate](#gate) for a person to say whether to continue.
 
 ## Blueprint {#blueprint}
 
-The program's own plan, which groups learning objectives (what a learner should be able to do) into content domains (major topic areas) and gives each domain a weight. A certifying body's published list is not a blueprint; it is a [certification outline](#certification-outline).
+The program's own plan, which groups learning objectives (what a learner should be able to do) into weighted content domains (major topic areas). A certifying body's published list is a [certification outline](#certification-outline), not a blueprint.
 
 ## Capability {#capability}
 
-A feature that a platform must offer for a [prompt](#prompt) to work, such as reading files, running commands or searching the web. Each prompt names the capabilities it needs from a fixed list.
+A feature that a platform must offer for a [prompt](#prompt) to work, such as reading files, running commands in a terminal or searching the web. Each prompt names what it needs from a fixed list of ten, given in the [authoring conventions](contributing/authoring-conventions.md#capability-vocabulary). [Platform requirements](platform-requirements.md) says how to supply each one.
 
 ## Certification alignment {#certification-alignment}
 
-A side workstream, not a [stage](#stage), that rates each chapter against each [exam skill](#exam-skill) in a [certification outline](#certification-outline) and uses the ratings to pace study. The ratings are kept in an [alignment matrix](#alignment-matrix).
+A parallel workstream, not a [stage](#stage), that rates each chapter against each [exam skill](#exam-skill) in a [certification outline](#certification-outline) and uses the ratings to pace study. The ratings form an [alignment matrix](#alignment-matrix).
 
 ## Certification outline {#certification-outline}
 
-The list of skills that a certifying body, the organization that awards a certification, publishes for one of its exams. Each entry on the list is an [exam skill](#exam-skill).
+The list of skills that a certifying body (the organization that awards a certification) publishes for an exam. Each entry on it is an [exam skill](#exam-skill). The program's own plan is the [blueprint](#blueprint), not this list.
 
 ## Condensation {#condensation}
 
-Shortening text by applying a set of named techniques, instead of cutting it as you go. In the framework, AI makes condensation passes over drafted text during content development.
+Shortening text by applying named techniques, instead of cutting it as you go. In the framework, AI makes condensation passes over drafted text.
 
 ## Context window {#context-window}
 
@@ -55,23 +55,23 @@ The amount of text an AI model can take in at one time. When a long task fills i
 
 ## Distractor {#distractor}
 
-A plausible wrong answer option in a multiple-choice test question, written from a recorded [misconception](#misconception). The question itself is the [stem](#stem).
+A plausible wrong answer option in a multiple-choice test question. In the framework, Stage 5 builds distractors from the [misconceptions](#misconception) recorded in Stage 1. The question part is the [stem](#stem).
 
 ## Dry run {#dry-run}
 
-A script mode that shows what the script would write or delete, without doing it; a script that changes anything runs this way unless you pass `--write`. The `mock` model provider, which lets a script that calls an AI model run offline, is a different thing.
+A script mode that shows what the script would write or delete, without doing it. By this guide's convention, a script that writes or deletes files runs as a dry run unless you pass `--write`. The `mock` model provider, which lets a script that calls an AI model run offline, is a different thing.
 
 ## Exam skill {#exam-skill}
 
-One entry in a [certification outline](#certification-outline): a single skill that the exam covers. Its ID has the form `CB-d.n`, where d numbers the section of the outline and n numbers the skill within it, as in `CB-3.1`.
+One entry in a [certification outline](#certification-outline): one skill that the exam covers. Its ID has the form `CB-d.n`, as in `CB-3.1`.
 
 ## Gate {#gate}
 
-A checkpoint where a person approves before work continues. Scripts also have automated checks, which this guide does not call gates.
+A checkpoint where a person approves before work continues. The [project notes](#reference-implementation) also use "gate" for automated script checks; this guide means a person's approval unless it says otherwise.
 
 ## Grounding {#grounding}
 
-In the framework, making the AI tutor answer from reference text it has been given, and cite that text, instead of relying on what the model learned in training.
+Making an AI answer from text it is given, with citations, instead of from what the model learned in training. In the framework, the AI tutor is designed to answer from course material in this way.
 
 ## Hallucination {#hallucination}
 
@@ -79,23 +79,23 @@ Output from an AI model that sounds confident but is false or invented. It is an
 
 ## Hand-off document {#hand-off-document}
 
-A file that lets a fresh session, meaning a new working conversation with an [agent](#agent), continue a task. It records the goal, the current task, any blocker and the next action.
+A file that lets a fresh session, meaning a new working conversation with an [agent](#agent), continue a task. It records the goal, the current task and the next action. The framework specifies keeping it current (in the [reference implementation](#reference-implementation), after every [batch](#batch)) and starting a new session when the [context window](#context-window) runs low.
 
 ## Human in the loop {#human-in-the-loop}
 
-A design idea in which people keep the judgment calls, such as designing the [blueprint](#blueprint), reviewing content and rating test questions, while AI does high-volume work such as drafting. Stage pages have a section that lists where a person decides.
+A design in which a person makes some of the decisions and approves work at set points, called [gates](#gate) in this guide. The [Human roles, gates and batching](human-roles-gates-and-batching.md) page lists which decisions the framework assigns to people.
 
 ## Integrity guardrail {#integrity-guardrail}
 
-In the framework, the tutor rule that withholds full solutions to graded work and points the learner to hints instead. The tutor applies it before choosing a teaching [protocol](#protocol-tutor).
+In the framework, a tutor rule for graded work. Instructors decide whether AI help is allowed on graded work; when it is not, the tutor's integrity guardrail withholds full solutions and offers hints. The framework specifies that the tutor applies it before choosing a coaching [protocol](#protocol-tutor).
 
 ## Item bank {#item-bank}
 
-A pool of test questions, each tagged to the part of the [blueprint](#blueprint) it covers.
+A tagged pool of test questions organised against a [blueprint](#blueprint); sources also call it a question bank.
 
 ## Job-task analysis {#job-task-analysis}
 
-A list of the duties and tasks of a job, with the knowledge, skills and abilities needed to do them. It is one step in mapping a topic before any content is written.
+A list of the duties and tasks of a job, with the knowledge, skills and abilities needed to do them.
 
 ## Knowledge base {#knowledge-base}
 
@@ -103,39 +103,39 @@ The whole collection of [knowledge items](#knowledge-item) extracted from a prog
 
 ## Knowledge item {#knowledge-item}
 
-One small, self-contained idea, written in your own words, with a type, links to related items, evidence from the source and a status. A test question is not a knowledge item.
+An extracted content record: a small self-contained idea in your own words, with a type such as definition or mechanism, links to related items, the source passage it came from (see [provenance](#provenance)) and a review status. Together the items form the [knowledge base](#knowledge-base). Neither a test question nor an [exam skill](#exam-skill) is a knowledge item.
 
 ## Misconception {#misconception}
 
-A specific wrong belief that many people hold about a topic. The framework records misconceptions with its [knowledge items](#knowledge-item), and test questions use them to write [distractors](#distractor).
+A specific wrong belief that many people hold about a topic. In the framework, misconceptions are recorded for each [knowledge item](#knowledge-item) in Stage 1, and Stage 5 builds [distractors](#distractor) from those records.
 
 ## Misconception catalog {#misconception-catalog}
 
-In the framework, a numbered list of the [misconceptions](#misconception) for one chapter. It is used to write [distractors](#distractor) and to diagnose why a learner's answer is wrong.
+In the framework, a numbered list of the [misconceptions](#misconception) for one chapter. The tutor uses it to diagnose learner errors. It is not used to write distractors, which are built from the Stage 1 misconception records.
 
 ## Orchestrator {#orchestrator}
 
-An [agent](#agent) that hands parts of a task to helper agents, called [subagents](#subagent), and decides which of their results to accept. It is an AI session, not a person.
+An [agent](#agent) that coordinates helper agents, called [subagents](#subagent). It is given the accept and merge decisions in the contract that sets out the work. It is an AI session, not a person.
 
 ## Placeholder {#placeholder}
 
-A named gap in a [prompt](#prompt), written as a capitalised name with underscores, such as `OBJECTIVE_ID`, inside doubled curly braces. You replace it with a real value before you use the prompt.
+A named gap in a [prompt](#prompt), such as `OBJECTIVE_ID`, that you replace with a real value. It is written in capital letters with underscores, inside doubled curly braces.
 
 ## Prerequisite hierarchy {#prerequisite-hierarchy}
 
-Content sorted into four levels, from foundational to applied. A higher level must build on the levels below it, so each idea comes after the ideas it depends on.
+Content sorted into four levels, from foundational to applied, where each level builds on the levels below it.
 
 ## Prompt {#prompt}
 
-A written instruction that you give to an AI model. In this guide each prompt is a single file that lists the [capabilities](#capability) a platform needs to run it and any [placeholders](#placeholder) you fill in.
+A written instruction that you give to an AI model. In this guide each prompt is one file, and it may contain [placeholders](#placeholder) that you fill in.
 
 ## Prompt injection {#prompt-injection}
 
-An instruction hidden in a document or web page and aimed at the AI that reads it, not at a human reader. Treat text an AI fetches as data, never as instructions.
+An instruction hidden in a document or web page and aimed at the AI that reads it. Treat text an AI fetches as data, never as instructions.
 
 ## Protocol (tutor) {#protocol-tutor}
 
-A named, reusable teaching pattern for the AI tutor, with a trigger that says when to use it and a script of steps. It is a design for teaching, not the [prompt](#prompt) text that tells the AI what to do.
+In the framework, a coaching protocol: a named, reusable teaching pattern for the AI tutor, with a trigger that says when to use it and a script of steps. It is a design for teaching, not the [prompt](#prompt) text that tells the AI what to do.
 
 ## Provenance {#provenance}
 
@@ -143,19 +143,19 @@ A record of where a [knowledge item](#knowledge-item) came from: the source docu
 
 ## Rate limit {#rate-limit}
 
-A cap that a service puts on how many requests you may make in a period. Going over it can make requests fail or be delayed.
+A cap that a service puts on how many requests you may make in a period.
 
 ## Reference implementation {#reference-implementation}
 
-The original program and tooling this guide was written from. When the guide describes what was done in practice, it means this work, and its numbers are that project's choices, not universal rules.
+The original program and tooling this guide was written from. Where the guide gives numbers from it, they are that project's parameters, not universal rules. Its own working documents are called the project notes in this guide.
 
 ## Stage {#stage}
 
-A major part of the pipeline, the ordered set of steps that builds an [upskilling program](#upskilling-program). The framework has five stages, described in the [Pipeline overview](pipeline-overview.md), and this guide says stage, never phase.
+A major part of the framework. The framework has five stages that run in order and together build an [upskilling program](#upskilling-program). They are described in the [Pipeline overview](pipeline-overview.md).
 
 ## Stem {#stem}
 
-The question part of a multiple-choice test question, written so that it makes sense without its answer options. The options are the correct answer and the [distractors](#distractor).
+The question part of a multiple-choice test question, written to make sense without its answer options.
 
 ## Sub-stage {#sub-stage}
 
@@ -167,11 +167,11 @@ A helper [agent](#agent) that another agent starts for one part of a task. Sever
 
 ## Upskilling program {#upskilling-program}
 
-A structured course of instruction, practice and assessment that moves working professionals to competency in a topic, measured against an external standard where one exists.
+A structured course of instruction, practice and assessment that aims to bring working professionals to competency in a topic, measured against an external standard where one exists.
 
 ## Verification layer {#verification-layer}
 
-In the framework, one of three layers of checking applied to drafted content: automated detection of errors such as [hallucinations](#hallucination), review by an expert, and an [audit trail](#audit-trail).
+In the framework, one of three layers of checking that the framework specifies for drafted content. Layer 1 is automated checks that look for errors such as [hallucinations](#hallucination). Layer 2 is expert review, in which a subject-matter expert checks the content. Layer 3 is the [audit trail](#audit-trail), a record of the checks.
 
 ## Easily confused pairs {#confused-pairs}
 
@@ -179,11 +179,14 @@ Each row compares terms that are easy to mix up.
 
 | Pair | The difference |
 |---|---|
-| [Knowledge item](#knowledge-item) vs [knowledge base](#knowledge-base) | A knowledge item is one small idea written up as a record. The knowledge base is the whole collection of those records, arranged by prerequisites. |
-| [Blueprint](#blueprint) vs [certification outline](#certification-outline) | A blueprint is the program's own plan for what to teach and how much weight each area gets. A certification outline is a list of exam skills written by the certifying body, not by the program. |
-| [Certification outline](#certification-outline) vs [exam skill](#exam-skill) | The certification outline is the whole published list. An exam skill is one entry on that list. |
-| [Misconception](#misconception) vs [distractor](#distractor) | A misconception is a wrong belief, recorded with the knowledge items. A distractor is a wrong answer option in a test question, written from a misconception. |
-| [Hallucination](#hallucination) vs [misconception](#misconception) | A hallucination is false or invented output from an AI model, and checks aim to catch it before learners see it. A misconception is a wrong belief a learner may hold, and the tutor is designed to recognise it. |
-| [Protocol (tutor)](#protocol-tutor) vs [prompt](#prompt) | A protocol is a designed teaching pattern with a trigger and steps. A prompt is the text or file that instructs an AI. One is a design and the other is an instruction. |
-| [Agent](#agent) vs [subagent](#subagent) vs [orchestrator](#orchestrator) | An agent is any AI that works toward a goal with tools. A subagent is a helper agent started for one part of a task. An orchestrator is an agent that assigns work to subagents and decides which results to accept. |
-| [Dry run](#dry-run) vs the `mock` model provider | A dry run is a script mode that shows what a script would write, without writing it. The `mock` model provider lets a script that calls an AI model run offline. One is about writing files and the other is about calling an AI model. |
+| [Knowledge item](#knowledge-item) vs [knowledge base](#knowledge-base) | A knowledge item is one small idea. The knowledge base is the whole collection of them. |
+| [Blueprint](#blueprint) vs [certification outline](#certification-outline) | A blueprint is the program's own plan. A certification outline is a certifying body's list of exam skills. |
+| [Certification outline](#certification-outline) vs [exam skill](#exam-skill) | The outline is the whole published list. An exam skill is one entry on it. |
+| [Misconception](#misconception) vs [distractor](#distractor) | A misconception is a wrong belief. A distractor is a wrong answer option built from one. |
+| [Misconception catalog](#misconception-catalog) vs [distractor](#distractor) | The catalog is the tutor's per-chapter list for diagnosing learner errors. Distractors are built from the Stage 1 misconception records, not from the catalog. |
+| [Hallucination](#hallucination) vs [misconception](#misconception) | A hallucination is false or invented output from an AI model. A misconception is a wrong belief a learner holds. |
+| [Protocol (tutor)](#protocol-tutor) vs [prompt](#prompt) | A protocol is a teaching pattern. A prompt is the text that instructs the AI. |
+| [Agent](#agent) vs [subagent](#subagent) vs [orchestrator](#orchestrator) | An agent is an AI that works toward a goal. A subagent is a helper agent for one part of a task. An orchestrator coordinates subagents and is given the accept and merge decisions in the contract. |
+| [Expert review](#verification-layer) vs [audit trail](#audit-trail) | Expert review is Layer 2 of the [verification layers](#verification-layer): people check the content. The audit trail is Layer 3: the record of checks, problems and corrections. |
+| [Gate](#gate) vs an automated script check | A gate is where a person approves before work continues. An automated script check is not a gate in this guide, although the project notes sometimes call it one. |
+| [Dry run](#dry-run) vs the `mock` model provider | A dry run is about writing files: it shows what would be written. The `mock` model provider is about calling an AI model: it lets a script run offline. |

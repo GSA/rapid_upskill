@@ -78,6 +78,14 @@ from typing import Any
 from urllib.parse import urlsplit
 
 sys.dont_write_bytecode = True
+if sys.version_info < (3, 10):
+    print(
+        "llm_adapter: this module needs Python 3.10 or newer, but this is "
+        f"{sys.version_info.major}.{sys.version_info.minor}. "
+        "Run it with a newer python3.",
+        file=sys.stderr,
+    )
+    sys.exit(2)
 
 PROVIDER_ENV = "LLM_PROVIDER"
 DEFAULT_PROVIDER = "mock"

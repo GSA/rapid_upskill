@@ -1,5 +1,5 @@
 title: "Rapid Upskilling Pipeline"
-description: "How to build an AI-accelerated upskilling program on any agentic platform."
+description: "A public guide to building an upskilling program with AI agents and human review, with sample prompts and scripts."
 remote_theme: just-the-docs/just-the-docs@v0.12.0
 plugins: [jekyll-remote-theme, jekyll-seo-tag, jekyll-include-cache]
 url: "https://gsa.github.io"          # assumption: confirm the organization slug

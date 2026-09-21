@@ -534,14 +534,15 @@ class PageTests(unittest.TestCase):
         cls.masked, cls.fences = split_fences(cls.body)
 
     def test_front_matter(self) -> None:
-        expected = {
-            "title": "The running example",
-            "nav_order": 2,
-            "status": "draft",
-            "last_reviewed": "2026-09-19",
-        }
-        self.assertEqual(self.meta, expected)
+        # The navigation order and the review date change as the site grows,
+        # so only their shape is checked here.
+        self.assertEqual(
+            set(self.meta), {"title", "nav_order", "status", "last_reviewed"}
+        )
+        self.assertEqual(self.meta["title"], "The running example")
+        self.assertIn(self.meta["status"], ("draft", "reviewed", "stable"))
         self.assertTrue(is_int(self.meta["nav_order"]))
+        self.assertRegex(str(self.meta["last_reviewed"]), r"^\d{4}-\d{2}-\d{2}$")
 
     def test_headings_do_not_skip_levels(self) -> None:
         levels = [

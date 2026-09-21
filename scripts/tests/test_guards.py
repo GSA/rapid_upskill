@@ -88,6 +88,9 @@ class PythonVersionGuardTests(unittest.TestCase):
     def test_run_all(self) -> None:
         self.check_guard("scripts/tests/run_all.py")
 
+    def test_llm_adapter(self) -> None:
+        self.check_guard("scripts/common/llm_adapter.py")
+
     def test_current_python_is_not_blocked(self) -> None:
         result = run([str(REPO / "scripts/site/sync.py"), "--help"])
         self.assertEqual(result.returncode, 0, result.stderr)
