@@ -1,0 +1,134 @@
+{
+  "schema_version": "1.0.0",
+  "license": "CC0-1.0",
+  "synthetic": true,
+  "program": "Git Basics for New Team Members",
+  "difficulty_split": [30, 50, 20],
+  "bank_size": 20,
+  "domains": [
+    {
+      "id": "D1",
+      "name": "Snapshots and history",
+      "weight": 25,
+      "objectives": [
+        {
+          "id": "D1.1",
+          "text": "Explain that a commit records a snapshot of the tracked files plus an author, a time, a message and a parent, rather than a list of edits.",
+          "bloom": "understand",
+          "tier": 1,
+          "chapter": 1,
+          "supported_by": ["SRC-001"]
+        },
+        {
+          "id": "D1.2",
+          "text": "Build a commit deliberately by staging chosen changes and checking them before committing.",
+          "bloom": "apply",
+          "tier": 2,
+          "chapter": 1,
+          "supported_by": ["SRC-001", "SRC-006"]
+        },
+        {
+          "id": "D1.3",
+          "text": "Read the history and compare versions with git log and git diff, telling staged changes from unstaged ones.",
+          "bloom": "analyze",
+          "tier": 2,
+          "chapter": 1,
+          "supported_by": ["SRC-001"]
+        }
+      ]
+    },
+    {
+      "id": "D2",
+      "name": "Branching and merging",
+      "weight": 30,
+      "objectives": [
+        {
+          "id": "D2.1",
+          "text": "Describe a branch as a movable label on a commit and HEAD as the pointer that says where you are.",
+          "bloom": "understand",
+          "tier": 1,
+          "chapter": 1,
+          "supported_by": ["SRC-002"]
+        },
+        {
+          "id": "D2.2",
+          "text": "Tell a fast-forward merge from a merge commit and predict which one a given history will produce.",
+          "bloom": "analyze",
+          "tier": 3,
+          "chapter": 2,
+          "supported_by": ["SRC-002"]
+        },
+        {
+          "id": "D2.3",
+          "text": "Resolve a merge conflict by editing the conflict markers, staging the file and completing the merge.",
+          "bloom": "apply",
+          "tier": 3,
+          "chapter": 2,
+          "supported_by": ["SRC-003"]
+        }
+      ]
+    },
+    {
+      "id": "D3",
+      "name": "Working with remotes",
+      "weight": 25,
+      "objectives": [
+        {
+          "id": "D3.1",
+          "text": "Name the roles of a remote and a remote-tracking branch, and what cloning sets up.",
+          "bloom": "remember",
+          "tier": 2,
+          "chapter": 2,
+          "supported_by": ["SRC-004"]
+        },
+        {
+          "id": "D3.2",
+          "text": "Compare fetch with pull, and state what a pull does to the current branch and to the working files.",
+          "bloom": "analyze",
+          "tier": 3,
+          "chapter": 2,
+          "supported_by": ["SRC-004", "SRC-005"]
+        },
+        {
+          "id": "D3.3",
+          "text": "Diagnose a rejected push and choose a safe way to integrate the remote work before pushing again.",
+          "bloom": "apply",
+          "tier": 4,
+          "chapter": 2,
+          "supported_by": ["SRC-004"]
+        }
+      ]
+    },
+    {
+      "id": "D4",
+      "name": "Recovering and collaborating safely",
+      "weight": 20,
+      "objectives": [
+        {
+          "id": "D4.1",
+          "text": "Choose between restore, revert and reset for a given mistake by weighing what each one changes.",
+          "bloom": "evaluate",
+          "tier": 3,
+          "chapter": 3,
+          "supported_by": ["SRC-003"]
+        },
+        {
+          "id": "D4.2",
+          "text": "Recover a commit that no branch points to any more by finding it in the reflog and giving it a new branch name.",
+          "bloom": "apply",
+          "tier": 4,
+          "chapter": 3,
+          "supported_by": []
+        },
+        {
+          "id": "D4.3",
+          "text": "Draft a short team rule that says when rewriting shared history is acceptable and when it is not.",
+          "bloom": "create",
+          "tier": 4,
+          "chapter": 3,
+          "supported_by": ["SRC-003", "SRC-004"]
+        }
+      ]
+    }
+  ]
+}

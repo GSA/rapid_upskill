@@ -1,0 +1,6 @@
+source "https://rubygems.org"
+
+# GitHub Pages builds with the github-pages gem, which pins Jekyll and the
+# supported plugins to the versions Pages uses. Using the same gem locally
+# keeps a local preview close to the published build.
+gem "github-pages", group: :jekyll_plugins

@@ -1,0 +1,16 @@
+// Plain SCSS only. The GitHub Pages build uses Ruby Sass 3.7.4, so this file
+// must not use @use, math.div or any other newer Sass feature.
+
+// Visually hidden, but still read by assistive technology.
+// Used by the live region in _includes/footer_custom.html.
+.rup-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}

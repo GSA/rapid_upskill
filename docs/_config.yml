@@ -1,0 +1,25 @@
+title: "Rapid Upskilling Pipeline"
+description: "How to build an AI-accelerated upskilling program on any agentic platform."
+remote_theme: just-the-docs/just-the-docs@v0.12.0
+plugins: [jekyll-remote-theme, jekyll-seo-tag, jekyll-include-cache]
+url: "https://gsa.github.io"          # assumption: confirm the organization slug
+baseurl: "/rapid_upskill"
+source_repo_url: "https://github.com/GSA/rapid_upskill"   # our own keys; the theme does not use them
+source_branch: "master"               # confirmed with `git branch --show-current`
+strict_front_matter: true
+search_enabled: true
+enable_copy_code_button: true
+heading_anchors: true
+search:
+  tokenizer_separator: /[\s/]+/       # keeps IDs such as P-S1-04 searchable
+aux_links:
+  "Source on GitHub": "https://github.com/GSA/rapid_upskill"   # full URL; the theme adds no relative_url
+callouts:                             # color is required, title optional
+  note:      {title: Note,      color: purple}
+  warning:   {title: Warning,   color: red}
+  important: {title: Important, color: blue}
+  tip:       {title: Tip,       color: green}
+defaults:
+  - scope: {path: ""}
+    values: {layout: "default"}
+exclude: [Gemfile, Gemfile.lock, node_modules, vendor]
