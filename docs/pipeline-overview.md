@@ -7,7 +7,7 @@ last_reviewed: "2026-09-21"
 
 # Pipeline overview
 
-## The shape of the pipeline
+## The shape of the framework
 
 The framework has five [stages](glossary.md#stage) that run in order. Each stage pairs a job for AI, a mechanism aimed at the learner, and a quality check. The description follows the [reference implementation](glossary.md#reference-implementation), the project this guide draws on. This guide calls that project's own working documents the project notes.
 
@@ -37,7 +37,7 @@ Table A shows what the framework specifies for each stage.
 | Stage 4: AI-tutor coaching | Named [coaching protocols](glossary.md#protocol-tutor), a [misconception catalog](glossary.md#misconception-catalog) per chapter, learner guardrails | Is designed to tutor one to one, following a protocol |
 | Stage 5: Assessment development | An [item bank](glossary.md#item-bank) of blueprint-tagged test questions, mock exams, quizzes, practice tests | Writes test questions and [distractors](glossary.md#distractor) (wrong answer options) |
 
-## Table B: people, checks and learner help
+## Table B: checks and learner help
 
 The people who act at each stage are listed on [Human roles, gates and batching](human-roles-gates-and-batching.md), so this table leaves them out.
 
@@ -51,9 +51,9 @@ The people who act at each stage are listed on [Human roles, gates and batching]
 
 The last column lists design intents, not measured effects. The 30/50/20 split is one of the reference implementation's parameters, that project's choice and not a universal rule. The tables show what the framework specifies, not that any step was completed.
 
-## The side workstream and delivery
+## The parallel workstream and delivery
 
-[Certification alignment](glossary.md#certification-alignment) compares each chapter with a [certification outline](glossary.md#certification-outline), the list of skills a certifying body publishes. Its output is an [alignment matrix](glossary.md#alignment-matrix): a grid that rates how well each chapter prepares learners for each [exam skill](glossary.md#exam-skill), one entry in that list. The ratings are high, medium, low or none, and they pace study. Agents produced the ratings in the reference implementation. One certification was the design target. This is a parallel workstream, not a stage.
+[Certification alignment](glossary.md#certification-alignment) compares each chapter with a [certification outline](glossary.md#certification-outline), the list of skills a certifying body publishes. Its output is an [alignment matrix](glossary.md#alignment-matrix): a grid that rates how well each chapter prepares learners for each [exam skill](glossary.md#exam-skill), one entry in that list. The ratings are high, medium, low or none, and they are meant to show learners where to spend study time. Agents produced the ratings in the reference implementation. One certification was the design target. This is a parallel workstream, not a stage.
 
 Delivery is outside the framework and not assessed here. This guide makes no claims about it.
 
@@ -61,7 +61,7 @@ Delivery is outside the framework and not assessed here. This guide makes no cla
 
 | Stage | Takes in | Hands on |
 |---|---|---|
-| Stage 1: Knowledge acquisition | Sources admitted by people | The knowledge base, with a misconception recorded for each knowledge item; the blueprint |
+| Stage 1: Knowledge acquisition | Sources admitted by people | The knowledge base, with misconceptions recorded for each knowledge item; the blueprint |
 | Stage 2: Content development | Knowledge base, blueprint | Chapters |
 | Stage 3: Review and verification | Stage 2 chapters | Validation reports on them |
 | Stage 4: AI-tutor coaching | Chapter text; misconceptions recorded in Stage 1 | Tutoring for learners; a per-chapter misconception catalog, which the tutor uses to diagnose learner errors |
@@ -71,7 +71,7 @@ The figure assigns misconception authoring to people at Stage 4. The project not
 
 ## Checks you do not control
 
-The figure's bottom band lists checks that could apply. Some are outside the framework's control: a certifying body sets its own exam's content and grading. A framework that produces its own measure of success cannot show that it works, so outside checks matter. This guide reports no results from them.
+The figure's bottom band lists checks that could apply. Some are outside the framework's control: a certifying body sets its own exam's content and grading. In this guide's assessment, a framework that produces its own measure of success cannot show by itself that it works, so outside checks matter. This guide reports no results from them.
 
 ## What the framework does not claim
 

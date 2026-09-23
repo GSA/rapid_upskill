@@ -1,0 +1,30 @@
+Sharing work: fetch, pull and push
+
+This tutorial covers the three commands that move commits between your repository and a shared copy. The behavior described was observed with Git 2.54.0; other versions and configurations can differ, so check yours with git --version.
+
+1. Remotes and remote-tracking branches
+
+A remote is a named pointer to another copy of the repository. When you run git clone, Git normally downloads the history, creates a remote called origin, and sets up a local branch that tracks its counterpart.
+
+Your repository also keeps remote-tracking branches such as origin/main. Each one is a bookmark that records where that branch stood the last time you communicated with the remote. It updates when you fetch, pull or push, not when the remote changes. For that reason git status may report "up to date" even though the remote has moved on: it compares your branch with the bookmark, not with the server.
+
+2. Fetch
+
+git fetch downloads commits you do not have and moves the remote-tracking branches. By default it does not touch your local branches or the files in your working folder. Afterwards git status can show that your branch is behind or has diverged.
+
+3. Pull
+
+git pull is a fetch followed by an integration step on your current branch. Two outcomes are common.
+
+1. Your branch has no commits of its own. By default Git fast-forwards it, and the files in your working folder change.
+2. Both sides have new commits. Git must reconcile them, either by merging (which creates a merge commit) or by rebasing (which replays your commits on top of the fetched ones and gives them new IDs).
+
+Which one happens depends on configuration. With the version above and no pull.rebase or pull.ff setting, a pull between diverged branches stops with "Need to specify how to reconcile divergent branches" and leaves your files untouched. Choose per command with --no-rebase to merge, --rebase to rebase, or --ff-only to accept fast-forwards only.
+
+4. Push
+
+git push uploads your commits to a branch on the remote. Git usually rejects the push when that branch holds commits you do not have. The error says "rejected", followed by "(fetch first)" or "(non-fast-forward)". A usual remedy is to integrate first: pull, resolve any conflicts, and push again.
+
+For a new local branch, run git push -u origin branch-name. The -u records the tracking relationship. Without it, the tested version refuses a bare git push on that branch, unless a setting such as push.autoSetupRemote or push.default=current is in effect.
+
+A forced push (--force) overwrites the remote branch with yours and can discard commits on the remote that your branch lacks. --force-with-lease only checks that the remote still matches what you last fetched, so it is a safeguard, not a guarantee. Avoid force-pushing shared branches unless your team agrees.

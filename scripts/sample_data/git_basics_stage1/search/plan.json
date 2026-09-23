@@ -1,0 +1,46 @@
+{
+  "plan_id": "PLAN-D2.1",
+  "objective_id": "D2.1",
+  "objective_text": "Describe a branch as a movable label on a commit and HEAD as the pointer that says where you are.",
+  "query_cap": 4,
+  "anchors": [
+    {
+      "anchor_id": "A1",
+      "title": "Branches are just names",
+      "identifier": "GB-002"
+    },
+    {
+      "anchor_id": "A2",
+      "title": "What a commit really records",
+      "identifier": "GB-001"
+    }
+  ],
+  "clusters": [
+    {
+      "cluster": "branch-and-head",
+      "queries": [
+        {
+          "query_id": "Q1",
+          "text": "branch label commit"
+        },
+        {
+          "query_id": "Q2",
+          "text": "HEAD pointer"
+        }
+      ]
+    },
+    {
+      "cluster": "merge-and-history",
+      "queries": [
+        {
+          "query_id": "Q3",
+          "text": "merge fast-forward"
+        },
+        {
+          "query_id": "Q4",
+          "text": "rebase interactive squash"
+        }
+      ]
+    }
+  ]
+}

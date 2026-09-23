@@ -1,0 +1,81 @@
+[
+  {
+    "title": "What a commit really records",
+    "url": "https://example.com/search/what-a-commit-really-records",
+    "year": 2026,
+    "identifier": "GB-001",
+    "authors": ["Author A"],
+    "summary": "Explains that a commit is a snapshot of tracked files with an author, a time, a message and a parent, and how the staging area lets you build a commit on purpose.",
+    "source_type": "article"
+  },
+  {
+    "title": "Branches are just names",
+    "url": "https://example.org/search/branches-are-just-names",
+    "year": 2026,
+    "identifier": "GB-002",
+    "authors": ["Author B"],
+    "summary": "A branch is a movable label on a commit, and HEAD is the pointer that says where you are. Compares a fast-forward merge with a merge commit that has two parents.",
+    "source_type": "article"
+  },
+  {
+    "title": "branches are just names",
+    "url": "https://example.org/search/branches-just-names-mirror",
+    "year": 2026,
+    "authors": ["Author B"],
+    "summary": "A short note on branches and HEAD, written as a quick mirror of the longer guide.",
+    "source_type": "article"
+  },
+  {
+    "title": "Conflicts and undo: a field guide",
+    "url": "https://example.com/search/conflicts-and-undo",
+    "year": 2025,
+    "identifier": "GB-003",
+    "authors": ["Author C"],
+    "summary": "Covers what happens when a merge conflict stops, how to read the conflict markers, and the differences between restore, revert and reset.",
+    "source_type": "article"
+  },
+  {
+    "title": "Sharing work: fetch, pull and push",
+    "url": "https://example.org/search/sharing-work-fetch-pull-push",
+    "year": 2026,
+    "identifier": "GB-004",
+    "authors": ["Author D"],
+    "summary": "Explains what a remote and a remote-tracking branch are, and compares fetch, pull and push.",
+    "source_type": "article"
+  },
+  {
+    "title": "Quick cheat sheet: sending and getting changes",
+    "url": "https://example.com/search/quick-cheat-sheet",
+    "year": 2019,
+    "identifier": "GB-005",
+    "authors": ["Author E"],
+    "summary": "A short guide to sending and getting changes for people who want the short version, written before fetch and pull were compared carefully in a longer guide.",
+    "source_type": "blog"
+  },
+  {
+    "title": "A tidy commit routine",
+    "url": "https://example.net/search/tidy-commit-routine",
+    "year": 2025,
+    "identifier": "GB-006",
+    "authors": ["Author F"],
+    "summary": "Covers staging chosen changes on purpose, writing a clear commit message, and fixing the most recent commit when needed.",
+    "source_type": "blog"
+  },
+  {
+    "title": "The best graphical Git clients, ranked",
+    "url": "https://example.com/search/best-graphical-git-clients",
+    "year": 2026,
+    "identifier": "GB-007",
+    "authors": ["Author G"],
+    "summary": "Compares desktop applications for people who prefer a visual interface over the command line, with picks for a top choice, a runner-up and a budget option.",
+    "source_type": "other"
+  },
+  {
+    "title": "Distributed version control before Git: a 1998 retrospective",
+    "url": "https://example.com/search/pre-git-retrospective",
+    "year": 1998,
+    "authors": ["Author H"],
+    "summary": "Looks back at older, centralized source-code workflows from a paper archive, from before distributed source tools became common; no mention of the ideas covered in this program.",
+    "source_type": "other"
+  }
+]

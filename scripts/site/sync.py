@@ -47,7 +47,9 @@ CHOICES WHERE THE PLAN IS SILENT OR AMBIGUOUS
 * "Used in" ignores pages that are generated or that live inside OWNED_DIRS, so
   the outputs never depend on earlier outputs or on stale files. A page needs a
   non-empty string title to be listed. Pages are listed in path order; several
-  pages are joined with ", ".
+  pages are joined with ", ". A page's sub_stage code is prefixed to its title
+  only when the title does not already start with that code, so a stage page
+  titled "S1.4a Search planning" is not doubled to "S1.4a S1.4a Search planning".
 * An empty Needs or Placeholders cell reads "none". Optional Sub-stage, Inputs
   and Outputs rows are omitted when empty. kind and version are not shown.
   A script's Inputs and Outputs rows come after License.
@@ -554,7 +556,9 @@ def _page_link(page: sitelib.Page, here: str) -> str:
     title = str(page.front["title"]).strip()
     sub_stage = page.front.get("sub_stage")
     if isinstance(sub_stage, str) and sub_stage.strip():
-        title = f"{sub_stage.strip()} {title}"
+        prefix = sub_stage.strip()
+        if title != prefix and not title.startswith(prefix + " "):
+            title = f"{prefix} {title}"
     target = urllib.parse.quote(posixpath.relpath(page.rel, here), safe="/")
     return _link(title, target)
 

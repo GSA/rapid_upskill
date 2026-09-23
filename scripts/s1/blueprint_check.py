@@ -1,0 +1,290 @@
+"""
+ID: X-S1-01
+Title: Blueprint check
+Stage: S1
+Purpose: Check a weighted blueprint JSON file for the errors and warnings
+    described below, and print the domain by cognitive level cross-tab.
+Usage: python3 scripts/s1/blueprint_check.py --help
+    In a shell: python3 scripts/s1/blueprint_check.py BLUEPRINT.json
+    [--levels a,b,c] [--json]
+Dependencies: stdlib
+Writes files: no
+License: CC0-1.0
+Inputs: A blueprint JSON file: schema_version, program, optional bank_size,
+    optional difficulty_split, and a list of domains. Each domain has id,
+    name, weight and a list of objectives. Each objective has id, text,
+    bloom (a cognitive level), and optional tier, chapter and supported_by.
+Outputs: One line per error or warning, the domain by cognitive level
+    cross-tab, and a summary line, all printed to standard output. With
+    --json, one JSON object instead.
+
+This script checks structure and arithmetic only. It never reads
+`supported_by`, so an empty list there (a coverage gap for a later
+sub-stage) is not an error here.
+
+Errors (exit 1): domain weights that do not sum to 100; a domain missing
+`id`, `name` or `weight`; an objective missing `id`, `text` or `bloom`; a
+domain or objective entry that is not a JSON object; a `bloom` value
+outside the cognitive-level list; a `tier` present but outside 1 to 4; a
+domain with no objectives; a domain id or an objective id used more than
+once.
+
+Warnings (exit 0, never change the exit code): an objective with no
+`tier` (tiers are filled in later, at sub-stage S1.7); a domain whose
+`weight`, multiplied by `bank_size` and divided by 100, is not a whole
+number; a domain with no objective at the cognitive level "apply" or
+above (skipped when "apply" is not in the active level list).
+
+The cognitive-level list defaults to remember, understand, apply,
+analyze, evaluate, create; `--levels` replaces it with a comma-separated
+list in the order you give.
+"""
+
+import argparse
+import json
+import sys
+from pathlib import Path
+from typing import Any, TypeGuard
+
+sys.dont_write_bytecode = True
+if sys.version_info < (3, 10):
+    print(
+        "blueprint_check.py: this script needs Python 3.10 or newer, but "
+        f"this is {sys.version_info.major}.{sys.version_info.minor}. "
+        "Run it with a newer python3.",
+        file=sys.stderr,
+    )
+    sys.exit(2)
+
+DEFAULT_LEVELS = ("remember", "understand", "apply", "analyze", "evaluate", "create")
+REQUIRED_DOMAIN_FIELDS = ("id", "name", "weight")
+REQUIRED_OBJECTIVE_FIELDS = ("id", "text", "bloom")
+TIER_MIN, TIER_MAX = 1, 4
+MAX_BYTES = 5_000_000
+CrossTab = dict[str, dict[str, int]]
+
+
+def parse_levels(raw: str | None) -> tuple[str, ...]:
+    """Return the cognitive-level list: --levels, comma-separated, or the default."""
+    if raw is None:
+        return DEFAULT_LEVELS
+    names = [part.strip() for part in raw.split(",")]
+    if not all(names):
+        raise ValueError("--levels holds an empty level name")
+    if len(set(names)) != len(names):
+        raise ValueError("--levels holds a repeated level name")
+    return tuple(names)
+
+
+def load_blueprint(path: Path) -> Any:
+    """Read and parse the blueprint file; never follows a symlink."""
+    if path.is_symlink():
+        raise OSError(f"refusing to read a symlink: {path}")
+    size = path.stat().st_size
+    if size > MAX_BYTES:
+        raise ValueError(f"{path} is over {MAX_BYTES} bytes; skipping")
+    text = path.read_text(encoding="utf-8", errors="replace")
+    return json.loads(text)
+
+
+def _is_number(value: Any) -> TypeGuard[float]:
+    """True for an int or float, but not a bool (bool is a subclass of int)."""
+    return isinstance(value, (int, float)) and not isinstance(value, bool)
+
+
+def check_blueprint(
+    data: Any, levels: tuple[str, ...]
+) -> tuple[list[str], list[str], CrossTab, int, int]:
+    """Return (errors, warnings, cross_tab, domain_count, objective_count)."""
+    if not isinstance(data, dict):
+        raise ValueError("the blueprint is not a JSON object")
+    domains = data.get("domains")
+    if not isinstance(domains, list):
+        raise ValueError("'domains' is missing or is not a JSON list")
+
+    errors: list[str] = []
+    warnings: list[str] = []
+    cross_tab: CrossTab = {}
+    domain_ids: dict[str, bool] = {}
+    objective_ids: dict[str, bool] = {}
+    objective_count = 0
+    weight_total = 0.0
+    bank_size = data.get("bank_size")
+    apply_index = levels.index("apply") if "apply" in levels else None
+
+    for position, domain in enumerate(domains, start=1):
+        label = f"domain #{position}"
+        if not isinstance(domain, dict):
+            errors.append(f"bad-domain: {label} is not a JSON object")
+            continue
+        domain_id = domain.get("id")
+        if isinstance(domain_id, str) and domain_id:
+            label = f"domain {domain_id}"
+            if domain_id in domain_ids:
+                errors.append(f"duplicate-id: domain id '{domain_id}' is used twice")
+            else:
+                domain_ids[domain_id] = True
+        for field_name in REQUIRED_DOMAIN_FIELDS:
+            if field_name not in domain:
+                errors.append(f"missing-field: {label} has no '{field_name}'")
+        weight = domain.get("weight")
+        if _is_number(weight):
+            weight_total += weight
+
+        objectives = domain.get("objectives")
+        if not isinstance(objectives, list) or not objectives:
+            errors.append(f"empty-domain: {label} has no objectives")
+            objectives = []
+
+        counts = {level: 0 for level in levels}
+        missing_tier = False
+        has_apply_plus = False
+        for opos, objective in enumerate(objectives, start=1):
+            objective_count += 1
+            olabel = f"{label} objective #{opos}"
+            if not isinstance(objective, dict):
+                errors.append(f"bad-objective: {olabel} is not a JSON object")
+                continue
+            objective_id = objective.get("id")
+            if isinstance(objective_id, str) and objective_id:
+                olabel = f"objective {objective_id}"
+                if objective_id in objective_ids:
+                    msg = f"duplicate-id: objective id '{objective_id}' is used twice"
+                    errors.append(msg)
+                else:
+                    objective_ids[objective_id] = True
+            for field_name in REQUIRED_OBJECTIVE_FIELDS:
+                if field_name not in objective:
+                    errors.append(f"missing-field: {olabel} has no '{field_name}'")
+            if "bloom" in objective:
+                bloom = objective["bloom"]
+                if bloom not in levels:
+                    shown = ", ".join(levels)
+                    msg = f"bad-bloom: {olabel} has bloom {bloom!r}, not in {shown}"
+                    errors.append(msg)
+                else:
+                    counts[bloom] += 1
+                    if apply_index is not None and levels.index(bloom) >= apply_index:
+                        has_apply_plus = True
+            if "tier" in objective:
+                tier = objective["tier"]
+                if not (_is_number(tier) and TIER_MIN <= tier <= TIER_MAX):
+                    msg = (
+                        f"bad-tier: {olabel} has tier {tier!r}, "
+                        f"must be {TIER_MIN} to {TIER_MAX}"
+                    )
+                    errors.append(msg)
+            else:
+                missing_tier = True
+
+        if missing_tier and objectives:
+            msg = f"missing-tier: {label} has an objective with no tier"
+            warnings.append(msg + " (provisional until sub-stage S1.7)")
+        if apply_index is not None and objectives and not has_apply_plus:
+            warnings.append(
+                f"no-apply-plus: {label} has no objective at apply or above"
+            )
+        if _is_number(bank_size) and _is_number(weight):
+            product = bank_size * weight / 100
+            if abs(product - round(product)) > 1e-9:
+                msg = (
+                    f"bank-size: {label} weight {weight!r} gives "
+                    f"bank_size * weight / 100 = {product!r}, not a whole number"
+                )
+                warnings.append(msg)
+
+        key = domain_id if isinstance(domain_id, str) and domain_id else label
+        cross_tab[key] = counts
+
+    if abs(weight_total - 100) > 1e-9:
+        shown_total = (
+            int(weight_total) if weight_total == int(weight_total) else weight_total
+        )
+        errors.append(f"weight-sum: domain weights sum to {shown_total}, not 100")
+
+    return errors, warnings, cross_tab, len(domains), objective_count
+
+
+def cross_tab_lines(cross_tab: CrossTab, levels: tuple[str, ...]) -> list[str]:
+    """One line per domain: 'ID  level=count level=count ...', dash for zero."""
+    lines = []
+    for domain_key, counts in cross_tab.items():
+        cells = " ".join(
+            f"{level}={counts[level] if counts[level] else '-'}" for level in levels
+        )
+        lines.append(f"{domain_key}  {cells}")
+    return lines
+
+
+def build_parser() -> argparse.ArgumentParser:
+    """Build the argument parser."""
+    parser = argparse.ArgumentParser(
+        prog="blueprint_check.py",
+        description=(
+            "Check a blueprint JSON file's weights, ids and cognitive levels, "
+            "and print the domain by cognitive level cross-tab. Writes no files."
+        ),
+    )
+    parser.add_argument(
+        "blueprint", metavar="BLUEPRINT", help="path to the blueprint JSON"
+    )
+    parser.add_argument(
+        "--levels",
+        metavar="a,b,c",
+        help="comma-separated cognitive levels, in order (default: the six-level "
+        "scale)",
+    )
+    parser.add_argument(
+        "--json",
+        action="store_true",
+        help="print one JSON object instead of text lines",
+    )
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    """Command line entry point; prints the report, returns an exit code."""
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    try:
+        levels = parse_levels(args.levels)
+        data = load_blueprint(Path(args.blueprint))
+        errors, warnings, cross_tab, domain_count, objective_count = check_blueprint(
+            data, levels
+        )
+    except (
+        OSError,
+        UnicodeError,
+        ValueError,
+        json.JSONDecodeError,
+        RecursionError,
+    ) as exc:
+        print(f"blueprint_check.py: error: {exc}", file=sys.stderr)
+        return 2
+    if args.json:
+        payload = {
+            "domains": domain_count,
+            "objectives": objective_count,
+            "levels": list(levels),
+            "errors": errors,
+            "warnings": warnings,
+            "cross_tab": cross_tab,
+        }
+        print(json.dumps(payload, indent=2, sort_keys=True))
+    else:
+        for message in errors:
+            print(f"error {message}")
+        for message in warnings:
+            print(f"warning {message}")
+        print("domain by cognitive level (dash means no objective at that level):")
+        for line in cross_tab_lines(cross_tab, levels):
+            print(line)
+        print(
+            f"domains={domain_count} objectives={objective_count} "
+            f"errors={len(errors)} warnings={len(warnings)}"
+        )
+    return 1 if errors else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

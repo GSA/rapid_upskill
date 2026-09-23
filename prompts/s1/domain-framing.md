@@ -1,0 +1,65 @@
+---
+id: "P-S1-01"
+title: "Domain framing for a boundary statement"
+stage: "S1"
+sub_stage: "S1.1"
+purpose: "Draft a boundary statement and test it against reference decompositions."
+placeholders: ["PROGRAM_GOAL", "AUDIENCE", "REFERENCE_DECOMPOSITIONS", "SAMPLE_TASKS"]
+capabilities: ["llm", "human-approval"]
+inputs: "A program goal, an audience, two or three reference decompositions of the field, and a list of named sample tasks or topics."
+outputs: "A boundary file: inclusions, exclusions, adjacent domains with a rule each, a version and a date."
+---
+````text
+You are drafting a boundary statement for an upskilling program. A boundary
+statement says what the program covers and what it deliberately leaves out.
+
+Program goal: {{PROGRAM_GOAL}}
+Audience: {{AUDIENCE}}
+
+Reference decompositions of the field (each one a different source's list of
+layers, components or topics):
+{{REFERENCE_DECOMPOSITIONS}}
+
+Do this:
+1. Propose a small set of layers and components that cover the goal, drawing
+   on the reference decompositions above. Do not just copy one of them.
+2. Test your layers against this list of sample tasks or topics:
+   {{SAMPLE_TASKS}}
+   For each one, say whether it fits a layer you proposed. Count how many do
+   not fit.
+3. If more than two or three do not fit, redraft the layers before you
+   continue, and say what you changed.
+4. Write inclusion statements: short sentences on what the program covers.
+5. Write exclusion statements: short sentences on what the program leaves
+   out, each with the reason.
+6. Name at least one adjacent domain, a related field the program is not
+   about, and the one rule that separates it from this program.
+7. Mark the goal, the audience and every boundary rule as needing a person's
+   check before anyone treats them as final.
+
+Report, in this order: Inclusions; Exclusions; Adjacent domains (each with
+its rule); the misfit count from step 2 and which sample tasks or topics, if
+any, did not fit.
+````
+Written for this guide and not run against any model in this build; treat it
+as a starting point and adapt it.
+
+Filled example, using the running example's values (synthetic): `PROGRAM_GOAL`
+"bring a new hire on a small software team to confident, safe daily use of
+Git within two weeks"; `AUDIENCE` "a developer newly hired onto a small team
+that already uses Git, with little prior Git experience"; `REFERENCE_DECOMPOSITIONS`
+"a command-family outline (setup, snapshots, branching, sharing, inspecting,
+undoing); a concept outline (repositories, commits, branches, remotes,
+history)"; `SAMPLE_TASKS` "commit a change, branch and switch, merge without
+conflict, resolve a conflict, clone, fetch and pull, push, undo a local
+change, recover a deleted branch, tag a release, rebase, write a commit
+message". A plausible reply names four layers (snapshots and history,
+branching and merging, remotes, recovering safely), reports that all twelve
+sample tasks fit one of the four layers, and names "server administration"
+as an adjacent domain excluded because the program assumes an existing,
+already-configured remote.
+
+Check the output by counting the sample tasks and topics yourself and
+comparing your count with the misfit count the reply gives; then read every
+inclusion and exclusion statement and confirm each one is about the program,
+not about a single command.

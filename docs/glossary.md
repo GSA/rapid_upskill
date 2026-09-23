@@ -27,7 +27,7 @@ Layer 3 of the [verification layers](#verification-layer). The framework specifi
 
 ## Batch {#batch}
 
-A small group of units of work, such as sources or plan files, that are processed together in one run. Work can pause after each batch at a [gate](#gate) for a person to say whether to continue.
+A small group of units of work, such as sources, that are processed together in one run. Work can pause after each batch at a [gate](#gate) for a person to say whether to continue.
 
 ## Blueprint {#blueprint}
 
@@ -39,7 +39,7 @@ A feature that a platform must offer for a [prompt](#prompt) to work, such as re
 
 ## Certification alignment {#certification-alignment}
 
-A parallel workstream, not a [stage](#stage), that rates each chapter against each [exam skill](#exam-skill) in a [certification outline](#certification-outline) and uses the ratings to pace study. The ratings form an [alignment matrix](#alignment-matrix).
+A parallel workstream, not a [stage](#stage), that rates each chapter against each [exam skill](#exam-skill) in a [certification outline](#certification-outline). The ratings form an [alignment matrix](#alignment-matrix) and are meant to show learners where to spend study time.
 
 ## Certification outline {#certification-outline}
 
@@ -91,7 +91,7 @@ In the framework, a tutor rule for graded work. Instructors decide whether AI he
 
 ## Item bank {#item-bank}
 
-A tagged pool of test questions organised against a [blueprint](#blueprint); sources also call it a question bank.
+A tagged pool of test questions organized against a [blueprint](#blueprint); sources also call it a question bank.
 
 ## Job-task analysis {#job-task-analysis}
 
@@ -115,7 +115,7 @@ In the framework, a numbered list of the [misconceptions](#misconception) for on
 
 ## Orchestrator {#orchestrator}
 
-An [agent](#agent) that coordinates helper agents, called [subagents](#subagent). It is given the accept and merge decisions in the contract that sets out the work. It is an AI session, not a person.
+An [agent](#agent) that coordinates helper agents, called [subagents](#subagent). In the reference implementation, its written rules (the project notes call them the contract) give it the accept and merge decisions. It is an AI session, not a person.
 
 ## Placeholder {#placeholder}
 
@@ -186,7 +186,7 @@ Each row compares terms that are easy to mix up.
 | [Misconception catalog](#misconception-catalog) vs [distractor](#distractor) | The catalog is the tutor's per-chapter list for diagnosing learner errors. Distractors are built from the Stage 1 misconception records, not from the catalog. |
 | [Hallucination](#hallucination) vs [misconception](#misconception) | A hallucination is false or invented output from an AI model. A misconception is a wrong belief a learner holds. |
 | [Protocol (tutor)](#protocol-tutor) vs [prompt](#prompt) | A protocol is a teaching pattern. A prompt is the text that instructs the AI. |
-| [Agent](#agent) vs [subagent](#subagent) vs [orchestrator](#orchestrator) | An agent is an AI that works toward a goal. A subagent is a helper agent for one part of a task. An orchestrator coordinates subagents and is given the accept and merge decisions in the contract. |
+| [Agent](#agent) vs [subagent](#subagent) vs [orchestrator](#orchestrator) | An agent is an AI that works toward a goal. A subagent is a helper agent for one part of a task. An orchestrator coordinates subagents and, in the reference implementation, is given the accept and merge decisions. |
 | [Expert review](#verification-layer) vs [audit trail](#audit-trail) | Expert review is Layer 2 of the [verification layers](#verification-layer): people check the content. The audit trail is Layer 3: the record of checks, problems and corrections. |
 | [Gate](#gate) vs an automated script check | A gate is where a person approves before work continues. An automated script check is not a gate in this guide, although the project notes sometimes call it one. |
 | [Dry run](#dry-run) vs the `mock` model provider | A dry run is about writing files: it shows what would be written. The `mock` model provider is about calling an AI model: it lets a script run offline. |

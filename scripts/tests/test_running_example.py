@@ -561,17 +561,24 @@ class PageTests(unittest.TestCase):
         self.assertNotIn("{{", self.body)
         self.assertNotIn("{%", self.body)
 
-    def test_links_are_absolute_https_and_point_at_the_sample_data(self) -> None:
+    def test_links_are_https_or_existing_pages(self) -> None:
+        """Links are https, in-page anchors, or relative links to real pages."""
         prose = re.sub(r"`[^`\n]*`", "", self.masked)
         links = re.findall(r"\[([^\]]+)\]\(([^)\s]+)[^)]*\)", prose)
         self.assertGreaterEqual(len(links), 1)
         for text, target in links:
-            self.assertTrue(target.startswith("https://"), target)
             self.assertNotIn(text.strip().lower(), ("here", "click here"))
-            if "sample_data" in target:
-                self.assertTrue(target.startswith(BASE_URL), target)
+            self.assertFalse(target.startswith(("http://", "/")), target)
+            if target.startswith("https://"):
+                if "sample_data" in target:
+                    self.assertTrue(target.startswith(BASE_URL), target)
+                continue
+            if target.startswith("#"):
+                continue
+            page = target.split("#", 1)[0]
+            self.assertTrue(page.endswith(".md"), target)
+            self.assertTrue((PAGE.parent / page).is_file(), target)
         self.assertIn(BASE_URL, [target for _, target in links])
-        self.assertNotRegex(prose, r"\]\((?!https://|#)")
 
     def test_domain_table_matches_blueprint(self) -> None:
         blueprint = load_json("blueprint.json")

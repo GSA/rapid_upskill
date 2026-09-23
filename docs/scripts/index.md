@@ -15,5 +15,10 @@ These pages are generated from the files in `scripts/`. Edit a source file and r
 
 | ID | Title | Purpose |
 |---|---|---|
+| [X-S1-01](s1/x-s1-01.md) | Blueprint check | Check a weighted blueprint JSON file for the errors and warnings described below, and print the domain by cognitive level cross-tab. |
+| [X-S1-02](s1/x-s1-02.md) | Deduplicate search candidates | Group candidate search records that likely describe the same document, keep the most complete record from each group, and flag records older than a minimum year for a person to review. |
+| [X-S1-03](s1/x-s1-03.md) | Run a search plan's queries one at a time | Run every query in a search plan against one backend, one query in flight at a time, retry a transient failure, open a circuit breaker after repeated failures, and print a manifest line for each query. |
+| [X-S1-04](s1/x-s1-04.md) | Conversion quality check | Check a converted Markdown file against a second, independently produced plain-text copy of the same document, to catch common conversion problems before anyone reads the converted copy. |
+| [X-S1-05](s1/x-s1-05.md) | Injection screening scanner | Scan converted and original source files for prompt-injection patterns and print one line per finding. Looks for override phrases, sentences that address an assistant, model, reviewer or summarizer with a steering verb, invisible or bidirectional control characters (including ones written as HTML character references), hidden HTML carriers, data URIs and long encoded runs. Never decodes or acts on the matched text; it only reports where it is. |
 | [X-OP-01](op/x-op-01.md) | LLM adapter with mock and OpenAI-compatible providers | Give every script one function, complete(prompt), that returns text from a language model. The default mock provider is deterministic and offline, so tests and dry runs need no network and no key. |
 {% endraw %}

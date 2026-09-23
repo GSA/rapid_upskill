@@ -11,7 +11,7 @@ This page covers who decides, where work pauses, and how work is sized. It descr
 
 ## The premise
 
-The framework rests on one idea. AI does the volume work, such as drafting, [condensation](glossary.md#condensation) (shortening text) and linking related material. People keep the judgment calls, such as [blueprint](glossary.md#blueprint) design, expert review, [misconception](glossary.md#misconception) authoring and question ratings. This is a [human-in-the-loop](glossary.md#human-in-the-loop) design. The framework calls it an interpretation, not a measured result.
+The framework rests on one idea. AI does the volume work, such as drafting, [condensation](glossary.md#condensation) (shortening text) and linking related material. People keep the judgment calls, such as [blueprint](glossary.md#blueprint) design, expert review, [misconception](glossary.md#misconception) authoring and question ratings. This is a [human-in-the-loop](glossary.md#human-in-the-loop) design. It is a design choice, not a measured result.
 
 ## What the framework says people do
 
@@ -30,7 +30,7 @@ Each role belongs to a [stage](glossary.md#stage). Stage numbers refer to the [P
 
 The table shows what the framework assigns, not what was done. In the project notes, expert review is specified, but no completed record of it was found. The notes show [agents](glossary.md#agent) writing the test questions, and no record shows a person writing the [misconception catalogs](glossary.md#misconception-catalog). They describe no step in which a person rates questions.
 
-The coordinating [orchestrator](glossary.md#orchestrator) session is given the accept and merge decisions in the contract, the reference implementation's written rules for running each step. It is not a person. No record found is not evidence that something did not happen.
+The coordinating [orchestrator](glossary.md#orchestrator) session is given the accept and merge decisions in the contract, the reference implementation's written rules for how its agents run the work. It is not a person. No record found is not evidence that something did not happen.
 
 ## Five kinds of gate in the reference implementation
 
@@ -47,7 +47,7 @@ A [**gate**](glossary.md#gate) is a checkpoint where a person approves before wo
 Three notes:
 
 - If you tell the agent in advance to keep going after every batch, the pause no longer shows that anyone looked.
-- In the reference implementation, an expansion loop may run at most twice without approval. That limit is one of its parameters. An expansion loop is a step that repeats to widen its results.
+- In the reference implementation, an expansion loop may run at most twice without approval. That limit is one of its parameters. An expansion loop is a repeated round of searching, driven by gaps found against the blueprint, that widens what the sources cover.
 - An approval can be tied to one version of a file by a hash, a fingerprint of its contents. In the reference implementation, the planning-step approvals are tied this way and the other gates are not. A tied approval lapses when the file changes.
 
 ## Three batching practices

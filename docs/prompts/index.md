@@ -13,5 +13,11 @@ Every prompt in this library, in pipeline order. Each page shows the prompt text
 
 These pages are generated from the files in `prompts/`. Edit a source file and run `python3 scripts/site/sync.py --write`; never edit a page here by hand.
 
-No prompts have been published yet.
+| ID | Title | Purpose |
+|---|---|---|
+| [P-S1-01](s1/p-s1-01.md) | Domain framing for a boundary statement | Draft a boundary statement and test it against reference decompositions. |
+| [P-S1-02](s1/p-s1-02.md) | Job-task analysis with guessed ratings | Draft duties, tasks and knowledge, skills and abilities; ratings are guesses. |
+| [P-S1-03](s1/p-s1-03.md) | Blueprint domains, objectives and weights | Propose domains, objectives, weights with a one-line rationale each. |
+| [P-S1-04](s1/p-s1-04.md) | Search plan for one learning objective | Draft one search plan for one learning objective, with anchors and a query cap, before any query runs. |
+| [P-S1-05](s1/p-s1-05.md) | Source screening | Grade search candidates Green, Yellow or Red against one objective, with a quoted metadata line as evidence for each grade. |
 {% endraw %}

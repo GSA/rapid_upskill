@@ -7,18 +7,14 @@ last_reviewed: "2026-09-21"
 
 # How to use this guide
 
-This page explains what you need, how to get the files, how pages are laid out, and how to read prompts and scripts.
+This page explains what you need, how to get the files, how pages are laid out, and how to read [prompts](glossary.md#prompt) and scripts.
 
 ## What you need
 
 - A terminal, to type commands.
 - Git, to copy the repository to your computer.
 - Python 3.10 or newer, to run the scripts. On some systems, such as macOS, the default `python3` can be older. [Tooling](contributing/tooling.md) explains what happens then. The steps below show how to check your version.
-- An [agentic platform](glossary.md#agentic-platform). [Platform requirements](platform-requirements.md) says what it must offer.
-
-## Should you try this?
-
-Before you start, answer the six questions in the [Readiness checklist (not a validated instrument)](platform-requirements.md#readiness-checklist-not-a-validated-instrument). They help you judge whether your platform, your sources and your experts are ready.
+- An [agentic platform](glossary.md#agentic-platform). [Platform requirements](platform-requirements.md) says what it must offer, and ends with a [readiness checklist (not a validated instrument)](platform-requirements.md#readiness-checklist-not-a-validated-instrument) to answer before you start.
 
 ## Get the repository
 
@@ -48,7 +44,7 @@ Run every command in this guide from this folder, called the repository root.
 
 | Goal | Read |
 |---|---|
-| See all five stages on one page | [Pipeline overview](pipeline-overview.md) |
+| See all five [stages](glossary.md#stage) on one page | [Pipeline overview](pipeline-overview.md) |
 | Follow one small sample program | [The running example](running-example.md) |
 | Learn where people decide and how to batch work | [Human roles, gates and batching](human-roles-gates-and-batching.md) |
 | Check what your platform must offer | [Platform requirements](platform-requirements.md) |
@@ -56,7 +52,7 @@ Run every command in this guide from this folder, called the repository root.
 
 ## Anatomy of a stage page
 
-A **stage page** is a page for a [sub-stage](glossary.md#sub-stage) or a [stage](glossary.md#stage) of the framework. Pages for individual stages are planned and are not published yet. Each will have these sections, in this order.
+A **stage page** is a page for a [sub-stage](glossary.md#sub-stage) or a stage of the framework. Pages for individual stages are planned and are not published yet. Each will have these sections, in this order.
 
 - Outcome: what you will have at the end.
 - Where it fits: what comes before and after, and what this part takes in and hands on.
@@ -74,7 +70,7 @@ The exact template is in the [authoring conventions](contributing/authoring-conv
 
 ## Prompts
 
-A [prompt](glossary.md#prompt) is one file of instructions for your platform. A [placeholder](glossary.md#placeholder) is a name in double curly braces, such as {% raw %}`{{OBJECTIVE_ID}}`{% endraw %}. Replace each with your own value before you run the prompt. The `capabilities` line lists the [capabilities](glossary.md#capability) your platform must offer, for example `file-read` or `web-fetch`.
+A prompt is one file of instructions for your platform. A [placeholder](glossary.md#placeholder) is a name in double curly braces, such as {% raw %}`{{OBJECTIVE_ID}}`{% endraw %}. Replace each with your own value before you run the prompt. The `capabilities` line lists the [capabilities](glossary.md#capability) your platform must offer, for example `file-read` or `web-fetch`.
 
 ## Scripts
 
@@ -98,7 +94,7 @@ The guided hands-on task is [Your first prompt](contributing/first-prompt.md). I
 
 ## Status words and IDs
 
-A page's status is `draft` (still being written), `reviewed` (a second person or agent has checked it against sources), or `stable` (reviewed, and also read on the live site). Prompts, scripts, and sub-stages have IDs such as `P-S1-04`, `X-OP-01`, and `S1.4a`. The codes `CA` (certification alignment), `DL` (delivery), and `OP` (operating practices) do not label stages. Certification alignment is a parallel workstream, delivery is outside the framework, and operating practices apply across stages. The [authoring conventions](contributing/authoring-conventions.md) cover both.
+A page's status is `draft` (still being written), `reviewed` (a second person or [agent](glossary.md#agent) has checked it against sources), or `stable` (reviewed, and also read on the live site). Prompts, scripts, and sub-stages have IDs such as `P-S1-04`, `X-OP-01`, and `S1.4a`. The codes `CA` (certification alignment), `DL` (delivery), and `OP` (operating practices) do not label stages. Certification alignment is a parallel workstream, delivery is outside the framework, and operating practices apply across stages. The [authoring conventions](contributing/authoring-conventions.md) cover both.
 
 ## Scope of this guide
 

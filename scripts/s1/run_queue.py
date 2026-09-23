@@ -1,0 +1,540 @@
+"""
+ID: X-S1-03
+Title: Run a search plan's queries one at a time
+Purpose: Run every query in a search plan against one backend, one query in
+    flight at a time, retry a transient failure, open a circuit breaker
+    after repeated failures, and print a manifest line for each query.
+Usage: python3 scripts/s1/run_queue.py PLAN.json --index INDEX.json
+    [--min-gap S] [--retries N] [--wait S] [--max-wait S] [--breaker N]
+    [--fail QUERY_ID:COUNT] [--real-time]
+    [--manifest FILE --write] [--candidates-out FILE --write]
+Dependencies: dedupe_candidates (sibling script)
+Writes files: yes
+License: CC0-1.0
+Inputs: A search plan (the plan JSON shape, which is also this script's
+    query queue) and a mock search index in the same shape as a candidate
+    list; --fail may repeat to script a scripted number of failures for one
+    query id.
+Outputs: One JSON line per finished query and a one-line run summary,
+    printed to standard output; the manifest lines and the deduplicated
+    candidate list, written to --manifest and --candidates-out only with
+    --write.
+
+This script never reaches a network. Its backend is MockSearchBackend, which
+answers from --index by simple, case-insensitive word matching: a record
+matches a query when its title plus its summary contains every word in the
+query text, at most 20 records per query. To run this against a real search
+service, write a class with a search(text) method that calls it and raises
+TransientError for a failure worth retrying, or BlockedError for one that is
+not; then pass an instance of that class in place of MockSearchBackend.
+Query one at a time on your own platform, and copy each result into a
+manifest line by hand if your platform has no such class.
+
+Time is a virtual clock by default: a wait advances it, but nothing actually
+waits, so a dry run finishes at once. --real-time uses time.monotonic() and
+time.sleep() instead. Either clock is injectable, for tests that check timing
+without waiting.
+"""
+
+import argparse
+import json
+import sys
+import time
+from dataclasses import dataclass
+from pathlib import Path
+from typing import Any
+
+sys.dont_write_bytecode = True
+if sys.version_info < (3, 10):
+    print(
+        "run_queue.py: this script needs Python 3.10 or newer, but this is "
+        f"{sys.version_info.major}.{sys.version_info.minor}. "
+        "Run it with a newer python3.",
+        file=sys.stderr,
+    )
+    sys.exit(2)
+
+# dedupe_candidates.py lives next to this file, in scripts/s1/. Running this
+# script directly (python3 -B scripts/s1/run_queue.py ...) puts that folder
+# on sys.path automatically, so the sibling module needs no sys.path.insert.
+import dedupe_candidates  # noqa: E402
+
+MAX_BYTES = 5_000_000
+STATE_DONE = "done"
+STATE_EMPTY = "empty"
+STATE_FAILED = "failed"
+STATE_BLOCKED = "blocked"
+STATE_BREAKER_OPEN = "breaker_open"
+MAX_MATCHES = 20
+
+
+class TransientError(Exception):
+    """A search call failed in a way that is worth retrying."""
+
+
+class BlockedError(Exception):
+    """A search call was blocked by the service; a retry will not help."""
+
+
+@dataclass
+class Query:
+    """One query from the plan, flattened out of its cluster."""
+
+    query_id: str
+    text: str
+    cluster: str
+
+
+class Clock:
+    """A source of time and a way to wait; swappable for tests."""
+
+    def now(self) -> float:
+        """Seconds since this clock started."""
+        raise NotImplementedError
+
+    def sleep(self, seconds: float) -> None:
+        """Wait, or advance a virtual clock, by this many seconds."""
+        raise NotImplementedError
+
+
+class VirtualClock(Clock):
+    """A clock that advances only when sleep() is called; nothing waits."""
+
+    def __init__(self) -> None:
+        self._elapsed = 0.0
+
+    def now(self) -> float:
+        return self._elapsed
+
+    def sleep(self, seconds: float) -> None:
+        self._elapsed += max(0.0, seconds)
+
+
+class RealClock(Clock):
+    """A clock backed by time.monotonic() and time.sleep()."""
+
+    def __init__(self) -> None:
+        self._start = time.monotonic()
+
+    def now(self) -> float:
+        return time.monotonic() - self._start
+
+    def sleep(self, seconds: float) -> None:
+        if seconds > 0:
+            time.sleep(seconds)
+
+
+class MockSearchBackend:
+    """Offline backend: matches index records by simple word containment.
+
+    fail maps a query's exact text to a remaining-failure count. Each call
+    to search() with that text raises TransientError and counts down that
+    entry until it reaches zero, after which the call succeeds normally.
+    """
+
+    def __init__(self, index: list[dict[str, Any]], fail: dict[str, int]) -> None:
+        self._index = index
+        self._fail = dict(fail)
+
+    def search(self, text: str) -> list[dict[str, Any]]:
+        """Return index records whose title plus summary has every word."""
+        remaining = self._fail.get(text, 0)
+        if remaining > 0:
+            self._fail[text] = remaining - 1
+            raise TransientError(f"scripted transient failure for query {text!r}")
+        words = text.lower().split()
+        matches: list[dict[str, Any]] = []
+        for record in self._index:
+            haystack = (
+                str(record.get("title", "")) + " " + str(record.get("summary", ""))
+            ).lower()
+            if all(word in haystack for word in words):
+                matches.append(record)
+                if len(matches) >= MAX_MATCHES:
+                    break
+        return matches
+
+
+def _check_not_symlink(path: Path) -> None:
+    """Refuse to read through a symlink."""
+    if path.is_symlink():
+        raise ValueError(f"refusing to follow a symlink: {path}")
+
+
+def _read_capped(path: Path, limit: int = MAX_BYTES) -> str:
+    """Read a file as UTF-8 text, replacing bad bytes, capped at limit."""
+    raw = path.read_bytes()
+    if len(raw) > limit:
+        print(
+            f"run_queue.py: reading only the first {limit} bytes of {path}",
+            file=sys.stderr,
+        )
+        raw = raw[:limit]
+    return raw.decode("utf-8", errors="replace")
+
+
+def _load_plan(path: Path) -> tuple[dict[str, Any], list[Query]]:
+    """Read and validate a plan; return (the plan, its flattened queries)."""
+    _check_not_symlink(path)
+    data = json.loads(_read_capped(path))
+    if not isinstance(data, dict):
+        raise ValueError(f"{path}: expected a JSON object for the plan")
+    for key in (
+        "plan_id",
+        "objective_id",
+        "objective_text",
+        "query_cap",
+        "anchors",
+        "clusters",
+    ):
+        if key not in data:
+            raise ValueError(f"{path}: plan is missing '{key}'")
+    if not isinstance(data["query_cap"], int):
+        raise ValueError(f"{path}: query_cap must be a whole number")
+    clusters = data["clusters"]
+    if not isinstance(clusters, list):
+        raise ValueError(f"{path}: clusters must be a list")
+    queries: list[Query] = []
+    seen_ids: set[str] = set()
+    for cluster_index, cluster in enumerate(clusters):
+        if not isinstance(cluster, dict):
+            raise ValueError(f"{path}: clusters[{cluster_index}] is not a JSON object")
+        cluster_name = str(cluster.get("cluster", ""))
+        cluster_queries = cluster.get("queries")
+        if not isinstance(cluster_queries, list):
+            raise ValueError(f"{path}: clusters[{cluster_index}] is missing 'queries'")
+        for query_index, item in enumerate(cluster_queries):
+            if (
+                not isinstance(item, dict)
+                or "query_id" not in item
+                or "text" not in item
+            ):
+                raise ValueError(
+                    f"{path}: clusters[{cluster_index}].queries[{query_index}] "
+                    "needs 'query_id' and 'text'"
+                )
+            query_id = str(item["query_id"])
+            if query_id in seen_ids:
+                raise ValueError(f"{path}: duplicate query_id {query_id!r}")
+            seen_ids.add(query_id)
+            queries.append(
+                Query(query_id=query_id, text=str(item["text"]), cluster=cluster_name)
+            )
+    return data, queries
+
+
+def _load_anchors(data: dict[str, Any], path: Path) -> list[dict[str, Any]]:
+    """Validate and return the plan's anchors list."""
+    anchors = data.get("anchors")
+    if not isinstance(anchors, list):
+        raise ValueError(f"{path}: anchors must be a list")
+    for index, anchor in enumerate(anchors):
+        if (
+            not isinstance(anchor, dict)
+            or "anchor_id" not in anchor
+            or "title" not in anchor
+        ):
+            raise ValueError(f"{path}: anchors[{index}] needs 'anchor_id' and 'title'")
+    return anchors
+
+
+def _parse_fail_args(
+    values: list[str] | None, queries_by_id: dict[str, Query]
+) -> dict[str, int]:
+    """Turn repeated --fail QUERY_ID:COUNT values into a text -> count map."""
+    fail_by_text: dict[str, int] = {}
+    for raw in values or []:
+        query_id, sep, count_text = raw.partition(":")
+        if not sep:
+            raise ValueError(f"--fail value must be QUERY_ID:COUNT, got {raw!r}")
+        if query_id not in queries_by_id:
+            raise ValueError(f"--fail names an unknown query id: {query_id!r}")
+        try:
+            count = int(count_text)
+        except ValueError as exc:
+            raise ValueError(f"--fail count must be an integer, got {raw!r}") from exc
+        if count < 0:
+            raise ValueError(f"--fail count must not be negative, got {raw!r}")
+        text = queries_by_id[query_id].text
+        fail_by_text[text] = fail_by_text.get(text, 0) + count
+    return fail_by_text
+
+
+def _anchor_hit(anchor: dict[str, Any], candidates: list[dict[str, Any]]) -> bool:
+    """Report whether an anchor's identifier or title is among candidates."""
+    anchor_identifier = anchor.get("identifier")
+    anchor_id_norm = (
+        dedupe_candidates.normalize_identifier(str(anchor_identifier))
+        if anchor_identifier
+        else None
+    )
+    anchor_title_norm = dedupe_candidates.normalize_title(str(anchor.get("title", "")))
+    for candidate in candidates:
+        if anchor_id_norm is not None:
+            candidate_identifier = candidate.get("identifier")
+            if candidate_identifier and (
+                dedupe_candidates.normalize_identifier(str(candidate_identifier))
+                == anchor_id_norm
+            ):
+                return True
+        if (
+            dedupe_candidates.normalize_title(str(candidate.get("title", "")))
+            == anchor_title_norm
+        ):
+            return True
+    return False
+
+
+def run(
+    queries: list[Query],
+    anchors: list[dict[str, Any]],
+    index_records: list[dict[str, Any]],
+    fail: dict[str, int],
+    clock: Clock,
+    min_gap: float,
+    retries: int,
+    wait: float,
+    max_wait: float,
+    breaker: int,
+) -> tuple[list[dict[str, Any]], list[dict[str, Any]]]:
+    """Run every query in order; return (manifest lines, final candidates).
+
+    The manifest lines are in the exact key order of this guide's manifest
+    format. The run stops as soon as a query's state is breaker_open.
+    """
+    backend = MockSearchBackend(index_records, fail)
+    manifest: list[dict[str, Any]] = []
+    candidates: list[dict[str, Any]] = []
+    consecutive_failed = 0
+    last_call = -min_gap
+
+    for query in queries:
+        elapsed = clock.now() - last_call
+        if elapsed < min_gap:
+            clock.sleep(min_gap - elapsed)
+        start = clock.now()
+
+        attempts = 0
+        outcome = "success"
+        matches: list[dict[str, Any]] = []
+        current_wait = wait
+        for attempt_number in range(1, retries + 2):
+            attempts = attempt_number
+            last_call = clock.now()
+            try:
+                matches = backend.search(query.text)
+                outcome = "success"
+                break
+            except BlockedError:
+                outcome = "blocked"
+                break
+            except TransientError:
+                if attempt_number == retries + 1:
+                    outcome = "exhausted"
+                    break
+                clock.sleep(current_wait)
+                current_wait = min(current_wait * 2, max_wait)
+        finish = clock.now()
+
+        new_candidates = 0
+        if outcome == "success":
+            deduped, _events = dedupe_candidates.dedupe(candidates + matches)
+            new_candidates = len(deduped) - len(candidates)
+            candidates = deduped
+            state = STATE_EMPTY if len(matches) == 0 else STATE_DONE
+            consecutive_failed = 0
+        elif outcome == "blocked":
+            state = STATE_BLOCKED
+            consecutive_failed = 0
+        else:  # exhausted
+            consecutive_failed += 1
+            state = (
+                STATE_BREAKER_OPEN if consecutive_failed >= breaker else STATE_FAILED
+            )
+
+        hits = sum(1 for anchor in anchors if _anchor_hit(anchor, candidates))
+        manifest.append(
+            {
+                "query_id": query.query_id,
+                "start": start,
+                "finish": finish,
+                "attempts": attempts,
+                "matches": len(matches),
+                "new_candidates": new_candidates,
+                "stage": "listed",
+                "state": state,
+                "anchors_expected": len(anchors),
+                "anchors_hit": hits,
+            }
+        )
+        if state == STATE_BREAKER_OPEN:
+            break
+    return manifest, candidates
+
+
+def _summarize(
+    manifest: list[dict[str, Any]],
+    candidates: list[dict[str, Any]],
+    anchors: list[dict[str, Any]],
+) -> str:
+    """The one-line run summary, in this guide's fixed field order."""
+    done = sum(1 for line in manifest if line["state"] == STATE_DONE)
+    empty = sum(1 for line in manifest if line["state"] == STATE_EMPTY)
+    failed = sum(1 for line in manifest if line["state"] == STATE_FAILED)
+    expected = len(anchors)
+    hits = manifest[-1]["anchors_hit"] if manifest else 0
+    recall = (hits / expected) if expected else 0.0
+    return (
+        f"queries={len(manifest)} done={done} empty={empty} failed={failed} "
+        f"candidates={len(candidates)} anchors={hits}/{expected} recall={recall:.2f}"
+    )
+
+
+def _exit_code(manifest: list[dict[str, Any]]) -> int:
+    """0 when every query is done or empty; 1 when any failed, blocked, or
+    opened the breaker."""
+    stopping_states = (STATE_FAILED, STATE_BLOCKED, STATE_BREAKER_OPEN)
+    if any(line["state"] in stopping_states for line in manifest):
+        return 1
+    return 0
+
+
+def _refuse_overwrite(target: Path, inputs: list[Path]) -> None:
+    """Refuse to write to an existing file or to one of the input files."""
+    if target.exists():
+        raise ValueError(f"refusing to overwrite an existing file: {target}")
+    for input_path in inputs:
+        if str(target) == str(input_path):
+            raise ValueError(f"refusing to overwrite an input file: {target}")
+
+
+def main(argv: list[str] | None = None) -> int:
+    """Command line entry point; prints the manifest and summary; returns
+    the exit code."""
+    parser = argparse.ArgumentParser(
+        prog="run_queue.py",
+        description=(
+            "Run a search plan's queries one at a time against a mock "
+            "search backend, retrying a transient failure and opening a "
+            "circuit breaker after repeated failures."
+        ),
+    )
+    parser.add_argument(
+        "plan", metavar="PLAN.json", help="the search plan, also the queue"
+    )
+    parser.add_argument(
+        "--index", required=True, metavar="INDEX.json", help="the mock search index"
+    )
+    parser.add_argument("--min-gap", type=float, default=3.0, metavar="S")
+    parser.add_argument("--retries", type=int, default=2, metavar="N")
+    parser.add_argument("--wait", type=float, default=5.0, metavar="S")
+    parser.add_argument("--max-wait", type=float, default=60.0, metavar="S")
+    parser.add_argument("--breaker", type=int, default=2, metavar="N")
+    parser.add_argument(
+        "--fail",
+        action="append",
+        metavar="QUERY_ID:COUNT",
+        help="script this many transient failures for one query id; repeatable",
+    )
+    parser.add_argument(
+        "--real-time",
+        action="store_true",
+        help="wait for real instead of using the default virtual clock",
+    )
+    parser.add_argument(
+        "--manifest", metavar="FILE", help="where to write the manifest lines"
+    )
+    parser.add_argument(
+        "--candidates-out",
+        metavar="FILE",
+        help="where to write the deduplicated candidates",
+    )
+    parser.add_argument(
+        "--write",
+        action="store_true",
+        help="write --manifest and --candidates-out; refuses to overwrite",
+    )
+    args = parser.parse_args(argv)
+
+    plan_path = Path(args.plan)
+    index_path = Path(args.index)
+    try:
+        plan_data, queries = _load_plan(plan_path)
+        anchors = _load_anchors(plan_data, plan_path)
+        if len(queries) > plan_data["query_cap"]:
+            raise ValueError(
+                f"{plan_path}: {len(queries)} queries exceed query_cap "
+                f"{plan_data['query_cap']}"
+            )
+        queries_by_id = {query.query_id: query for query in queries}
+        fail = _parse_fail_args(args.fail, queries_by_id)
+        index_records = dedupe_candidates.load_records(index_path)
+    except (
+        OSError,
+        UnicodeError,
+        ValueError,
+        json.JSONDecodeError,
+        RecursionError,
+    ) as exc:
+        print(f"run_queue.py: error: {exc}", file=sys.stderr)
+        return 2
+
+    clock: Clock = RealClock() if args.real_time else VirtualClock()
+    manifest, candidates = run(
+        queries,
+        anchors,
+        index_records,
+        fail,
+        clock,
+        args.min_gap,
+        args.retries,
+        args.wait,
+        args.max_wait,
+        args.breaker,
+    )
+
+    for line in manifest:
+        print(json.dumps(line))
+    print(_summarize(manifest, candidates, anchors))
+
+    if args.manifest:
+        if not args.write:
+            print(
+                f"dry run: would write {len(manifest)} manifest lines to "
+                f"{args.manifest} (use --write to write)"
+            )
+        else:
+            try:
+                manifest_path = Path(args.manifest)
+                _refuse_overwrite(manifest_path, [plan_path, index_path])
+                with open(manifest_path, "w", encoding="utf-8") as handle:
+                    for line in manifest:
+                        handle.write(json.dumps(line) + "\n")
+            except (OSError, ValueError) as exc:
+                print(f"run_queue.py: error: {exc}", file=sys.stderr)
+                return 2
+            print(f"wrote {len(manifest)} manifest lines to {args.manifest}")
+
+    if args.candidates_out:
+        if not args.write:
+            print(
+                f"dry run: would write {len(candidates)} candidates to "
+                f"{args.candidates_out} (use --write to write)"
+            )
+        else:
+            try:
+                candidates_path = Path(args.candidates_out)
+                _refuse_overwrite(candidates_path, [plan_path, index_path])
+                candidates_path.write_text(
+                    json.dumps(candidates, indent=2) + "\n", encoding="utf-8"
+                )
+            except (OSError, ValueError) as exc:
+                print(f"run_queue.py: error: {exc}", file=sys.stderr)
+                return 2
+            print(f"wrote {len(candidates)} candidates to {args.candidates_out}")
+
+    return _exit_code(manifest)
+
+
+if __name__ == "__main__":
+    sys.exit(main())

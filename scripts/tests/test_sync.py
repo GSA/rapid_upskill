@@ -385,6 +385,39 @@ class PageTests(FixtureCase):
         self.assertIn("| Source | [scripts/common/text\\_helper.py](" + BLOB, text)
         self.assertIn("## Source code\n\n````python\n", text)
 
+    def test_used_in_does_not_double_a_title_that_already_has_the_sub_stage(
+        self,
+    ) -> None:
+        """A stage page's own convention titles it "<sub_stage> <name>"; the
+        "Used in" link must not prefix that code a second time."""
+        page_obj = sitelib.Page(
+            path=Path("docs/stage-1/search.md"),
+            rel="docs/stage-1/search.md",
+            front={
+                "title": "S1.4a Search planning and execution",
+                "sub_stage": "S1.4a",
+            },
+            body="",
+            body_line_offset=0,
+        )
+        link = sync._page_link(page_obj, "docs/prompts/s1")
+        self.assertEqual(
+            link, "[S1.4a Search planning and execution](../../stage-1/search.md)"
+        )
+
+    def test_used_in_adds_the_sub_stage_when_the_title_omits_it(self) -> None:
+        page_obj = sitelib.Page(
+            path=Path("docs/stage-1/search.md"),
+            rel="docs/stage-1/search.md",
+            front={"title": "Search planning and execution", "sub_stage": "S1.4a"},
+            body="",
+            body_line_offset=0,
+        )
+        link = sync._page_link(page_obj, "docs/prompts/s1")
+        self.assertEqual(
+            link, "[S1.4a Search planning and execution](../../stage-1/search.md)"
+        )
+
     def test_raw_block_wraps_the_whole_body(self) -> None:
         outputs = self.outputs()
         for rel in EXPECTED_KEYS:
