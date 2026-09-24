@@ -1,0 +1,226 @@
+"""
+ID: X-S1-07
+Title: Quote bank check
+Stage: S1
+Purpose: Check every quote in a distillate's quote bank against a source
+    file, after normalizing typography on both sides, and print one line
+    per quote with a pass or fail reason.
+Usage: python3 scripts/s1/quote_check.py --help
+    In a shell: python3 scripts/s1/quote_check.py SOURCE DISTILLATE
+    [--heading TEXT] [--ignore-case]
+Dependencies: stdlib
+Writes files: no
+License: CC0-1.0
+Inputs: SOURCE, the plain-text or Markdown source file the quotes are
+    drawn from. DISTILLATE, a Markdown file with a section whose heading
+    contains "Quote bank" (or the text given with --heading), holding
+    lines of the form `- "quote text" | locator`.
+Outputs: One line per quote, "pass|fail quote-N detail", then a summary
+    line, all printed to standard output.
+
+This script shows only that a quote's text is present in the source. It
+never checks whether the quote is true, whether it supports the claim it
+is attached to, or whether its locator is right.
+
+Normalization, applied to both the source and each quote: curly quotes to
+a straight quote, dash variants to a hyphen, a hyphen at a line end
+joined to the next word with nothing between them, and any run of
+whitespace collapsed to one space. The source also has a leading
+front-matter block, backticks and Markdown emphasis marks (`*` and `_`)
+removed first. No Unicode compatibility folding is applied. The
+comparison is case-sensitive unless --ignore-case is given.
+
+Checks, per quote: a quote over 40 words fails as too long. The quote is
+then split into fragments at each bracketed insertion (`[...]` or
+`[word]`); every fragment must occur in the normalized source, and a
+fragment under 3 words fails as too short.
+"""
+
+import argparse
+import os
+import re
+import sys
+from typing import NamedTuple
+
+sys.dont_write_bytecode = True
+if sys.version_info < (3, 10):
+    print(
+        "quote_check.py: this script needs Python 3.10 or newer, but "
+        f"this is {sys.version_info.major}.{sys.version_info.minor}. "
+        "Run it with a newer python3.",
+        file=sys.stderr,
+    )
+    sys.exit(2)
+
+MAX_BYTES = 5_000_000
+DEFAULT_HEADING = "Quote bank"
+MAX_QUOTE_WORDS = 40
+MIN_FRAGMENT_WORDS = 3
+
+_FRONT_MATTER_RE = re.compile(r"\A---\n.*?\n---[ \t]*\n?", re.S)
+_EMPHASIS_RE = re.compile(r"[*_]")
+_WRAPPED_HYPHEN_RE = re.compile(r"-[ \t]*\n[ \t]*")
+_WHITESPACE_RE = re.compile(r"\s+")
+_BRACKET_RE = re.compile(r"\[[^\]]*\]")
+_QUOTE_LINE_RE = re.compile(r'^-\s*"(.*)"\s*\|\s*(.*)$')
+_QUOTE_TRANSLATION = {0x2018: 0x27, 0x2019: 0x27, 0x201C: 0x22, 0x201D: 0x22}
+_DASH_TRANSLATION = {0x2013: 0x2D, 0x2014: 0x2D, 0x2212: 0x2D, 0x2015: 0x2D}
+
+
+class QuoteCheck(NamedTuple):
+    """One quote's result, as printed: "status quote-N detail"."""
+
+    status: str
+    name: str
+    detail: str
+
+
+def read_capped(path: str) -> str:
+    """Read path as UTF-8 text (errors replaced), capped at MAX_BYTES."""
+    if os.path.islink(path):
+        raise ValueError(f"{path}: refuses to follow a symlink")
+    with open(path, "rb") as handle:
+        raw = handle.read(MAX_BYTES + 1)
+    if len(raw) > MAX_BYTES:
+        print(
+            f"quote_check.py: {path}: skipping bytes past {MAX_BYTES}",
+            file=sys.stderr,
+        )
+        raw = raw[:MAX_BYTES]
+    return raw.decode("utf-8", errors="replace")
+
+
+def strip_source_extras(text: str) -> str:
+    """Remove a leading front-matter block, backticks and emphasis marks."""
+    text = _FRONT_MATTER_RE.sub("", text, count=1)
+    text = text.replace("`", "")
+    text = _EMPHASIS_RE.sub("", text)
+    return text
+
+
+def normalize(text: str, ignore_case: bool) -> str:
+    """Typography-only normalization shared by the source and every quote."""
+    text = _WRAPPED_HYPHEN_RE.sub("", text)
+    text = text.translate(_QUOTE_TRANSLATION)
+    text = text.translate(_DASH_TRANSLATION)
+    text = _WHITESPACE_RE.sub(" ", text).strip()
+    return text.casefold() if ignore_case else text
+
+
+def find_section(text: str, heading: str) -> str:
+    """Text of the first '## ' section whose heading contains `heading`."""
+    lines = text.splitlines()
+    start = None
+    for index, line in enumerate(lines):
+        if line.startswith("## ") and heading in line:
+            start = index + 1
+            break
+    if start is None:
+        raise ValueError(f"no '## ' heading containing {heading!r} was found")
+    end = len(lines)
+    for index in range(start, len(lines)):
+        if lines[index].startswith("## "):
+            end = index
+            break
+    return "\n".join(lines[start:end])
+
+
+def parse_quote_lines(section: str) -> list[tuple[str, str]]:
+    """(quote text, locator) pairs, in order, from '- "..." | locator' lines."""
+    pairs: list[tuple[str, str]] = []
+    for line in section.splitlines():
+        match = _QUOTE_LINE_RE.match(line.strip())
+        if match:
+            pairs.append((match.group(1), match.group(2).strip()))
+    return pairs
+
+
+def check_quote(raw_quote: str, source_norm: str, ignore_case: bool) -> tuple[bool, str]:
+    """Return (passed, reason) for one quote against the normalized source."""
+    word_count = len(raw_quote.split())
+    if word_count > MAX_QUOTE_WORDS:
+        return False, f"{word_count} words, over the {MAX_QUOTE_WORDS}-word limit"
+    normalized = normalize(raw_quote, ignore_case)
+    fragments = [piece.strip() for piece in _BRACKET_RE.split(normalized) if piece.strip()]
+    if not fragments:
+        return False, "no text remains outside its bracketed insertion(s)"
+    problems = []
+    for fragment in fragments:
+        fragment_words = len(fragment.split())
+        if fragment_words < MIN_FRAGMENT_WORDS:
+            problems.append(
+                f"fragment {ascii(fragment)} has {fragment_words} word(s), "
+                f"under {MIN_FRAGMENT_WORDS}"
+            )
+        elif fragment not in source_norm:
+            problems.append(f"fragment {ascii(fragment)} not found in the source")
+    if problems:
+        return False, "; ".join(problems)
+    return True, f"{word_count} words, present in the source"
+
+
+def run_checks(
+    source_text: str, distillate_text: str, heading: str, ignore_case: bool
+) -> list[QuoteCheck]:
+    """Run every quote in the quote-bank section against the source."""
+    source_norm = normalize(strip_source_extras(source_text), ignore_case)
+    section = find_section(distillate_text, heading)
+    pairs = parse_quote_lines(section)
+    results: list[QuoteCheck] = []
+    for position, (quote, _locator) in enumerate(pairs, start=1):
+        passed, detail = check_quote(quote, source_norm, ignore_case)
+        results.append(QuoteCheck("pass" if passed else "fail", f"quote-{position}", detail))
+    return results
+
+
+def build_parser() -> argparse.ArgumentParser:
+    """Build the command-line parser."""
+    parser = argparse.ArgumentParser(
+        prog="quote_check.py",
+        description=(
+            "Check every quote in a distillate's quote bank against a source "
+            "file: presence after normalizing typography, a 40-word limit, "
+            "and a 3-word minimum for each fragment split at a bracketed "
+            "insertion. Writes no files."
+        ),
+    )
+    parser.add_argument("source", metavar="SOURCE", help="the source file")
+    parser.add_argument(
+        "distillate", metavar="DISTILLATE", help="the distillate Markdown file"
+    )
+    parser.add_argument(
+        "--heading",
+        metavar="TEXT",
+        default=DEFAULT_HEADING,
+        help=f"text the quote-bank heading must contain (default {DEFAULT_HEADING!r})",
+    )
+    parser.add_argument(
+        "--ignore-case",
+        action="store_true",
+        help="compare the quote bank and the source without regard to letter case",
+    )
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    """Command line entry point; prints one line per quote, returns an exit code."""
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    try:
+        source_text = read_capped(args.source)
+        distillate_text = read_capped(args.distillate)
+        results = run_checks(
+            source_text, distillate_text, args.heading, args.ignore_case
+        )
+    except (OSError, UnicodeError, ValueError, RecursionError) as exc:
+        print(f"quote_check.py: error: {exc}", file=sys.stderr)
+        return 2
+    for result in results:
+        print(f"{result.status} {result.name} {result.detail}")
+    failed = sum(1 for result in results if result.status == "fail")
+    print(f"quotes={len(results)} pass={len(results) - failed} fail={failed}")
+    return 1 if failed else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

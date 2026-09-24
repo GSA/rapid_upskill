@@ -1,0 +1,99 @@
+[
+  {
+    "name": "Git branch",
+    "definition": "A movable label that points to one commit; creating a branch adds a new name for that commit instead of copying any files, and switching branches changes which commit the label refers to.",
+    "type": "foundational",
+    "relations": [
+      {
+        "type": "contrasts-with",
+        "target": "Detached HEAD",
+        "quote": "Commits made in that state are on no branch."
+      }
+    ]
+  },
+  {
+    "name": "HEAD pointer",
+    "definition": "The marker that says which commit or branch is currently checked out; when a branch is checked out, HEAD normally holds that branch's name rather than a commit ID directly.",
+    "type": "foundational",
+    "relations": [
+      {
+        "type": "depends-on",
+        "target": "Git branch",
+        "quote": "Normally it holds the name of the current branch"
+      }
+    ]
+  },
+  {
+    "name": "Detached HEAD",
+    "definition": "A state in which HEAD holds a commit ID directly instead of a branch name, so a new commit made in this state belongs to no branch until one is created for it.",
+    "type": "supporting",
+    "relations": [
+      {
+        "type": "part-of",
+        "target": "HEAD pointer",
+        "quote": "HEAD holds that ID instead"
+      },
+      {
+        "type": "contrasts-with",
+        "target": "Git branch",
+        "quote": "Commits made in that state are on no branch."
+      }
+    ]
+  },
+  {
+    "name": "Merge operation",
+    "definition": "Combining the work of two branches into the branch you are on, finishing either as a fast-forward or as a merge commit depending on whether the receiving branch has commits of its own.",
+    "type": "advanced",
+    "relations": [
+      {
+        "type": "implemented-by",
+        "target": "Fast-forward merge",
+        "quote": "Git slides its label forward to the other branch's commit."
+      },
+      {
+        "type": "implemented-by",
+        "target": "Merge commit",
+        "quote": "Git combines the two sets of changes and records a new commit with two parents."
+      },
+      {
+        "type": "depends-on",
+        "target": "Git branch",
+        "quote": "Switch to the branch that should receive the work, then run git merge other-branch."
+      }
+    ]
+  },
+  {
+    "name": "Fast-forward merge",
+    "definition": "The merge outcome where the receiving branch has no commits of its own since the two branches split apart, so Git only moves the branch label forward and creates no new commit.",
+    "type": "advanced",
+    "relations": [
+      {
+        "type": "example-of",
+        "target": "Merge operation",
+        "quote": "Git slides its label forward to the other branch's commit."
+      },
+      {
+        "type": "contrasts-with",
+        "target": "Merge commit",
+        "quote": "By default, a fast-forward only moves a label, which is why the log shows no merge entry afterwards."
+      }
+    ]
+  },
+  {
+    "name": "Merge commit",
+    "definition": "The merge outcome where both branches carry commits of their own, so Git combines the two sets of changes into one new commit that records two parents.",
+    "type": "advanced",
+    "relations": [
+      {
+        "type": "example-of",
+        "target": "Merge operation",
+        "quote": "Git combines the two sets of changes and records a new commit with two parents."
+      },
+      {
+        "type": "contrasts-with",
+        "target": "Fast-forward merge",
+        "quote": "makes a merge commit even when a fast-forward is possible"
+      }
+    ]
+  }
+]

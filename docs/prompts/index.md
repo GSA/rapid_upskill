@@ -20,4 +20,6 @@ These pages are generated from the files in `prompts/`. Edit a source file and r
 | [P-S1-03](s1/p-s1-03.md) | Blueprint domains, objectives and weights | Propose domains, objectives, weights with a one-line rationale each. |
 | [P-S1-04](s1/p-s1-04.md) | Search plan for one learning objective | Draft one search plan for one learning objective, with anchors and a query cap, before any query runs. |
 | [P-S1-05](s1/p-s1-05.md) | Source screening | Grade search candidates Green, Yellow or Red against one objective, with a quoted metadata line as evidence for each grade. |
+| [P-S1-06](s1/p-s1-06.md) | Concept extraction, one pass at a time | Extract concepts from one source, running one of four passes per call. |
+| [P-S1-07](s1/p-s1-07.md) | Source distillate and quote bank | Write a nine-section distillate for one source, ending with a quote bank. |
 {% endraw %}
