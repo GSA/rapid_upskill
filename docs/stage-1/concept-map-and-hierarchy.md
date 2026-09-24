@@ -15,9 +15,9 @@ scripts: ["X-S1-09"]
 ## Outcome
 
 At the end of this sub-stage, every admitted source's concepts sit in
-one shared **concept map**: one set of concepts and typed relations
-drawn together across every source, instead of kept apart one source at
-a time. Each concept also has a place in the
+one shared **concept map**. A concept map is one set of concepts and
+typed relations, drawn together across every source instead of kept
+apart one source at a time. Each concept also has a place in the
 **[prerequisite hierarchy](../glossary.md#prerequisite-hierarchy)**, the
 four-tier ordering the [Stage 1 index](index.md) already names. A
 script has checked the map for a cycle and for a prerequisite that
@@ -35,13 +35,13 @@ dependency order.
 ## Why this way
 
 A later stage can tell a reader "learn this before that" only once two
-things are checked. First, that the map has no cycle: no chain of
+things are checked. First, that the map has no cycle: a chain of
 concepts that each need the one before it, running back around to
-where the chain started, so that nothing in the chain could ever come
-first. Second, that every prerequisite id names a concept the map
+where the chain started. In a cycle, nothing in the chain could ever
+come first. Second, that every prerequisite id names a concept the map
 actually has; an id that matches none is a dangling reference, pointing
 nowhere. Checking both before any later stage builds on the map is
-cheaper than finding either problem after several sub-stages already
+cheaper than finding either problem once several sub-stages already
 depend on the order it gives. This page uses the
 [basis labels](index.md#basis-labels) defined on the Stage 1 index.
 
@@ -60,7 +60,7 @@ depend on the order it gives. This page uses the
 The four tier names come from the project notes: 1 foundational, 2
 building blocks, 3 integrated, and 4 applied, each tier building on the
 one below it. Pairing those four names with the numbers 1 to 4 is this
-guide's own choice, marked suggested: the one worked example in the
+guide's own choice, marked suggested. The one worked example in the
 project notes sorts its concepts into three complexity tiers, not four,
 and nothing in the project notes says how the three-tier scheme lines
 up with the four-name one. This guide uses four tiers and this pairing
@@ -68,11 +68,11 @@ throughout, and does not claim the project notes settled the question.
 
 The `tier` field this step fills is the same field
 [S1.3 Draft the blueprint](blueprint.md) already reserves on an
-objective, in the same 1-to-4 range that `blueprint_check.py` already
-validates there; a concept's tier and an objective's tier are one field
-under one name, not two similarly named fields. Filling it in is what
-[the running example](../running-example.md) means when it says the
-concept-map sub-stage adds an objective's tier.
+objective. It is the same 1-to-4 range that `blueprint_check.py`
+already validates there; a concept's tier and an objective's tier are
+one field under one name, not two similarly named fields. Filling it in
+is what [the running example](../running-example.md) means when it
+says the concept-map sub-stage adds an objective's tier.
 
 ## Parameters
 
@@ -85,16 +85,16 @@ concept-map sub-stage adds an objective's tier.
 ## Cycle and topological-order checks
 
 The concept-graph check finds a cycle by walking the map one concept at
-a time, remembering which concepts are still open on the path it is
-currently following, and reporting a cycle the moment it revisits one
-of them. In the terms a computer-science reader would use, this is a
+a time. It remembers which concepts are still open on the path it is
+currently following, and reports a cycle the moment it revisits one of
+them. In the terms a computer-science reader would use, this is a
 depth-first search that keeps a recursion stack. It is one of three
 ways the project notes detect a cycle, not the only one; the other two
 tie-break differently or resolve some cycles automatically, which this
 guide's script does not attempt.
 
 Once a cycle is out of the way, a second pass builds the topological
-order: it repeatedly places any concept whose prerequisites have all
+order. It repeatedly places any concept whose prerequisites have all
 already been placed, until every concept is placed or none of the
 remaining ones qualify. A cycle among the remaining concepts is exactly
 what stops that from finishing; the check reports how many concepts it
@@ -137,7 +137,7 @@ and has not been run against any model in this build.
 ## Scripts
 
 [X-S1-09 Concept graph check](../scripts/s1/x-s1-09.md) reads a catalog
-file (id, name, tier, prerequisites per concept) and reports a cycle, a
+file (id, name, tier, prerequisites per concept). It reports a cycle, a
 dangling prerequisite, a tier outside range, or a duplicate id, then
 prints a topological order and a count of concepts at each tier.
 
@@ -163,10 +163,11 @@ for what the exit code means.
 Break it on purpose, the opposite way from every earlier Stage 1 page:
 this sample starts clean, so breaking it means copying the file and
 adding two problems instead of one. Add `"commit"` to `"staging-area"`'s
-prerequisites (staging area is already a prerequisite of commit, so this
-makes each of the two require the other, a two-concept cycle between
-`commit` and `staging-area`), and add the typo `"haed"` (for `head`) to
-`"remote"`'s prerequisites, then run the check again on the copy:
+prerequisites. Staging area is already a prerequisite of commit, so
+this makes each of the two require the other, a two-concept cycle
+between `commit` and `staging-area`. Also add the typo `"haed"` (for
+`head`) to `"remote"`'s prerequisites, then run the check again on the
+copy:
 
 ```text
 dangling: node "remote" lists unknown prerequisite "haed"
@@ -177,8 +178,8 @@ nodes=9 edges=13 cycles=1 dangling=1
 ```
 
 Both problems are flagged, unaided. The topological order does not just
-lose the two cycle members: because staging area and commit sit under
-every other concept's chain of prerequisites, the cycle blocks the whole
+lose the two cycle members. Staging area and commit sit under every
+other concept's chain of prerequisites, so the cycle blocks the whole
 order, and zero of the nine concepts place. A real fix removes the
 false prerequisite from staging area and corrects the typo in remote's
 list, one change at a time, running the check again after each. With

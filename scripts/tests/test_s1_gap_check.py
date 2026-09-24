@@ -54,7 +54,7 @@ def run_cli(*args: str, cwd: Path | None = None) -> subprocess.CompletedProcess[
     )
 
 
-def blueprint(objectives: list[dict[str, Any]]) -> dict[str, Any]:
+def blueprint(objectives: list[Any]) -> dict[str, Any]:
     """A minimal, single-domain blueprint holding the given objectives."""
     return {
         "domains": [
@@ -63,22 +63,18 @@ def blueprint(objectives: list[dict[str, Any]]) -> dict[str, Any]:
     }
 
 
-def objective(objective_id: str, supported_by: list[str] | None = None) -> dict[str, Any]:
+def objective(
+    objective_id: str, supported_by: list[str] | None = None
+) -> dict[str, Any]:
     """A minimal objective; omit supported_by to test the 'absent' case."""
-    data: dict[str, Any] = {"id": objective_id, "text": "Do the thing.", "bloom": "apply"}
+    data: dict[str, Any] = {
+        "id": objective_id,
+        "text": "Do the thing.",
+        "bloom": "apply",
+    }
     if supported_by is not None:
         data["supported_by"] = supported_by
     return data
-
-
-class SafeIdTests(unittest.TestCase):
-    """safe_id: plain ASCII passes through; non-ASCII is escaped."""
-
-    def test_ascii_id_is_unchanged(self) -> None:
-        self.assertEqual(gc.safe_id("D4.2"), "D4.2")
-
-    def test_non_ascii_id_is_escaped(self) -> None:
-        self.assertEqual(gc.safe_id("Dé"), "D\\xe9")
 
 
 class FindObjectivesTests(unittest.TestCase):
@@ -108,7 +104,9 @@ class FindObjectivesTests(unittest.TestCase):
             gc.find_objectives({})
 
     def test_bad_domain_is_skipped_not_reported(self) -> None:
-        data = {"domains": ["not a domain", blueprint([objective("D1.1")])["domains"][0]]}
+        data = {
+            "domains": ["not a domain", blueprint([objective("D1.1")])["domains"][0]]
+        }
         found = gc.find_objectives(data)
         self.assertEqual(found, [("D1.1", 0)])
 

@@ -22,4 +22,6 @@ These pages are generated from the files in `prompts/`. Edit a source file and r
 | [P-S1-05](s1/p-s1-05.md) | Source screening | Grade search candidates Green, Yellow or Red against one objective, with a quoted metadata line as evidence for each grade. |
 | [P-S1-06](s1/p-s1-06.md) | Concept extraction, one pass at a time | Extract concepts from one source, running one of four passes per call. |
 | [P-S1-07](s1/p-s1-07.md) | Source distillate and quote bank | Write a nine-section distillate for one source, ending with a quote bank. |
+| [P-S1-08](s1/p-s1-08.md) | Knowledge-item extraction from one source | Turn one source's concepts and distillate into draft knowledge items, each linked to at least one existing item by a typed relation. |
+| [P-S1-09](s1/p-s1-09.md) | Concept map consolidation and tiering | Consolidate several sources' typed concept relations into one concept map, and propose a prerequisite-hierarchy tier for each concept. |
 {% endraw %}
