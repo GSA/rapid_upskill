@@ -173,18 +173,14 @@ class CheckCatalogTests(unittest.TestCase):
         data = base_catalog()
         data[0]["prerequisites"] = ["nope"]
         errors, _, _, _, _, edges = self.check(data)
-        self.assertIn(
-            'dangling: node "a" lists unknown prerequisite "nope"', errors
-        )
+        self.assertIn('dangling: node "a" lists unknown prerequisite "nope"', errors)
         self.assertEqual(edges, 3)  # the dangling entry still counts as an edge
 
     def test_dangling_check_is_case_and_space_insensitive(self) -> None:
         data = base_catalog()
         data[0]["prerequisites"] = [" B "]
         errors, _, _, _, _, _ = self.check(data)
-        self.assertNotIn(
-            'dangling: node "a" lists unknown prerequisite " B "', errors
-        )
+        self.assertNotIn('dangling: node "a" lists unknown prerequisite " B "', errors)
 
     def test_bad_tier_out_of_range(self) -> None:
         data = base_catalog()
@@ -202,7 +198,7 @@ class CheckCatalogTests(unittest.TestCase):
         data = base_catalog()
         del data[0]["tier"]
         errors, _, _, _, _, _ = self.check(data)
-        self.assertIn("bad-tier: node \"a\" has tier None, must be 1 to 4", errors)
+        self.assertIn('bad-tier: node "a" has tier None, must be 1 to 4', errors)
 
     def test_duplicate_id(self) -> None:
         data = base_catalog()
@@ -345,9 +341,7 @@ class BreakOnPurposeTests(unittest.TestCase):
             'dangling: node "remote" lists unknown prerequisite "haed"',
             result.stdout,
         )
-        self.assertIn(
-            "cycle: staging-area -> commit -> staging-area", result.stdout
-        )
+        self.assertIn("cycle: staging-area -> commit -> staging-area", result.stdout)
         self.assertIn("order: incomplete, 0 of 9 nodes placed", result.stdout)
         self.assertIn("tiers: 1=2 2=2 3=3 4=2", result.stdout)
         self.assertIn("nodes=9 edges=13 cycles=1 dangling=1", result.stdout)

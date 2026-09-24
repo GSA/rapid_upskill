@@ -252,8 +252,8 @@ def main(argv: list[str] | None = None) -> int:
             raise ValueError("--min-tier must not be greater than --max-tier")
         data = load_catalog(Path(args.catalog))
         nodes = validate_catalog(data)
-        errors, order, complete, placed_count, tier_counts, edge_count = (
-            check_catalog(nodes, args.min_tier, args.max_tier)
+        errors, order, complete, placed_count, tier_counts, edge_count = check_catalog(
+            nodes, args.min_tier, args.max_tier
         )
     except (
         OSError,
@@ -270,15 +270,11 @@ def main(argv: list[str] | None = None) -> int:
         print("order: " + ", ".join(order))
     else:
         print(f"order: incomplete, {placed_count} of {len(nodes)} nodes placed")
-    tiers_text = " ".join(
-        f"{tier}={tier_counts[tier]}" for tier in sorted(tier_counts)
-    )
+    tiers_text = " ".join(f"{tier}={tier_counts[tier]}" for tier in sorted(tier_counts))
     print(f"tiers: {tiers_text}")
     cycles = sum(1 for message in errors if message.startswith("cycle:"))
     dangling = sum(1 for message in errors if message.startswith("dangling:"))
-    print(
-        f"nodes={len(nodes)} edges={edge_count} cycles={cycles} dangling={dangling}"
-    )
+    print(f"nodes={len(nodes)} edges={edge_count} cycles={cycles} dangling={dangling}")
     return 1 if errors else 0
 
 
