@@ -45,13 +45,9 @@ This page uses the documented and suggested
 the plan-and-queue method is documented in
 [the project notes](../glossary.md#reference-implementation); running the
 queue as a script, and the web-address rule used when deduplicating, are
-this guide's own suggestions. The project notes plan search at the grain
-of a blueprint section, one plan covering several objectives; this guide's
-sample prompt and script work at the finer grain of one plan per
-objective instead, because a small blueprint has few enough objectives
-for that to stay manageable. Treat the plan-count cap below as a starting
-point to revisit, not a literal ceiling, when a blueprint has many
-objectives.
+this guide's own suggestions. The project notes plan search per blueprint
+section; this guide's sample prompt and script plan per objective instead
+(see the plan-count row below for what that changes).
 
 ## Steps
 
@@ -72,8 +68,9 @@ in a row, so a person can look before more calls happen.
 | Deduplicate with `dedupe_candidates.py` | Script | documented |
 | Decide what to do when the breaker opens | Person | suggested |
 
-Checking a plan against its anchors is documented; aim for recall of 0.8
-or more within two revisions (a parameter). Running the queue as a script
+Checking a plan against its anchors is documented; aim for **recall**
+(the share of a plan's expected anchors that its queries actually find)
+of 0.8 or more within two revisions (a parameter). Running the queue as a script
 is this guide's own suggestion, since the notes describe a one-at-a-time
 queue without naming a tool. Deduplicating candidates by identifier first
 is documented; the web-address rule and the title-author-year rule that
@@ -90,7 +87,7 @@ set of plans; `run_queue.py` enforces only the per-plan query cap.
 | Plans for one blueprint section | at most 8 | the reference implementation's parameters; at this guide's finer, per-objective grain, treat 8 as a starting cap and raise it for a blueprint with many objectives |
 | Queries in one plan (`query_cap`) | at most 10 | the reference implementation's parameters |
 | Queries across all plans | at most 60 | the reference implementation's parameters |
-| Queries per search venue | at most 5; going over needs a written reason | the reference implementation's parameters |
+| Queries per search **venue** (one search service or site) | at most 5; going over needs a written reason | the reference implementation's parameters |
 | Query text and result counts | quote a multi-word phrase, or an unquoted, over-broad query floods the results; this guide's script does not enforce a result-count band | documented; the notes give three disagreeing bands (5-60; 15-60; "over 200 is too many"), so judge match counts yourself |
 | Gap between calls (`--min-gap`) | 3 seconds | a starting value chosen for this guide |
 | Retries after a temporary failure (`--retries`) | 2 | the project notes disagree: one place caps retries at 2, a client library in the same notes retries up to 5, and wait schedules differ; this guide keeps 2 |
@@ -189,7 +186,10 @@ queries=4 done=3 empty=1 failed=0 candidates=1 anchors=1/2 recall=0.50
 `new_candidates` is 0 for the repeats; still `done`, not `empty`, since a
 match happened. `Q4` finds nothing, which is `empty`. Only one of the two
 anchors ever turns up, so recall stops at 0.50; exit code 0, since every
-query is `done` or `empty`.
+query is `done` or `empty`. A real plan at 0.50 recall is below the 0.8
+bar above and needs another revision before anyone approves it; this
+small sample plan is left as it is only to show the runner and the
+manifest, not as an approved plan.
 
 The virtual clock, on by default, only advances when the runner waits;
 nothing actually sleeps, so this run finishes at once. `--real-time` swaps

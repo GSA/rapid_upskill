@@ -54,7 +54,8 @@ statement, and a hash of the source file for each quote).
 | Write each locator as a page number, or a heading path and a paragraph number; never estimate one | Agent | documented |
 | Keep each quote at most 40 words | Agent | documented |
 | Run the quote check | Script | documented |
-| Spot-check two quotes per batch by hand; a fresh subagent, or a person if there is no coordinating session, rechecks a fifth of the quotes | Coordinating session, subagent or person | documented |
+| Spot-check two quotes per batch by hand | Coordinating session or person | documented |
+| Have a fresh [subagent](../glossary.md#subagent), or a person if there is no coordinating session, recheck a fifth of the quotes | Subagent or person | documented |
 | Remove any quote that fails the recheck and mark it unchecked | Person | documented |
 | Approve the batch | Person | documented |
 
@@ -117,9 +118,18 @@ itself is inconsistent about case.
 ## Artifacts and formats
 
 A distillate is a Markdown file with front matter (`source_id`, `date`)
-and the nine `##` sections above, in that order. Its quote bank lines
-each look like `- "quote text" | locator`. Every quote and its locator
-sit on one line.
+and the nine `##` sections above, in that order. Front matter is the
+`---`-delimited block at the top of the file:
+
+```yaml
+---
+source_id: "SRC-002"
+date: "2026-02-10"
+---
+```
+
+Its quote bank lines each look like `- "quote text" | locator`. Every
+quote and its locator sit on one line.
 
 ## Prompts
 

@@ -21,20 +21,25 @@ and failed documents are listed for the person who approves after
 
 ## Where it fits
 
-This sub-stage takes in the deduplicated **candidates** (sources found by
-search, not yet checked for quality) from
-[S1.4a](search-planning-and-execution.md). It hands on converted, checked
-sources, plus the blocked and failed lists, to S1.4c for injection
-screening.
+This sub-stage takes in the deduplicated candidates (see
+[S1.4a](search-planning-and-execution.md#outcome) for what a candidate is
+and is not) from [S1.4a](search-planning-and-execution.md). It hands on
+converted, checked sources, plus the blocked and failed lists, to S1.4c
+for injection screening.
 
 ## Why this way
 
 A source is worth reading only after it clears a content grade and its
 conversion is checked against the original, so a conversion error is caught
 before anyone reads the converted copy instead of the source itself. Most
-steps below are documented in the project notes; the conversion check's own
-thresholds are suggested by this guide, because the project notes describe
-the checks without giving one script for them.
+steps below are documented in
+[the project notes](../glossary.md#reference-implementation); the
+conversion check's own thresholds are suggested by this guide, because the
+project notes describe the checks without giving one script for them.
+
+A **hard** check stops a source from moving on until it is fixed or the
+source is marked failed. A **soft** check does not stop anything by
+itself; it only asks a person to look before the source moves on.
 
 Text you send to a model service leaves your machine. Read that service's
 terms before you send it any candidate summary or source text.
@@ -43,8 +48,8 @@ terms before you send it any candidate summary or source text.
 
 | Step | Who | Basis |
 |---|---|---|
-| Run a metadata check on each candidate: recency, a named venue or explicit preprint status, page count when it is already known, and source type (article, standard, vendor documentation, blog, other) | Script or agent | documented (thresholds are parameters you set) |
-| Grade each candidate Green, Yellow or Red with a quoted metadata line as evidence, using the source-screening prompt | Subagent | documented |
+| Run a metadata check on each candidate: recency, a named venue or explicit **preprint** status (a paper posted before peer review), page count when it is already known, and source type (article, standard, vendor documentation, blog, other) | Script or agent | documented (thresholds are parameters you set; no script in this guide performs this check, so run it by eye or write your own, for example flagging anything more than 3 years old, under 4 pages, or with no named venue or preprint status) |
+| Grade each candidate Green, Yellow or Red with a quoted metadata line as evidence, using the source-screening prompt | [Subagent](../glossary.md#subagent) | documented |
 | Download each admitted source and record a fingerprint, a **hash** (a short, exact digest of the file's bytes; the same bytes always give the same hash) | Script or person | documented |
 | Download a blocked document by hand when a script cannot reach it; never create an account and never copy paywalled material | Person | documented |
 | Convert the document to Markdown with a converter of your choice | Script | documented |
@@ -83,10 +88,6 @@ and `--ratio-high`. Calibrate the band on your own converter and material;
 these are starting values chosen for this guide, not measured limits. The
 words-per-page check is this guide's own addition: the project notes name a
 check like it, but no script among them carries one out.
-
-A **hard** check stops a source from moving on until it is fixed or the
-source is marked failed. A **soft** check does not stop anything by
-itself; it only asks a person to look before the source moves on.
 
 ## Artifacts and formats
 

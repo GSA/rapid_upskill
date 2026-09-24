@@ -233,6 +233,20 @@ class CheckConceptsErrorTests(unittest.TestCase):
         with self.assertRaises(ValueError):
             cl.check_concepts({}, (2, 5), (15, 50), 0.85)
 
+    def test_over_the_concept_limit_raises_before_any_comparison(self) -> None:
+        data = [concept(f"Term number {i}", 20) for i in range(cl.MAX_CONCEPTS + 1)]
+        with self.assertRaises(ValueError) as ctx:
+            cl.check_concepts(data, (2, 5), (15, 50), 0.85)
+        self.assertIn(str(cl.MAX_CONCEPTS), str(ctx.exception))
+
+    def test_well_under_the_concept_limit_is_allowed(self) -> None:
+        # A small count, not MAX_CONCEPTS itself: this only needs to show
+        # the guard rejects strictly above the limit, not at or below it,
+        # without paying for a full near-duplicate pass over 2,000 entries.
+        data = [concept(f"Term number {i}", 20) for i in range(50)]
+        errors, _ = self.check(data)
+        self.assertEqual(errors, [])
+
 
 class CheckConceptsWarningTests(unittest.TestCase):
     """Every warning path; none of these change the exit code by themselves."""

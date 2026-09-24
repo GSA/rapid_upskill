@@ -29,12 +29,13 @@ The blueprint is the coverage instrument the rest of Stage 1 checks against. Lat
 | Step | Who | Basis |
 |---|---|---|
 | Group tasks into domains | Agent | documented |
-| Propose objectives with a cognitive level each | Agent | documented |
+| Propose objectives with a cognitive level each (what the [running example](../running-example.md) called a Bloom level) | Agent | documented |
 | Propose weights as frequency times criticality | Agent | suggested |
 | Write a one-line rationale for each weight | Person | inferred |
 | Edit weights so they sum to 100 | Person | suggested |
 | Run the blueprint check | Script | suggested |
-| Cross-tabulate domain by cognitive level and read the empty cells | Script | documented |
+| Cross-tabulate domain by cognitive level | Script | documented |
+| Read the empty cells and judge whether the gap is right for that domain | Person | suggested |
 | Approve the blueprint | Person | suggested |
 
 Grouping tasks into domains is documented in the project notes' outline; the JSON shape that holds the result, below, is this guide's suggestion. The weight rationale is inferred from an exam-development guide that requires a reason for every weight, applied here to this sub-stage. The formula, the rounding and the blueprint check itself have no described precedent, so they are marked suggested.

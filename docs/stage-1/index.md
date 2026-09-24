@@ -18,7 +18,7 @@ Stage 1 takes in a program goal and domain material. It hands on the knowledge b
 
 ## Sub-stages
 
-Each part of Stage 1 has a **[sub-stage](../glossary.md#sub-stage)** id. This guide numbers them 1.1 to 1.8; [the project notes](../glossary.md#reference-implementation) describe the same activities without numbering them. This guide also splits 1.4 and 1.5 each across more than one page.
+Each part of Stage 1 has a **[sub-stage](../glossary.md#sub-stage)** id. This guide numbers them 1.1 to 1.8, following an earlier survey of [the project notes](../glossary.md#reference-implementation); the project notes' own method documents describe the same activities without this numbering. This guide also splits 1.4 and 1.5 each across more than one page.
 
 | ID | Name | What it does | Page |
 |---|---|---|---|
@@ -54,9 +54,9 @@ Agents do the volume work: collecting reference decompositions, drafting tasks a
 | S1.1 | The boundary statement | Plan approval | inferred |
 | S1.3 | The weighted blueprint | Plan approval | suggested; the project notes approve a skeleton and a gap list, without weights |
 | S1.4a | The search plan set, before any query runs | Plan approval | documented |
-| S1.4a, the runner | What to do when the breaker opens | Stop | suggested |
+| S1.4a, the runner | What to do when the circuit breaker opens (it stops the search queue after too many queries fail in a row; see [S1.4a](search-planning-and-execution.md#steps)) | Stop | suggested |
 | S1.4b and S1.4c | The selected sources, the flagged list and the blocked-document list | Plan approval | documented; the project notes approve selected sources and a flagged list, after conversion |
-| S1.5 | Each batch of distillations | Batch pause | documented |
+| S1.5 | Each batch of distillations | Batch pause | suggested; the project notes ask only for a batch "continue" here, not a review of the content, so treat this row as this guide's own recommendation to add a real look |
 | S1.8, planned | The expansion plan | Expansion-loop approval | documented |
 
 See [Human roles, gates and batching](../human-roles-gates-and-batching.md) for what each gate kind means and who can fill each role.

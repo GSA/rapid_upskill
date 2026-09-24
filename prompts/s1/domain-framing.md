@@ -45,8 +45,8 @@ Written for this guide and not run against any model in this build; treat it
 as a starting point and adapt it.
 
 Filled example, using the running example's values (synthetic): `PROGRAM_GOAL`
-"bring a new hire on a small software team to confident, safe daily use of
-Git within two weeks"; `AUDIENCE` "a developer newly hired onto a small team
+"is meant to bring a new hire on a small software team to confident, safe
+daily use of Git within two weeks"; `AUDIENCE` "a developer newly hired onto a small team
 that already uses Git, with little prior Git experience"; `REFERENCE_DECOMPOSITIONS`
 "a command-family outline (setup, snapshots, branching, sharing, inspecting,
 undoing); a concept outline (repositories, commits, branches, remotes,

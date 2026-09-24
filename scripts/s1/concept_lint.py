@@ -26,7 +26,8 @@ relation with an empty quote; a relation whose target is not a concept
 name in the file; a relation type outside the five this guide uses
 (depends-on, part-of, implemented-by, contrasts-with, example-of); a
 concept name used more than once; a concept or a relation entry that is
-not a JSON object.
+not a JSON object. As a usage error (exit 2): more than 2,000 concepts in
+one file, because the near-duplicate check below compares every pair.
 
 Warnings (exit 0, never change the exit code): two concepts whose names,
 or whose definitions, have a word-set overlap (a stand-in for an
@@ -67,6 +68,12 @@ DEFAULT_DEF_WORDS = (15, 50)
 DEFAULT_SIMILAR = 0.85
 AVG_RELATIONS_LOW = 1.5
 AVG_RELATIONS_HIGH = 2.5
+# The near-duplicate check below compares every concept with every other
+# one, so its cost grows with the square of the concept count. This guide's
+# concept lists hold at most a few hundred entries; a file with many more
+# than that is refused before the comparison starts, rather than left to
+# run for a very long time.
+MAX_CONCEPTS = 2_000
 
 
 def load_concepts(path: Path) -> Any:
@@ -146,6 +153,11 @@ def check_concepts(
     """Return (errors, warnings, concept_count, relation_count)."""
     if not isinstance(data, list):
         raise ValueError("the concept list is not a JSON list")
+    if len(data) > MAX_CONCEPTS:
+        raise ValueError(
+            f"{len(data)} concepts is over the limit of {MAX_CONCEPTS}; "
+            "split the file, one per source, before checking it"
+        )
 
     errors: list[str] = []
     warnings: list[str] = []

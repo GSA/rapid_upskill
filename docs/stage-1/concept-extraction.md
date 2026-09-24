@@ -133,7 +133,8 @@ concepts=6 relations=11 errors=0 warnings=0
 Six concepts, no errors and no warnings: every name and definition falls
 inside its length range, and every relation names one of the five types
 and an existing concept as its target. The average of 11 relations over
-6 concepts, about 1.83, falls inside the warning band. See
+6 concepts, about 1.83, falls inside the 1.5-to-2.5 range, so no warning
+fires. See
 [Reading exit codes](index.md#reading-exit-codes) on the Stage 1 index
 for what the exit code means.
 

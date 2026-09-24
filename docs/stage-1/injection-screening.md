@@ -39,9 +39,10 @@ that a source is safe; it only means this one pattern set found nothing
 this time.
 
 This page uses the [basis labels](index.md#basis-labels) defined on the
-Stage 1 index. Every step below is documented in the project notes; only
-the adjudication CSV's exact columns are this guide's own layout, because
-the project notes key a similar record differently.
+Stage 1 index. Every step below is documented in
+[the project notes](../glossary.md#reference-implementation); only the
+adjudication CSV's exact columns are this guide's own layout, because the
+project notes key a similar record differently.
 
 ## Steps
 
@@ -75,8 +76,20 @@ one just adjudicated.
 | `hidden-html` | A `hidden` attribute, hiding CSS such as `display:none`, off-screen positioning, a comment, or text inside a `script` or `style` block | Text a browser never shows a reader can still reach a model that reads the raw page |
 | `data-uri`, `long-encoded-run` | A `data:` URI, or a run of 200 or more base64-style characters | Logged as a line, a length and a hash; never decoded, so the scan itself cannot become a way to smuggle a payload |
 
-The project notes' own guide lists tag characters that its own scripts never
-match; this guide's scanner includes them (suggested).
+In this guide's reading of the project notes, one of their own guides
+lists tag characters that their own scripts never match; this guide's
+scanner includes them (suggested).
+
+### Hardening for an untrusted-content scanner
+
+Running a scanner over text an outside source wrote calls for care beyond
+finding the patterns above. This guide's scanner reads at most 5,000,000
+bytes of any one file and says so when it stops early; never follows a
+symlink, so a source cannot point the scanner at a file outside the
+folder you gave it; prints every excerpt through an ASCII-escaping step,
+so a matched span can never send a raw control character or a terminal
+escape sequence to your screen; and matches every pattern in linear time,
+so a crafted file cannot make the scan itself run for a very long time.
 
 ## Artifacts and formats
 
