@@ -1,0 +1,302 @@
+"""
+ID: X-S1-08
+Title: Knowledge-item dedupe and mint
+Stage: S1
+Purpose: Group draft knowledge items into canonical items, minting one id
+    per group, then shortlist likely-but-uncertain duplicates, including a
+    match across two different sources, for a person to read and decide.
+Usage: python3 scripts/s1/ki_dedupe.py --help
+    In a shell: python3 scripts/s1/ki_dedupe.py ITEMS.json
+    [--title-overlap X] [--shared-tags N] [--exact-only]
+Dependencies: stdlib
+Writes files: no
+License: CC0-1.0
+Inputs: A JSON file holding a list of draft knowledge items. Each item has
+    id (temporary), source_id, title, type, body, relations, evidence,
+    tags (a list of strings) and status. Only id, source_id, title and
+    tags drive this script; the rest pass through unread.
+Outputs: One "mint" line per group, then, unless --exact-only is given,
+    one "shortlist" line per likely-but-uncertain pair, highest score
+    first, then a summary line, all printed to standard output.
+
+Step 1, grouping, always runs, because no judgment call is left once two
+items from the same source share a title: items with the same source_id
+and the same normalized title (case-folded, whitespace-collapsed) are the
+same claim seen twice. Each group becomes one canonical item with one
+minted id, in the fixed form KI-{nnn} (a zero-padded, 3-digit counter, one
+per group, assigned in the input's own order). A group's tags are the
+union of its items' tags; its title is its first item's title as given.
+
+Step 2, shortlist, is advisory only and never mints or merges anything. It
+is skipped entirely with --exact-only. For every pair of different
+canonical items, if their titles' word overlap (a Jaccard score on
+lower-cased, whitespace-split words) is at or above --title-overlap, or
+their tag sets share at least --shared-tags tags, the pair is shortlisted
+at a score of title_overlap + 0.2 * shared_tag_count. A shortlisted pair
+is not a merge decision; a person reads the pair, in the source text if
+needed, and decides whether it is the same claim twice.
+
+The default thresholds (title-overlap 0.5, shared-tags 3) are starting
+values chosen independently for this guide. They are not copied from any
+other project's own tuned figures; calibrate them on your own material.
+
+Exit 0 always, unless the input cannot be read or parsed; exit 2 for a
+usage or input error, printed as one line with no traceback.
+"""
+
+import argparse
+import json
+import sys
+from dataclasses import dataclass, field
+from pathlib import Path
+from typing import Any
+
+sys.dont_write_bytecode = True
+if sys.version_info < (3, 10):
+    print(
+        "ki_dedupe.py: this script needs Python 3.10 or newer, but this is "
+        f"{sys.version_info.major}.{sys.version_info.minor}. "
+        "Run it with a newer python3.",
+        file=sys.stderr,
+    )
+    sys.exit(2)
+
+MAX_BYTES = 5_000_000
+REQUIRED_FIELDS = ("id", "source_id", "title", "tags")
+DEFAULT_TITLE_OVERLAP = 0.5
+DEFAULT_SHARED_TAGS = 3
+TAG_WEIGHT = 0.2
+
+
+@dataclass
+class CanonicalItem:
+    """One minted group: the shared id plus the fields the dedupe needs."""
+
+    minted_id: str
+    title: str
+    tags: set[str]
+    member_ids: list[str]
+    exact_match: bool
+
+
+@dataclass
+class Shortlisted:
+    """One pair flagged for a person to read, with its score."""
+
+    first_id: str
+    second_id: str
+    title_overlap: float
+    shared_tag_count: int
+    score: float = field(init=False)
+
+    def __post_init__(self) -> None:
+        self.score = self.title_overlap + TAG_WEIGHT * self.shared_tag_count
+
+
+def normalize_title(title: str) -> str:
+    """Case-fold a title and collapse whitespace runs to one space."""
+    return " ".join(title.strip().lower().split())
+
+
+def title_words(title: str) -> set[str]:
+    """The set of a title's lower-cased, whitespace-split words."""
+    return set(title.lower().split())
+
+
+def jaccard(first: set[str], second: set[str]) -> float:
+    """Jaccard overlap of two sets; 0.0 when both are empty."""
+    if not first and not second:
+        return 0.0
+    union = first | second
+    if not union:
+        return 0.0
+    return len(first & second) / len(union)
+
+
+def _check_not_symlink(path: Path) -> None:
+    """Refuse to read through a symlink."""
+    if path.is_symlink():
+        raise ValueError(f"refusing to follow a symlink: {path}")
+
+
+def _read_capped(path: Path, limit: int = MAX_BYTES) -> str:
+    """Read a file as UTF-8 text, replacing bad bytes, capped at limit."""
+    raw = path.read_bytes()
+    if len(raw) > limit:
+        print(
+            f"ki_dedupe.py: reading only the first {limit} bytes of {path}",
+            file=sys.stderr,
+        )
+        raw = raw[:limit]
+    return raw.decode("utf-8", errors="replace")
+
+
+def load_items(path: Path) -> list[dict[str, Any]]:
+    """Read and validate a JSON list of draft knowledge items."""
+    _check_not_symlink(path)
+    parsed = json.loads(_read_capped(path))
+    if not isinstance(parsed, list):
+        raise ValueError(f"{path}: expected a JSON list of knowledge items")
+    items: list[dict[str, Any]] = []
+    for index, item in enumerate(parsed):
+        if not isinstance(item, dict):
+            raise ValueError(f"{path}: item {index} is not a JSON object")
+        for key in REQUIRED_FIELDS:
+            if key not in item:
+                raise ValueError(f"{path}: item {index} is missing '{key}'")
+        for key in ("id", "source_id", "title"):
+            if not isinstance(item[key], str) or not item[key].strip():
+                raise ValueError(f"{path}: item {index} has a blank or non-text {key}")
+        tags = item["tags"]
+        if not isinstance(tags, list) or not all(isinstance(tag, str) for tag in tags):
+            raise ValueError(f"{path}: item {index} has a non-list-of-text tags field")
+        items.append(item)
+    return items
+
+
+def group_items(items: list[dict[str, Any]]) -> list[CanonicalItem]:
+    """Group items by source_id plus an identical normalized title.
+
+    Groups are returned in the order their key first appears in items,
+    and each gets one minted id, in the fixed form KI-{nnn}.
+    """
+    order: list[tuple[str, str]] = []
+    members: dict[tuple[str, str], list[dict[str, Any]]] = {}
+    for item in items:
+        key = (item["source_id"], normalize_title(item["title"]))
+        if key not in members:
+            order.append(key)
+            members[key] = []
+        members[key].append(item)
+
+    groups: list[CanonicalItem] = []
+    for position, key in enumerate(order, start=1):
+        group_members = members[key]
+        minted_id = f"KI-{position:03d}"
+        tags: set[str] = set()
+        for member in group_members:
+            tags.update(member["tags"])
+        groups.append(
+            CanonicalItem(
+                minted_id=minted_id,
+                title=group_members[0]["title"],
+                tags=tags,
+                member_ids=[member["id"] for member in group_members],
+                exact_match=len(group_members) > 1,
+            )
+        )
+    return groups
+
+
+def mint_lines(groups: list[CanonicalItem]) -> list[str]:
+    """One 'mint' line per group, in minting order."""
+    lines = []
+    for group in groups:
+        members = ", ".join(ascii(member_id) for member_id in group.member_ids)
+        if group.exact_match:
+            note = f"exact match, {len(group.member_ids)} items"
+        else:
+            note = "no exact match"
+        lines.append(f"mint {group.minted_id} <- {members} ({note})")
+    return lines
+
+
+def shortlist_pairs(
+    groups: list[CanonicalItem], title_overlap: float, shared_tags: int
+) -> list[Shortlisted]:
+    """Every pair of different canonical items that clears either bar.
+
+    Returned highest score first; ties keep the groups' own order.
+    """
+    found: list[Shortlisted] = []
+    for i, first in enumerate(groups):
+        first_words = title_words(first.title)
+        for second in groups[i + 1 :]:
+            overlap = jaccard(first_words, title_words(second.title))
+            shared = len(first.tags & second.tags)
+            if overlap >= title_overlap or shared >= shared_tags:
+                found.append(Shortlisted(first.minted_id, second.minted_id, overlap, shared))
+    found.sort(key=lambda pair: pair.score, reverse=True)
+    return found
+
+
+def shortlist_lines(pairs: list[Shortlisted]) -> list[str]:
+    """One 'shortlist' line per pair, highest score first."""
+    lines = []
+    for pair in pairs:
+        lines.append(
+            f"shortlist {pair.first_id} {pair.second_id} "
+            f"score={pair.score:.2f} "
+            f"title-overlap={pair.title_overlap:.2f} "
+            f"shared-tags={pair.shared_tag_count}"
+        )
+    return lines
+
+
+def build_parser() -> argparse.ArgumentParser:
+    """Build the argument parser."""
+    parser = argparse.ArgumentParser(
+        prog="ki_dedupe.py",
+        description=(
+            "Group draft knowledge items into canonical items, minting one "
+            "id per group, and shortlist likely-but-uncertain duplicates "
+            "for a person to decide. Writes no files."
+        ),
+    )
+    parser.add_argument(
+        "items", metavar="ITEMS.json", help="draft knowledge items, as a JSON list"
+    )
+    parser.add_argument(
+        "--title-overlap",
+        type=float,
+        default=DEFAULT_TITLE_OVERLAP,
+        metavar="X",
+        help=f"title-word Jaccard overlap that shortlists a pair (default {DEFAULT_TITLE_OVERLAP})",
+    )
+    parser.add_argument(
+        "--shared-tags",
+        type=int,
+        default=DEFAULT_SHARED_TAGS,
+        metavar="N",
+        help=f"shared tag count that shortlists a pair (default {DEFAULT_SHARED_TAGS})",
+    )
+    parser.add_argument(
+        "--exact-only",
+        action="store_true",
+        help="run grouping and minting only; skip the shortlist step",
+    )
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    """Command line entry point; prints mint and shortlist lines."""
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    try:
+        items = load_items(Path(args.items))
+        groups = group_items(items)
+    except (
+        OSError,
+        UnicodeError,
+        ValueError,
+        json.JSONDecodeError,
+        RecursionError,
+    ) as exc:
+        print(f"ki_dedupe.py: error: {exc}", file=sys.stderr)
+        return 2
+
+    for line in mint_lines(groups):
+        print(line)
+
+    shortlisted: list[Shortlisted] = []
+    if not args.exact_only:
+        shortlisted = shortlist_pairs(groups, args.title_overlap, args.shared_tags)
+        for line in shortlist_lines(shortlisted):
+            print(line)
+
+    print(f"items={len(items)} groups={len(groups)} shortlisted={len(shortlisted)}")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

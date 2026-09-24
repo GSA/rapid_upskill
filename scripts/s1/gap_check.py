@@ -1,0 +1,160 @@
+"""
+ID: X-S1-10
+Title: Gap check
+Stage: S1
+Purpose: Flag each blueprint objective whose supported_by list has fewer
+    entries than a minimum source count, and print a summary line.
+Usage: python3 scripts/s1/gap_check.py --help
+    In a shell: python3 scripts/s1/gap_check.py BLUEPRINT.json
+    [--min-sources N]
+Dependencies: stdlib
+Writes files: no
+License: CC0-1.0
+Inputs: A blueprint JSON file (see blueprint_check.py): a list of
+    domains, each with a list of objectives. Each objective has an id
+    and an optional supported_by list of source ids.
+Outputs: One line per gap, then a summary line, all printed to standard
+    output.
+
+This script checks one criterion only: how many sources support each
+objective, counted from its (possibly absent or empty) supported_by
+list. It does not check a blueprint's structure, arithmetic or
+cognitive levels; blueprint_check.py already does that, and a malformed
+domain or objective here is skipped rather than reported.
+
+A gap list is information a person reads, not a failure of this script,
+so a gap never changes the exit code. The exit code is 0 unless the
+input itself cannot be read.
+"""
+
+import argparse
+import json
+import sys
+from pathlib import Path
+from typing import Any
+
+sys.dont_write_bytecode = True
+if sys.version_info < (3, 10):
+    print(
+        "gap_check.py: this script needs Python 3.10 or newer, but this "
+        f"is {sys.version_info.major}.{sys.version_info.minor}. Run it "
+        "with a newer python3.",
+        file=sys.stderr,
+    )
+    sys.exit(2)
+
+MAX_BYTES = 5_000_000
+DEFAULT_MIN_SOURCES = 1
+
+
+def load_blueprint(path: Path) -> Any:
+    """Read and parse the blueprint file; never follows a symlink."""
+    if path.is_symlink():
+        raise OSError(f"refusing to read a symlink: {path}")
+    size = path.stat().st_size
+    if size > MAX_BYTES:
+        raise ValueError(f"{path} is over {MAX_BYTES} bytes; skipping")
+    text = path.read_text(encoding="utf-8", errors="replace")
+    return json.loads(text)
+
+
+def safe_id(value: str) -> str:
+    """Render an id for printing: as is if ASCII, escaped otherwise."""
+    return value if value.isascii() else ascii(value)[1:-1]
+
+
+def find_objectives(data: Any) -> list[tuple[str, int]]:
+    """Return (objective id, supported_by count) for every objective.
+
+    This walks the same domain and objective shape blueprint_check.py
+    validates, but does not repeat that validation here: a domain or
+    objective that is not a JSON object, or has no objectives list, is
+    skipped rather than reported.
+    """
+    if not isinstance(data, dict):
+        raise ValueError("the blueprint is not a JSON object")
+    domains = data.get("domains")
+    if not isinstance(domains, list):
+        raise ValueError("'domains' is missing or is not a JSON list")
+
+    found: list[tuple[str, int]] = []
+    for dpos, domain in enumerate(domains, start=1):
+        if not isinstance(domain, dict):
+            continue
+        objectives = domain.get("objectives")
+        if not isinstance(objectives, list):
+            continue
+        for opos, objective in enumerate(objectives, start=1):
+            if not isinstance(objective, dict):
+                continue
+            objective_id = objective.get("id")
+            if not isinstance(objective_id, str) or not objective_id:
+                objective_id = f"(domain #{dpos} objective #{opos})"
+            supported_by = objective.get("supported_by")
+            count = len(supported_by) if isinstance(supported_by, list) else 0
+            found.append((safe_id(objective_id), count))
+    return found
+
+
+def find_gaps(objectives: list[tuple[str, int]], min_sources: int) -> list[str]:
+    """Return one 'gap ...' line for every objective under min_sources."""
+    lines = []
+    for objective_id, count in objectives:
+        if count < min_sources:
+            lines.append(
+                f"gap {objective_id}: {count} source(s), "
+                f"need at least {min_sources}"
+            )
+    return lines
+
+
+def build_parser() -> argparse.ArgumentParser:
+    """Build the argument parser."""
+    parser = argparse.ArgumentParser(
+        prog="gap_check.py",
+        description=(
+            "Flag each blueprint objective with fewer supporting sources "
+            "than --min-sources, and print a summary. Writes no files."
+        ),
+    )
+    parser.add_argument(
+        "blueprint", metavar="BLUEPRINT", help="path to the blueprint JSON"
+    )
+    parser.add_argument(
+        "--min-sources",
+        type=int,
+        default=DEFAULT_MIN_SOURCES,
+        metavar="N",
+        help=(
+            "flag an objective with fewer than N entries in its "
+            f"supported_by list (default: {DEFAULT_MIN_SOURCES})"
+        ),
+    )
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    """Command line entry point; prints the report, returns an exit code."""
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    try:
+        data = load_blueprint(Path(args.blueprint))
+        objectives = find_objectives(data)
+    except (
+        OSError,
+        UnicodeError,
+        ValueError,
+        json.JSONDecodeError,
+        RecursionError,
+    ) as exc:
+        print(f"gap_check.py: error: {exc}", file=sys.stderr)
+        return 2
+    gaps = find_gaps(objectives, args.min_sources)
+    for line in gaps:
+        print(line)
+    print(f"objectives={len(objectives)} gaps={len(gaps)}")
+    return 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

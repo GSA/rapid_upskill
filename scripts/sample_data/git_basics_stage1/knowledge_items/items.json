@@ -1,0 +1,76 @@
+[
+  {
+    "id": "TMP-1",
+    "source_id": "SRC-001",
+    "title": "Staging area content becomes the next commit",
+    "type": "definition",
+    "body": "The staging area, also called the index, holds the file content that git add has copied in. Git commit records that staged content as the next commit, not whatever the working folder currently holds.",
+    "relations": [],
+    "evidence": {
+      "quote": "The staging area, also called the index, is where you assemble the next commit.",
+      "locator": "SRC-001, section 'The staging area sits in between', paragraph 1"
+    },
+    "tags": ["staging-area", "commit", "git-add", "index"],
+    "status": "draft"
+  },
+  {
+    "id": "TMP-2",
+    "source_id": "SRC-003",
+    "title": "Staging area content is what the next commit contains",
+    "type": "definition",
+    "body": "Undo commands treat the staging area the same way. The default git reset resets the staging area to match a chosen commit, because that area, not the working folder, is what the next commit would contain.",
+    "relations": [
+      {
+        "type": "supports-a-position",
+        "target": "TMP-1",
+        "quote": "also resets the staging area to match that commit but keeps your files"
+      }
+    ],
+    "evidence": {
+      "quote": "The default, `--mixed`, also resets the staging area to match that commit but keeps your files.",
+      "locator": "SRC-003, section 'Taking things back', paragraph 3"
+    },
+    "tags": ["staging-area", "commit", "git-reset", "restore"],
+    "status": "draft"
+  },
+  {
+    "id": "TMP-3",
+    "source_id": "SRC-001",
+    "title": "A commit's identifier changes when its content changes",
+    "type": "mechanism",
+    "body": "Git computes each commit's long hexadecimal identifier from its own contents: the tree built from the staged files, the parent, the author and committer with their timestamps, and the message. Changing any of them changes the identifier.",
+    "relations": [
+      {
+        "type": "depends-on",
+        "target": "TMP-1",
+        "quote": "is where you assemble the next commit"
+      }
+    ],
+    "evidence": {
+      "quote": "Git names each commit with a long hexadecimal ID computed from the commit's contents: the tree, the parent, the author and committer with their timestamps and time-zone offsets, and the message. Change any of them and the ID changes.",
+      "locator": "SRC-001, section 'A commit is a snapshot', paragraph 2"
+    },
+    "tags": ["commit", "identifier", "hash", "snapshot"],
+    "status": "draft"
+  },
+  {
+    "id": "TMP-4",
+    "source_id": "SRC-003",
+    "title": "A conflict marker changes when you resolve it",
+    "type": "mechanism",
+    "body": "When Git stops on a file both branches edited, it inserts marker lines to show both versions. Resolving the conflict means editing the file into the text you want and deleting those marker lines before staging and committing it.",
+    "relations": [
+      {
+        "type": "contrasts-with",
+        "target": "TMP-3",
+        "quote": "delete the marker lines, run git add, then git commit"
+      }
+    ],
+    "evidence": {
+      "quote": "To resolve it, edit the file into the text you want, delete the marker lines, run `git add`, then `git commit` (or `git merge --continue`, Git 2.19 or later).",
+      "locator": "SRC-003, section 'When a merge stops', paragraph 4"
+    },
+    "tags": ["conflict", "merge", "markers"],
+    "status": "draft"
+  }
+]

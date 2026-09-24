@@ -1,0 +1,56 @@
+[
+  {
+    "id": "staging-area",
+    "name": "staging area",
+    "tier": 1,
+    "prerequisites": []
+  },
+  {
+    "id": "commit",
+    "name": "commit",
+    "tier": 1,
+    "prerequisites": ["staging-area"]
+  },
+  {
+    "id": "branch",
+    "name": "branch",
+    "tier": 2,
+    "prerequisites": ["commit"]
+  },
+  {
+    "id": "head",
+    "name": "HEAD",
+    "tier": 2,
+    "prerequisites": ["commit", "branch"]
+  },
+  {
+    "id": "remote",
+    "name": "remote",
+    "tier": 3,
+    "prerequisites": ["branch"]
+  },
+  {
+    "id": "merge",
+    "name": "merge",
+    "tier": 3,
+    "prerequisites": ["branch", "head"]
+  },
+  {
+    "id": "conflict",
+    "name": "conflict",
+    "tier": 3,
+    "prerequisites": ["merge"]
+  },
+  {
+    "id": "fast-forward-merge",
+    "name": "fast-forward merge",
+    "tier": 4,
+    "prerequisites": ["merge"]
+  },
+  {
+    "id": "merge-commit",
+    "name": "merge commit",
+    "tier": 4,
+    "prerequisites": ["merge", "conflict"]
+  }
+]
