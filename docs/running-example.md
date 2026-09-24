@@ -98,15 +98,16 @@ Exactly one objective, D4.2, has an empty `supported_by` list. No source teaches
 
 ## Where later pages will use each part
 
-Pages that show how each stage uses these files are planned and are not published yet, so this list does not link to them. Page titles may change.
+[Stage 1](stage-1/index.md) already uses some of these files; other pages are planned and are not published yet, so this list does not link to them. Page titles may change.
 
-- Blueprint: The framing and blueprint pages will show its shape. The coverage page will find the gap at D4.2. The page that maps how ideas depend on each other will use the tiers. The stem-planning and difficulty pages will use the bank size, the difficulty split and the weights.
-- SRC-001 to SRC-003: The extraction and [knowledge item](glossary.md#knowledge-item) pages will use them as clean sources. Their "common mistake" sentences will feed the [misconception catalog](glossary.md#misconception-catalog) and the [distractor](glossary.md#distractor) pages.
-- SRC-004 and SRC-005: The conflict-handling steps will compare them. The older date will be one clue for deciding which claim to trust.
-- SRC-006: The screening pages will use it to practice spotting an instruction hidden inside otherwise normal text.
-- SRC-007: The search and relevance steps will use it as a source to reject.
-- Certification outline: The alignment pages will use it to find one exam skill that no chapter covers and one chapter that matches no exam skill.
-- Tested Git version: The [provenance](glossary.md#provenance) pages will use it to show how the facts in the accurate sources were checked.
+- Blueprint: [S1.3 Draft the blueprint](stage-1/blueprint.md) checks it with a sample script. The coverage page (S1.8, planned) will find the gap at D4.2. The page that maps how ideas depend on each other (S1.7, planned) will use the tiers. The stem-planning and difficulty pages (Stage 5, planned) will use the bank size, the difficulty split and the weights.
+- SRC-002: [S1.5a Concept extraction](stage-1/concept-extraction.md) and [S1.5b Distillate and quote bank](stage-1/distillate-and-quote-bank.md) use it as a sample source. Its "common mistake" sentences will feed the [misconception catalog](glossary.md#misconception-catalog) and the [distractor](glossary.md#distractor) pages (Stage 4 and Stage 5, planned).
+- SRC-001 and SRC-003: The knowledge-item pages (S1.6, planned) will use them as clean sources.
+- SRC-004: [S1.4b Screening and conversion](stage-1/screening-and-conversion.md) uses a copy of it to show a conversion check. SRC-005, the older, conflicting source, remains for a later planned page; the older date will be one clue for deciding which claim to trust.
+- SRC-006: [S1.4c Injection screening](stage-1/injection-screening.md) reuses its text to practice spotting an instruction hidden inside otherwise normal text.
+- SRC-007: The search and relevance steps (S1.4a, published) use a record like it, low quality and promotional, as a source to reject; a page naming SRC-007 itself is still planned.
+- Certification outline: The alignment pages (certification alignment, planned) will use it to find one exam skill that no chapter covers and one chapter that matches no exam skill.
+- Tested Git version: The [provenance](glossary.md#provenance) pages (planned) will use it to show how the facts in the accurate sources were checked.
 
 ## Get the files
 

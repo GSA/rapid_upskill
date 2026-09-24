@@ -32,12 +32,18 @@ later stage trust a claim without re-reading the source itself every
 time. A distillate that skips this step still reads well, but no one
 downstream can tell which of its sentences are the source's own words
 and which are the agent's summary of them. This page uses the
-[basis labels](index.md#basis-labels) defined on the Stage 1 index:
-writing the nine sections and running the quote check are documented in
-[the project notes](../glossary.md#reference-implementation); this
-guide's own version of the check, and its exact normalization rules, are
-suggested, because the project notes describe the check without giving
-one script that matches this guide's simpler template.
+[basis labels](index.md#basis-labels) defined on the Stage 1 index.
+Writing the nine sections and running the quote check are documented in
+[the project notes](../glossary.md#reference-implementation), which also
+document splitting a quote at a bracketed insertion and failing a
+fragment under three words. The rest of this guide's version of the
+check, and its exact normalization rules, are suggested, because the
+project notes describe the check without giving one script that matches
+this guide's simpler template. The Findings and Normative statements
+fields below, and the quote bank's line format, are this guide's
+simplification of a fuller set the project notes describe (which also
+names the source's population for a finding, a status for a normative
+statement, and a hash of the source file for each quote).
 
 ## Steps
 
@@ -54,19 +60,26 @@ one script that matches this guide's simpler template.
 
 Two quotes per batch by hand, and a fifth of the quotes by a fresh
 recheck, are the reference implementation's parameters, not a rule every
-project must reuse; calibrate the share on your own batch size and on
+project must reuse. Calibrate the share on your own batch size and on
 how much a wrong quote would cost you downstream.
 
-The nine sections, in order, are: Metadata; Problem and context; Scope;
-Findings (one bullet per finding, with a number, a unit, a denominator, a
-date, a short label and a quote); Normative statements (a rule the
-source states, and who it binds); Critical assessment (a conflict of
-interest, and whether the source is a primary account or repeats
-another source); Relation to **the seed** (a starting list of claims you
-already hold and want the sources to confirm, extend or contradict): say
-whether the source corroborates, extends, corrects or contradicts each
-seed claim it touches; Leads (one or two things worth checking later,
-logged here and not fetched now); and the Quote bank itself.
+The nine sections, in order, are:
+
+- Metadata.
+- Problem and context.
+- Scope.
+- Findings: one bullet per finding, with a number, a unit, a
+  denominator, a date, a short label and a quote.
+- Normative statements: a rule the source states, and who it binds.
+- Critical assessment: a conflict of interest, and whether the source is
+  a primary account or repeats another source.
+- Relation to **the seed** (a starting list of claims you already hold
+  and want the sources to confirm, extend or contradict): say whether
+  the source corroborates, extends, corrects or contradicts each seed
+  claim it touches.
+- Leads: one or two things worth checking later, logged here and not
+  fetched now.
+- Quote bank.
 
 The 40-word limit on a quote is a choice made for this guide, not a
 legal safe harbour for how much of a source you may copy; see
@@ -76,27 +89,30 @@ for rights to sources.
 ## What the quote check does and does not do
 
 The quote check shows only that a quote's words are present in the
-source; it never checks that the quote is true, that it supports the
+source. It never checks that the quote is true, that it supports the
 claim it is attached to, or that its locator is right. In this guide's
 assessment, an invented or paraphrased quote is the failure most worth
 watching for, because it is the one presence-checking alone is built to
 catch.
 
-Normalization forgives typography only: curly quotes become straight
+Normalization forgives typography only. Curly quotes become straight
 quotes, dash variants become a hyphen, a hyphen at a line end is joined
-to the next word, whitespace runs collapse to one space, and the source
+to the next word, and whitespace runs collapse to one space. The source
 also has its front matter, backticks and Markdown emphasis marks
 removed. The comparison is case-sensitive unless you pass
-`--ignore-case`. A quote is split into fragments at each bracketed
-insertion, such as `[HEAD]`, so an editorial note you add inside a quote
-is not itself checked against the source; every other fragment must
-still occur in the source, and a fragment under 3 words fails as too
-short, because a fragment that short is too easy to find by accident.
-Case sensitivity is the default, not an oversight: a source that always
-writes a term in a specific way, and a quote that changes its case, is
-one small sign that the quote was retyped from memory rather than
-copied, so `--ignore-case` is worth reaching for only when you already
-know the source itself is inconsistent about case.
+`--ignore-case`.
+
+A quote is split into fragments at each bracketed insertion, such as
+`[HEAD]`. An editorial note added this way is not itself checked
+against the source, but every other fragment must still occur there.
+A fragment under 3 words fails as too short, because a fragment that
+short is too easy to find by accident.
+
+Case sensitivity is the default, not an oversight. A source that always
+writes a term in a specific way, paired with a quote that changes its
+case, is one small sign the quote was retyped from memory rather than
+copied. Reach for `--ignore-case` only when you already know the source
+itself is inconsistent about case.
 
 ## Artifacts and formats
 
@@ -140,8 +156,8 @@ quotes=6 pass=5 fail=1
 
 Five quotes pass. The sixth fails because it restates the source's own
 sentence about a merge commit's two parents in different words instead
-of quoting it; the check does not know the underlying claim is right,
-only that this exact wording is not in the source. See
+of quoting it. The check does not know the underlying claim is right; it
+only knows that this exact wording is not in the source. See
 [Reading exit codes](index.md#reading-exit-codes) on the Stage 1 index
 for what the exit code means.
 

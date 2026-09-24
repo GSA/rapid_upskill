@@ -24,17 +24,16 @@ sys.dont_write_bytecode = True
 ROOT = Path(__file__).resolve().parents[2]
 SCRIPT = ROOT / "scripts" / "s1" / "quote_check.py"
 SOURCE = ROOT / "scripts" / "sample_data" / "git_basics" / "sources" / "SRC-002.md"
-DISTILLATE = ROOT / "scripts" / "sample_data" / "git_basics_stage1" / "extraction" / (
-    "SRC-002.distillate.md"
-)
+DISTILLATE = (
+    ROOT / "scripts" / "sample_data" / "git_basics_stage1" / "extraction"
+) / "SRC-002.distillate.md"
 PAGE = ROOT / "docs" / "stage-1" / "distillate-and-quote-bank.md"
 PARAPHRASE_NEEDLE = (
     "Git merges the two branches' changes together and writes one new "
     "commit that has two parent commits."
 )
 PARAPHRASE_FIX = (
-    "Git combines the two sets of changes and records a new commit with "
-    "two parents."
+    "Git combines the two sets of changes and records a new commit with " "two parents."
 )
 
 
@@ -100,10 +99,14 @@ class StripSourceExtrasTests(unittest.TestCase):
         self.assertEqual(strip_and_trim(text), "body text")
 
     def test_backticks_are_removed(self) -> None:
-        self.assertEqual(qc.strip_source_extras("run `git status` now"), "run git status now")
+        self.assertEqual(
+            qc.strip_source_extras("run `git status` now"), "run git status now"
+        )
 
     def test_emphasis_marks_are_removed(self) -> None:
-        self.assertEqual(qc.strip_source_extras("**bold** and _italic_"), "bold and italic")
+        self.assertEqual(
+            qc.strip_source_extras("**bold** and _italic_"), "bold and italic"
+        )
 
 
 def strip_and_trim(text: str) -> str:
@@ -115,7 +118,7 @@ class FindSectionTests(unittest.TestCase):
     """find_section(): heading match, custom --heading, and the not-found error."""
 
     def test_finds_the_default_heading(self) -> None:
-        text = "## Metadata\n\nx\n\n## Quote bank\n\n- \"a\" | loc\n"
+        text = '## Metadata\n\nx\n\n## Quote bank\n\n- "a" | loc\n'
         self.assertEqual(qc.find_section(text, "Quote bank"), '\n- "a" | loc')
 
     def test_stops_at_the_next_heading(self) -> None:
@@ -143,7 +146,7 @@ class ParseQuoteLinesTests(unittest.TestCase):
         self.assertEqual(qc.parse_quote_lines(section), [("hello world", "page 3")])
 
     def test_ignores_blank_and_non_matching_lines(self) -> None:
-        section = "\nsome prose\n- \"a b c\" | loc 1\n"
+        section = '\nsome prose\n- "a b c" | loc 1\n'
         self.assertEqual(qc.parse_quote_lines(section), [("a b c", "loc 1")])
 
     def test_no_lines_gives_empty_list(self) -> None:
@@ -160,7 +163,9 @@ class CheckQuoteTests(unittest.TestCase):
         self.assertTrue(passed, detail)
 
     def test_not_present_fails(self) -> None:
-        passed, detail = qc.check_quote("Goodbye world, this is", self.SOURCE_NORM, False)
+        passed, detail = qc.check_quote(
+            "Goodbye world, this is", self.SOURCE_NORM, False
+        )
         self.assertFalse(passed)
         self.assertIn("not found in the source", detail)
 
@@ -231,7 +236,9 @@ class MainExitCodeTests(unittest.TestCase):
 
     def write_pair(self, tmp: Path, quote_line: str) -> tuple[Path, Path]:
         source = tmp / "source.md"
-        source.write_text("Hello world, this is a small test source.\n", encoding="utf-8")
+        source.write_text(
+            "Hello world, this is a small test source.\n", encoding="utf-8"
+        )
         distillate = tmp / "distillate.md"
         distillate.write_text(f"## Quote bank\n\n{quote_line}\n", encoding="utf-8")
         return source, distillate
@@ -245,9 +252,7 @@ class MainExitCodeTests(unittest.TestCase):
 
     def test_exit_one_when_a_quote_fails(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
-            source, distillate = self.write_pair(
-                Path(tmp), '- "Goodbye world" | loc'
-            )
+            source, distillate = self.write_pair(Path(tmp), '- "Goodbye world" | loc')
             self.assertEqual(qc.main([str(source), str(distillate)]), 1)
 
     def test_exit_two_on_missing_file(self) -> None:

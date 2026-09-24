@@ -11,7 +11,7 @@ Small tools for the Rapid Upskilling Pipeline. They use only the Python standard
 | `dl/` | Delivery scripts |
 | `op/` | Operating-practice scripts |
 | `common/` | Shared helpers such as `llm_adapter.py`, published with the operating-practice scripts |
-| `sample_data/` | The fictional running example, "Git Basics for New Team Members" |
+| `sample_data/` | The fictional running example, "Git Basics for New Team Members" (`git_basics/`), plus small files the Stage 1 sample scripts read (`git_basics_stage1/`) |
 | `site/` | Tools that build and check the documentation site (`sitelib.py`, `sync.py`, `check.py`) |
 | `tests/` | Offline unit tests and the runner `run_all.py` |
 

@@ -15,7 +15,7 @@ The framework rests on one idea. AI does the volume work, such as drafting, [con
 
 ## What the framework says people do
 
-Each role belongs to a [stage](glossary.md#stage). Stage numbers refer to the [Pipeline overview](pipeline-overview.md).
+Each role belongs to a [stage](glossary.md#stage). Stage numbers refer to the [Pipeline overview](pipeline-overview.md). [Stage 1](stage-1/index.md) is published and shows these gates in use.
 
 | Role | What it covers | Stage |
 |---|---|---|

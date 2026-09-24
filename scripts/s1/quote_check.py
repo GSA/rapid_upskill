@@ -135,13 +135,17 @@ def parse_quote_lines(section: str) -> list[tuple[str, str]]:
     return pairs
 
 
-def check_quote(raw_quote: str, source_norm: str, ignore_case: bool) -> tuple[bool, str]:
+def check_quote(
+    raw_quote: str, source_norm: str, ignore_case: bool
+) -> tuple[bool, str]:
     """Return (passed, reason) for one quote against the normalized source."""
     word_count = len(raw_quote.split())
     if word_count > MAX_QUOTE_WORDS:
         return False, f"{word_count} words, over the {MAX_QUOTE_WORDS}-word limit"
     normalized = normalize(raw_quote, ignore_case)
-    fragments = [piece.strip() for piece in _BRACKET_RE.split(normalized) if piece.strip()]
+    fragments = [
+        piece.strip() for piece in _BRACKET_RE.split(normalized) if piece.strip()
+    ]
     if not fragments:
         return False, "no text remains outside its bracketed insertion(s)"
     problems = []
@@ -169,7 +173,9 @@ def run_checks(
     results: list[QuoteCheck] = []
     for position, (quote, _locator) in enumerate(pairs, start=1):
         passed, detail = check_quote(quote, source_norm, ignore_case)
-        results.append(QuoteCheck("pass" if passed else "fail", f"quote-{position}", detail))
+        results.append(
+            QuoteCheck("pass" if passed else "fail", f"quote-{position}", detail)
+        )
     return results
 
 

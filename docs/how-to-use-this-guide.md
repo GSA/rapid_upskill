@@ -46,13 +46,14 @@ Run every command in this guide from this folder, called the repository root.
 |---|---|
 | See all five [stages](glossary.md#stage) on one page | [Pipeline overview](pipeline-overview.md) |
 | Follow one small sample program | [The running example](running-example.md) |
+| Work through Stage 1 with sample prompts and scripts | [Stage 1 Knowledge acquisition](stage-1/index.md) |
 | Learn where people decide and how to batch work | [Human roles, gates and batching](human-roles-gates-and-batching.md) |
 | Check what your platform must offer | [Platform requirements](platform-requirements.md) |
 | Look up a term | [Glossary](glossary.md) |
 
 ## Anatomy of a stage page
 
-A **stage page** is a page for a [sub-stage](glossary.md#sub-stage) or a stage of the framework. Pages for individual stages are planned and are not published yet. Each will have these sections, in this order.
+A **stage page** is a page for a [sub-stage](glossary.md#sub-stage) or a stage of the framework. [Stage 1](stage-1/index.md) is published; pages for the other four stages are planned. Each stage page has these sections, in this order.
 
 - Outcome: what you will have at the end.
 - Where it fits: what comes before and after, and what this part takes in and hands on.

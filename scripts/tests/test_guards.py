@@ -91,6 +91,27 @@ class PythonVersionGuardTests(unittest.TestCase):
     def test_llm_adapter(self) -> None:
         self.check_guard("scripts/common/llm_adapter.py")
 
+    def test_blueprint_check(self) -> None:
+        self.check_guard("scripts/s1/blueprint_check.py")
+
+    def test_dedupe_candidates(self) -> None:
+        self.check_guard("scripts/s1/dedupe_candidates.py")
+
+    def test_run_queue(self) -> None:
+        self.check_guard("scripts/s1/run_queue.py")
+
+    def test_check_conversion(self) -> None:
+        self.check_guard("scripts/s1/check_conversion.py")
+
+    def test_scan_injection(self) -> None:
+        self.check_guard("scripts/s1/scan_injection.py")
+
+    def test_concept_lint(self) -> None:
+        self.check_guard("scripts/s1/concept_lint.py")
+
+    def test_quote_check(self) -> None:
+        self.check_guard("scripts/s1/quote_check.py")
+
     def test_current_python_is_not_blocked(self) -> None:
         result = run([str(REPO / "scripts/site/sync.py"), "--help"])
         self.assertEqual(result.returncode, 0, result.stderr)

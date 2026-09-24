@@ -30,7 +30,7 @@ The table gives the meaning of each capability. The last two columns are suggest
 
 ## Capabilities by stage and workstream
 
-This section sorts the ten capabilities for each [stage](glossary.md#stage) in the [Pipeline overview](pipeline-overview.md) and for the [certification alignment](glossary.md#certification-alignment) workstream, which is not a stage. Delivery is outside the framework and not assessed here, so it has no entry. The sorting is this guide's assessment of the project notes; it is not measured. The words mean:
+This section sorts the ten capabilities for each [stage](glossary.md#stage) in the [Pipeline overview](pipeline-overview.md) and for the [certification alignment](glossary.md#certification-alignment) workstream, which is not a stage. Delivery is outside the framework and not assessed here, so it has no entry. The sorting is this guide's assessment of the project notes; it is not measured. [Stage 1](stage-1/index.md) is published; its pages show these capabilities in use on sample prompts and scripts. The words mean:
 
 - Required: a person cannot practically stand in for the capability at that scale.
 - A person can stand in: a person can do the job at that scale.

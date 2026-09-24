@@ -33,9 +33,9 @@ yet.
 Naming and defining a source's concepts before writing anything longer
 about it keeps later passes anchored to what the source actually says,
 rather than to a paraphrase of a paraphrase. This page uses the
-[basis labels](index.md#basis-labels) defined on the Stage 1 index: the
+[basis labels](index.md#basis-labels) defined on the Stage 1 index. The
 four extraction passes and the review step are documented in
-[the project notes](../glossary.md#reference-implementation); the lint
+[the project notes](../glossary.md#reference-implementation). The lint
 script and its exact thresholds are this guide's own suggestion, because
 the project notes describe the checks without giving one script for them.
 
@@ -55,9 +55,10 @@ the project notes describe the checks without giving one script for them.
 
 A **brief** is a short packet built for the agent before extraction
 starts, so it does not have to guess what a bare source id means. It
-holds the source's id and file path, a word count, the objective or seed
-claims the source is meant to support, a short reading plan, and a note
-if the source's own page numbers are missing or unreliable.
+holds the source's id and file path, a word count, and the objective or
+seed claims the source is meant to support. It also holds a short
+reading plan, and a note if the source's own page numbers are missing or
+unreliable.
 
 Passes 1 to 4 run as separate calls over the same source, each one
 building on the prior pass's output; [P-S1-06](#prompts) below carries
@@ -65,9 +66,9 @@ one pass per call. Removing near-duplicate concepts after every pass
 keeps the list from growing a second entry for the same idea under a
 slightly different name. The project notes remove a near-duplicate at
 0.85 similarity measured on text embeddings (numeric representations of
-meaning); this guide's script uses word overlap as a stand-in, which
-finds only names or definitions that are near-identical in wording, so
-comparing both the name and the definition catches more than comparing
+meaning). This guide's script uses word overlap as a stand-in, which
+finds only names or definitions that are near-identical in wording.
+Comparing both the name and the definition catches more than comparing
 names alone.
 
 The concept lint checks that every relation carries a quote; it does not
@@ -87,8 +88,8 @@ same limit to a fuller quote bank.
 | Reading plan cutoff | read the whole source under 6,000 words, otherwise read it by heading | documented |
 
 Joining each source's concept list into the fuller distillate of
-[S1.5b](distillate-and-quote-bank.md) is inferred: the project notes
-describe both activities but not how one feeds the other, so this guide
+[S1.5b](distillate-and-quote-bank.md) is inferred. The project notes
+describe both activities but not how one feeds the other. This guide
 treats the concept list as the agent's own working notes for writing
 the distillate that follows.
 
@@ -130,8 +131,8 @@ concepts=6 relations=11 errors=0 warnings=0
 ```
 
 Six concepts, no errors and no warnings: every name and definition falls
-inside its length range, every relation names one of the five types and
-an existing concept as its target, and the average of 11 relations over
+inside its length range, and every relation names one of the five types
+and an existing concept as its target. The average of 11 relations over
 6 concepts, about 1.83, falls inside the warning band. See
 [Reading exit codes](index.md#reading-exit-codes) on the Stage 1 index
 for what the exit code means.

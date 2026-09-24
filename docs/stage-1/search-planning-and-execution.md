@@ -32,11 +32,11 @@ candidate list and the query manifest to
 A plan approved before any query runs keeps search spending inside a
 person's decision, not an agent's. Two ideas guide what happens next, in
 this order. First, search calls to one service run one at a time, in this
-guide's runner (below); a burst of parallel calls is exactly what trips a
-[rate limit](../glossary.md#rate-limit) (see
-[Platform requirements](../platform-requirements.md#risks-to-plan-for),
-Risks). Second, once candidates exist, subagents can grade their abstracts
-in waves; this page sets no wave size or worker cap of its own (see
+guide's runner (below); see
+[Platform requirements](../platform-requirements.md#risks-to-plan-for)
+(Risks) for why. Second, once candidates exist, subagents can grade their
+abstracts in waves; this page sets no wave size or worker cap of its own
+(see
 [Human roles, gates and batching](../human-roles-gates-and-batching.md#three-batching-practices)
 for both).
 
@@ -45,7 +45,13 @@ This page uses the documented and suggested
 the plan-and-queue method is documented in
 [the project notes](../glossary.md#reference-implementation); running the
 queue as a script, and the web-address rule used when deduplicating, are
-this guide's own suggestions.
+this guide's own suggestions. The project notes plan search at the grain
+of a blueprint section, one plan covering several objectives; this guide's
+sample prompt and script work at the finer grain of one plan per
+objective instead, because a small blueprint has few enough objectives
+for that to stay manageable. Treat the plan-count cap below as a starting
+point to revisit, not a literal ceiling, when a blueprint has many
+objectives.
 
 ## Steps
 
@@ -69,9 +75,10 @@ in a row, so a person can look before more calls happen.
 Checking a plan against its anchors is documented; aim for recall of 0.8
 or more within two revisions (a parameter). Running the queue as a script
 is this guide's own suggestion, since the notes describe a one-at-a-time
-queue without naming a tool. Deduplicating by identifier, then web
-address, then title, author and year, is documented in outline; the
-web-address rule is this guide's choice.
+queue without naming a tool. Deduplicating candidates by identifier first
+is documented; the web-address rule and the title-author-year rule that
+follow it are both this guide's own choice, offered as starting values
+to calibrate on your own material.
 
 ## Parameters
 
@@ -80,7 +87,7 @@ set of plans; `run_queue.py` enforces only the per-plan query cap.
 
 | Parameter | Value used in this guide | Basis |
 |---|---|---|
-| Plans for one blueprint | at most 8 | the reference implementation's parameters |
+| Plans for one blueprint section | at most 8 | the reference implementation's parameters; at this guide's finer, per-objective grain, treat 8 as a starting cap and raise it for a blueprint with many objectives |
 | Queries in one plan (`query_cap`) | at most 10 | the reference implementation's parameters |
 | Queries across all plans | at most 60 | the reference implementation's parameters |
 | Queries per search venue | at most 5; going over needs a written reason | the reference implementation's parameters |
@@ -146,9 +153,9 @@ what identifier and web-address matching miss. `--min-year` flags both old
 records but drops neither. Exit code 0: this script only fails on a bad
 input.
 
-Break it on purpose: copy the mock index to a scratch file, delete the
-file's last character (the closing bracket), and run the script on the
-broken copy:
+Break it on purpose: copy the mock index to a scratch file, delete its
+final `]` character (the file ends with `]` on its own line, so delete
+the whole line), and run the script on the broken copy:
 
 ```text
 dedupe_candidates.py: error: Expecting ',' delimiter: line 81 column 1 (char 3406)
@@ -197,7 +204,8 @@ succeeds on the third:
 ```
 
 `attempts` is 3 and `finish` later, since the runner waited 5 then 10
-seconds between attempts; the rest of the run matches the one above.
+seconds between attempts; the rest of the run has the same states and
+counts as the one above, only shifted later in time.
 `--fail`, given twice, can script two queries failing outright: `--fail
 Q1:3 --fail Q2:3` exhausts every retry on both:
 
@@ -232,7 +240,9 @@ line.
 ## Definition of done
 
 - Every plan has at least one anchor that came from a tool or a person,
-  never one the agent itself confirmed.
+  never one the agent itself confirmed. The project notes ask for at
+  least five anchors per plan for real search work; the sample plan
+  here, covering one small objective, uses two.
 - The plan set is approved, with a record of who approved it and when,
   before any query ran.
 - Every query in the manifest reached a final state: `done`, `empty`,

@@ -24,9 +24,9 @@ sys.dont_write_bytecode = True
 
 ROOT = Path(__file__).resolve().parents[2]
 SCRIPT = ROOT / "scripts" / "s1" / "concept_lint.py"
-SAMPLE = ROOT / "scripts" / "sample_data" / "git_basics_stage1" / "extraction" / (
-    "SRC-002.concepts.json"
-)
+SAMPLE = (
+    ROOT / "scripts" / "sample_data" / "git_basics_stage1" / "extraction"
+) / "SRC-002.concepts.json"
 PAGE = ROOT / "docs" / "stage-1" / "concept-extraction.md"
 BROKEN_NEEDLE = '"type": "part-of"'
 BROKEN_REPLACEMENT = '"type": "contains"'
@@ -50,7 +50,9 @@ def word_definition(count: int) -> str:
     return " ".join(["word"] * count)
 
 
-def concept(name: str = "Two words", def_words: int = 20, **extra: Any) -> dict[str, Any]:
+def concept(
+    name: str = "Two words", def_words: int = 20, **extra: Any
+) -> dict[str, Any]:
     """A minimal, otherwise-valid concept."""
     data: dict[str, Any] = {
         "name": name,
@@ -163,7 +165,9 @@ class CheckConceptsErrorTests(unittest.TestCase):
     def test_definition_too_short_error(self) -> None:
         data = [concept("Alpha term", 5)]
         errors, _ = self.check(data)
-        self.assertTrue(any("def-length" in e and "5-word" in e for e in errors), errors)
+        self.assertTrue(
+            any("def-length" in e and "5-word" in e for e in errors), errors
+        )
 
     def test_definition_too_long_error(self) -> None:
         data = [concept("Alpha term", 60)]
@@ -250,7 +254,9 @@ class CheckConceptsWarningTests(unittest.TestCase):
     def test_near_duplicate_definition_warning(self) -> None:
         data = [concept("Alpha term", 20), concept("Beta term", 20)]
         _, warnings = self.check(data)
-        self.assertTrue(any("near-duplicate-definition" in w for w in warnings), warnings)
+        self.assertTrue(
+            any("near-duplicate-definition" in w for w in warnings), warnings
+        )
 
     def test_no_near_duplicate_below_threshold(self) -> None:
         data = [
