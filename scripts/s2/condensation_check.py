@@ -1,0 +1,252 @@
+"""
+ID: X-S2-02
+Title: Condensation check
+Stage: S2
+Purpose: Check a condensed passage against its original: how much
+    shorter it is, and how much each of two readability scores moved.
+Usage: python3 scripts/s2/condensation_check.py --help
+    In a shell: python3 scripts/s2/condensation_check.py ORIGINAL.md
+    CONDENSED.md [--word-low X] [--word-high Y] [--re-drop N]
+    [--grade-rise N]
+Dependencies: stdlib
+Writes files: no
+License: CC0-1.0
+Inputs: ORIGINAL, the passage before condensing, and CONDENSED, the
+    same passage after condensing. Both are read as plain text.
+Outputs: Three lines, one per check, then a summary line, all printed
+    to standard output.
+
+This script approximates two readability scores, Grade Level and
+Reading Ease, with a standard-library-only method: a word is a run of
+letters, a sentence is text that ends in one or more of . ! ?, and a
+word's syllable count is its number of runs of the letters a e i o u
+y, with one fewer for a silent final "e" (never below one). Markdown
+marks such as "#" and a backtick are not letters, so they drop out of
+the word count on their own; a heading with no sentence end is simply
+counted as part of the surrounding text. This is an approximation, not
+a dictionary-based scorer, and can differ from one.
+
+Checks, each printed as one line, "pass" or "hard":
+
+- word-ratio: the condensed file's word count divided by the
+  original's, checked against --word-low to --word-high.
+- reading-ease: the condensed file's Reading Ease score minus the
+  original's, checked against a fall of at most --re-drop points. A
+  rise in Reading Ease (easier to read) always passes.
+- grade-level: the condensed file's Grade Level score minus the
+  original's, checked against a rise of at most --grade-rise grades.
+  A fall in Grade Level (an easier grade level) always passes.
+
+Defaults: --word-low 0.75, --word-high 0.85 (so a 15% to 25% cut
+passes by default), --re-drop 5, --grade-rise 1. Exit 1 if any check
+is "hard"; exit 2 for a usage or input error, such as an original
+file with no words to compare against.
+"""
+
+import argparse
+import os
+import re
+import sys
+from typing import NamedTuple
+
+sys.dont_write_bytecode = True
+if sys.version_info < (3, 10):
+    print(
+        "condensation_check.py: this script needs Python 3.10 or newer, "
+        f"but this is {sys.version_info.major}.{sys.version_info.minor}. "
+        "Run it with a newer python3.",
+        file=sys.stderr,
+    )
+    sys.exit(2)
+
+MAX_BYTES = 5_000_000
+DEFAULT_WORD_LOW = 0.75
+DEFAULT_WORD_HIGH = 0.85
+DEFAULT_RE_DROP = 5.0
+DEFAULT_GRADE_RISE = 1.0
+
+_WORD_RE = re.compile(r"[A-Za-z]+(?:'[A-Za-z]+)*")
+_SENTENCE_END_RE = re.compile(r"[.!?]+(?:\s|\Z)")
+_VOWEL_GROUP_RE = re.compile(r"[aeiouy]+")
+
+
+class Scores(NamedTuple):
+    """One file's word, sentence and syllable counts, and its two scores."""
+
+    words: int
+    sentences: int
+    syllables: int
+    grade: float
+    ease: float
+
+
+def read_capped(path: str) -> str:
+    """Read path as UTF-8 text (errors replaced), capped at MAX_BYTES.
+
+    Never follows a symlink.
+    """
+    if os.path.islink(path):
+        raise OSError(f"refusing to read a symlink: {path}")
+    with open(path, "rb") as handle:
+        raw = handle.read(MAX_BYTES + 1)
+    if len(raw) > MAX_BYTES:
+        raise ValueError(f"{path} is over {MAX_BYTES} bytes; skipping")
+    return raw.decode("utf-8", errors="replace")
+
+
+def word_list(text: str) -> list[str]:
+    """Every run of letters in text, an apostrophe kept inside a word."""
+    return _WORD_RE.findall(text)
+
+
+def sentence_count(text: str) -> int:
+    """Count of sentence-ending punctuation runs; at least 1 if text holds words."""
+    count = len(_SENTENCE_END_RE.findall(text))
+    if count > 0:
+        return count
+    return 1 if text.strip() else 0
+
+
+def syllable_count(word: str) -> int:
+    """A word's syllable count, by vowel-group runs, never below 1."""
+    lowered = word.lower()
+    groups = _VOWEL_GROUP_RE.findall(lowered)
+    count = len(groups)
+    if lowered.endswith("e") and count > 1 and not lowered.endswith("le"):
+        count -= 1
+    return max(count, 1)
+
+
+def score_text(text: str) -> Scores:
+    """Word, sentence and syllable counts for text, and its two scores.
+
+    Grade Level and Reading Ease are both 0.0 when the text has no
+    words, so a caller can compare two empty-ish texts without a
+    division error; the word-ratio check still reports the mismatch.
+    """
+    words = word_list(text)
+    word_count = len(words)
+    sentence_total = sentence_count(text)
+    syllable_total = sum(syllable_count(word) for word in words)
+    if word_count == 0 or sentence_total == 0:
+        return Scores(word_count, sentence_total, syllable_total, 0.0, 0.0)
+    words_per_sentence = word_count / sentence_total
+    syllables_per_word = syllable_total / word_count
+    grade = 0.39 * words_per_sentence + 11.8 * syllables_per_word - 15.59
+    ease = 206.835 - 1.015 * words_per_sentence - 84.6 * syllables_per_word
+    return Scores(word_count, sentence_total, syllable_total, grade, ease)
+
+
+def build_report(
+    original_text: str,
+    condensed_text: str,
+    word_low: float,
+    word_high: float,
+    re_drop: float,
+    grade_rise: float,
+) -> tuple[list[str], int]:
+    """Return (report lines, count of hard checks)."""
+    original = score_text(original_text)
+    if original.words == 0:
+        raise ValueError("the original file has no words to compare against")
+    condensed = score_text(condensed_text)
+
+    lines = []
+    hard_count = 0
+
+    ratio = condensed.words / original.words
+    ratio_hard = not (word_low <= ratio <= word_high)
+    hard_count += ratio_hard
+    status = "hard" if ratio_hard else "pass"
+    lines.append(f"word-ratio {ratio:.2f}, band {word_low:g}-{word_high:g}: {status}")
+
+    ease_delta = condensed.ease - original.ease
+    re_limit = -re_drop
+    ease_hard = ease_delta < re_limit
+    hard_count += ease_hard
+    status = "hard" if ease_hard else "pass"
+    lines.append(f"reading-ease {ease_delta:+.2f}, limit {re_limit:+g}: {status}")
+
+    grade_delta = condensed.grade - original.grade
+    grade_hard = grade_delta > grade_rise
+    hard_count += grade_hard
+    status = "hard" if grade_hard else "pass"
+    lines.append(f"grade-level {grade_delta:+.2f}, limit {grade_rise:+g}: {status}")
+
+    return lines, hard_count
+
+
+def build_parser() -> argparse.ArgumentParser:
+    """Build the argument parser."""
+    parser = argparse.ArgumentParser(
+        prog="condensation_check.py",
+        description=(
+            "Check a condensed passage's word-count ratio and readability "
+            "deltas against the original. Writes no files."
+        ),
+    )
+    parser.add_argument("original", metavar="ORIGINAL", help="path to the original")
+    parser.add_argument("condensed", metavar="CONDENSED", help="path to the condensed passage")
+    parser.add_argument(
+        "--word-low",
+        type=float,
+        default=DEFAULT_WORD_LOW,
+        metavar="X",
+        help=f"low end of the word-ratio band (default {DEFAULT_WORD_LOW:g})",
+    )
+    parser.add_argument(
+        "--word-high",
+        type=float,
+        default=DEFAULT_WORD_HIGH,
+        metavar="Y",
+        help=f"high end of the word-ratio band (default {DEFAULT_WORD_HIGH:g})",
+    )
+    parser.add_argument(
+        "--re-drop",
+        type=float,
+        default=DEFAULT_RE_DROP,
+        metavar="N",
+        help=(
+            "largest allowed Reading Ease fall, in points "
+            f"(default {DEFAULT_RE_DROP:g})"
+        ),
+    )
+    parser.add_argument(
+        "--grade-rise",
+        type=float,
+        default=DEFAULT_GRADE_RISE,
+        metavar="N",
+        help=(
+            "largest allowed Grade Level rise, in grades "
+            f"(default {DEFAULT_GRADE_RISE:g})"
+        ),
+    )
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    """Command line entry point; prints the report, returns an exit code."""
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    try:
+        original_text = read_capped(args.original)
+        condensed_text = read_capped(args.condensed)
+        lines, hard_count = build_report(
+            original_text,
+            condensed_text,
+            args.word_low,
+            args.word_high,
+            args.re_drop,
+            args.grade_rise,
+        )
+    except (OSError, UnicodeError, ValueError, RecursionError) as exc:
+        print(f"condensation_check.py: error: {exc}", file=sys.stderr)
+        return 2
+    for line in lines:
+        print(line)
+    print(f"checks={len(lines)} hard={hard_count}")
+    return 1 if hard_count else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

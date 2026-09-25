@@ -1,0 +1,10 @@
+[
+  {
+    "section": "1.2",
+    "requires": [{"concept": "commit", "min_tier": 1}]
+  },
+  {
+    "section": "1.3",
+    "requires": [{"concept": "branch", "min_tier": 1}]
+  }
+]

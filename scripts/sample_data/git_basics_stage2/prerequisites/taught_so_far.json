@@ -1,0 +1,10 @@
+[
+  {
+    "section": "1.1",
+    "concepts_taught": ["staging-area", "commit"]
+  },
+  {
+    "section": "1.2",
+    "concepts_taught": ["staging-area", "commit", "branch", "head"]
+  }
+]
