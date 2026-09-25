@@ -169,7 +169,9 @@ class MintLinesTests(unittest.TestCase):
 
     def test_singleton_group_line(self) -> None:
         groups = kd.group_items([item("TMP-2", "SRC-001", "Solo", [])])
-        self.assertEqual(kd.mint_lines(groups), ["mint KI-001 <- 'TMP-2' (no exact match)"])
+        self.assertEqual(
+            kd.mint_lines(groups), ["mint KI-001 <- 'TMP-2' (no exact match)"]
+        )
 
     def test_exact_match_group_line(self) -> None:
         items = [
@@ -267,7 +269,8 @@ class LoadItemsTests(unittest.TestCase):
         with tempfile.TemporaryDirectory() as tmp:
             path = Path(tmp) / "items.json"
             write_json(
-                path, [{"id": "TMP-1", "source_id": "SRC-001", "title": "  ", "tags": []}]
+                path,
+                [{"id": "TMP-1", "source_id": "SRC-001", "title": "  ", "tags": []}],
             )
             with self.assertRaises(ValueError):
                 kd.load_items(path)

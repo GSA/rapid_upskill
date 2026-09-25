@@ -25,8 +25,7 @@ This sub-stage takes in the approved corpus from
 [S1.4c](injection-screening.md). It hands on one concept list per source to
 [S1.5b](distillate-and-quote-bank.md), which reads the same source again to
 write a fuller distillate. The concept lists this sub-stage produces come
-before the knowledge items of S1.6, which is planned and not published
-yet.
+before the knowledge items of [S1.6](knowledge-items.md).
 
 ## Why this way
 

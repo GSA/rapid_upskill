@@ -2,7 +2,7 @@
 title: "Stage 1 Knowledge acquisition"
 nav_order: 10
 status: "draft"
-last_reviewed: "2026-09-22"
+last_reviewed: "2026-09-24"
 stage: "S1"
 ---
 
@@ -27,9 +27,11 @@ Each part of Stage 1 has a **[sub-stage](../glossary.md#sub-stage)** id. This gu
 | 1.3 | Draft the blueprint | Group tasks into weighted domains and objectives, with a rationale for each weight | [S1.3](blueprint.md) |
 | 1.4 | Find and admit sources | Plan and run searches, screen and convert candidates, and scan them for hidden instructions | [S1.4a search](search-planning-and-execution.md), [S1.4b screening](screening-and-conversion.md), [S1.4c injection scan](injection-screening.md) |
 | 1.5 | Extract from each source | Pull out concepts, then write a distillate with a quote bank | [S1.5a extraction](concept-extraction.md), [S1.5b distillate](distillate-and-quote-bank.md) |
-| 1.6 | Knowledge items | planned, not published yet | - |
-| 1.7 | Concept map and prerequisite hierarchy | planned, not published yet | - |
-| 1.8 | Coverage and gaps | planned, not published yet | - |
+| 1.6 | Knowledge items | Turn each source's concepts and distillate into atomic knowledge items, deduplicated across sources | [S1.6](knowledge-items.md) |
+| 1.7 | Concept map and prerequisite hierarchy | Consolidate typed relations into one concept map; assign each concept a prerequisite tier; check for cycles and dangling references | [S1.7](concept-map-and-hierarchy.md) |
+| 1.8 | Coverage and gaps | Check the blueprint for under-supported objectives; run a closing search round for any gap worth filling | [S1.8](coverage-and-gaps.md) |
+
+All eight sub-stages are now published. The [Stage 1 checklist and failure modes](checklist-and-failure-modes.md) page gives a single, page-ordered checklist and gate list, plus failure patterns that recur across more than one sub-stage.
 
 ## Order of work
 
@@ -37,7 +39,7 @@ Each part of Stage 1 has a **[sub-stage](../glossary.md#sub-stage)** id. This gu
 2. Search plans (S1.4a) need an approved blueprint; no query runs before the plan set is approved.
 3. Screening and conversion (S1.4b) and the injection scan (S1.4c) work on the candidates S1.4a finds.
 4. Extraction (S1.5) reads only sources that have cleared S1.4b and S1.4c.
-5. The planned sub-stages build on extraction: knowledge items (S1.6) read distillates, the concept map (S1.7) reads knowledge items, and coverage and gaps (S1.8) reads the concept map and can loop back to more searching when gaps remain.
+5. Knowledge items (S1.6) read each source's distillate; the concept map and hierarchy (S1.7) read the knowledge items; coverage and gaps (S1.8) reads the concept map and blueprint together, and can loop back to more searching when a gap remains.
 
 ## Basis labels
 
@@ -57,7 +59,10 @@ Agents do the volume work: collecting reference decompositions, drafting tasks a
 | S1.4a, the runner | What to do when the circuit breaker opens (it stops the search queue after too many queries fail in a row; see [S1.4a](search-planning-and-execution.md#steps)) | Stop | suggested |
 | S1.4b and S1.4c | The selected sources, the flagged list and the blocked-document list | Plan approval | documented; the project notes approve selected sources and a flagged list, after conversion |
 | S1.5 | Each batch of distillations | Batch pause | suggested; the project notes ask only for a batch "continue" here, not a review of the content, so treat this row as this guide's own recommendation to add a real look |
-| S1.8, planned | The expansion plan | Expansion-loop approval | documented |
+| S1.6 | A batch of sources' draft items | Batch pause | documented |
+| S1.6 | The consolidated, deduplicated item set | Plan approval | suggested |
+| S1.7 | The concept map and hierarchy, which fills in the `tier` field the blueprint reserves for this sub-stage | Plan approval | suggested |
+| S1.8 | The expansion plan | Expansion-loop approval | documented |
 
 See [Human roles, gates and batching](../human-roles-gates-and-batching.md) for what each gate kind means and who can fill each role.
 
@@ -79,6 +84,9 @@ Write who approved, what file, and when. A hash is optional: run `shasum -a 256 
 - Admitted sources: converted, checked and scanned documents. Defined on [S1.4b](screening-and-conversion.md) and [S1.4c](injection-screening.md).
 - Concept lists: one per source. Defined on [S1.5a](concept-extraction.md).
 - Distillates: one per source, with a quote bank. Defined on [S1.5b](distillate-and-quote-bank.md).
+- Knowledge items: atomic, typed claims, deduplicated across sources. Defined on [S1.6](knowledge-items.md).
+- Concept map and hierarchy: typed edges and a prerequisite tier per concept. Defined on [S1.7](concept-map-and-hierarchy.md).
+- Gap list: blueprint objectives this guide's own bar finds under-supported. Defined on [S1.8](coverage-and-gaps.md).
 
 ## What is documented versus suggested
 

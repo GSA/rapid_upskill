@@ -23,7 +23,7 @@ when the quote check passes and a person approves the batch.
 
 This sub-stage takes in each source's concept list from
 [S1.5a](concept-extraction.md). It hands on a distillate with a checked
-quote bank to later, planned sub-stages.
+quote bank to [S1.6](knowledge-items.md).
 
 ## Why this way
 
@@ -231,5 +231,4 @@ instead of a fresh subagent.
   [Human roles, gates and batching](../human-roles-gates-and-batching.md)
   for batch size and worker caps.
 
-Next: [Stage 1 Knowledge acquisition](index.md); the sub-stages S1.6 to
-S1.8 are planned.
+Next: [S1.6 Knowledge items](knowledge-items.md).

@@ -17,7 +17,9 @@ scripts: ["X-S1-08"]
 At the end of this sub-stage, each admitted source has a set of atomic
 **[knowledge items](../glossary.md#knowledge-item)** linked to existing
 items by typed relations. Every exact duplicate within one source is
-merged into one canonical item with a minted id, and every
+merged into one **canonical** item (the version other steps rely on,
+never a page's own `status` value and never S1.4a's "candidate", a
+search result no one has judged yet) with a minted id, and every
 likely-but-uncertain duplicate, including a match across two different
 sources, is shortlisted for a person to decide.
 
@@ -36,7 +38,7 @@ canonical keeps two sources' descriptions of the same idea from becoming
 two different items. This page uses the
 [basis labels](index.md#basis-labels) defined on the Stage 1 index. The
 four extraction passes and the relation review are documented in
-[the project notes](../glossary.md#reference-implementation); the dedupe
+[the project notes](../glossary.md#reference-implementation). The dedupe
 and mint script and its thresholds are this guide's own suggestion,
 because the project notes describe the checks without giving one script
 that matches this guide's simpler item schema.
@@ -58,13 +60,14 @@ set afterward is this guide's own added checkpoint, on top of it. See
 [Human roles, gates and batching](../human-roles-gates-and-batching.md)
 for what each gate kind means and who can fill each role.
 
-A relation's type is one of the five [S1.5a](concept-extraction.md#steps)
+A relation's type is one of the five [S1.5a](concept-extraction.md#parameters)
 already defines for a concept-to-concept link (depends-on, part-of,
-implemented-by, contrasts-with, example-of), or one of three types
-specific to a knowledge item's own relation to another: contradicts,
-grounds or supports-a-position. A person reviews every relation of one of
-those three types before it is kept, because each one stakes a claim on
-how two pieces of evidence relate, not merely that they are connected.
+implemented-by, contrasts-with, example-of). It can also be one of three
+types specific to a knowledge item's own relation to another:
+contradicts, grounds or supports-a-position. A person reviews every
+relation of one of those three types before it is kept, because each one
+stakes a claim on how two pieces of evidence relate, not merely that
+they are connected.
 
 ## Schema
 
@@ -73,9 +76,10 @@ a general guide's field list, a second-hand map's shorter one, and the
 actual working schema, which is longer than both. This guide uses one
 schema, its own simplification, stated as such: `id`, `type` (one of
 `definition`, `mechanism`, `example`, `pattern`, `misconception`,
-`finding` or `guideline`), `body`, `relations` (a list of `type`,
-`target`, `quote`), `evidence` (a `quote` and its `locator`), `tags`, and
-`status` (`draft` or `canonical`). **[Misconception](../glossary.md#misconception)**
+`finding` or `guideline`) and `body`. It also carries `relations` (a list
+of `type`, `target`, `quote`), `evidence` (a `quote` and its `locator`),
+`tags`, and `status` (`draft` or `canonical`).
+**[Misconception](../glossary.md#misconception)**
 is one value of `type`, not a field of its own. This schema leaves out
 [provenance](../glossary.md#provenance) and a confidence rating, both of
 which the fuller working schema in the project notes tracks.
@@ -86,12 +90,12 @@ neither is part of the reviewed schema above.
 
 No script in this guide enforces a minimum count of misconception-type
 items. One secondary source in the project notes attributes such a count
-to the method document and to a general guide, but neither of those, nor
+to the method document and to a general guide. Neither of those, nor
 either working script the project notes describe, states or enforces a
-count; this guide does not repeat that unconfirmed claim.
+count, so this guide does not repeat that unconfirmed claim.
 
 Use `draft` and `canonical` for an item's review status, never
-"candidate": [S1.4a](search-planning-and-execution.md) already uses
+"candidate". [S1.4a](search-planning-and-execution.md) already uses
 **candidate** for a search result a person has not yet judged, and
 reusing that word here for a different thing would collide with it.
 Neither word is the same as a page's own `status` front-matter value.
@@ -99,18 +103,18 @@ Neither word is the same as a page's own `status` front-matter value.
 ## Dedupe and mint rule
 
 Two items from the same source with a title that is identical after
-normalization are the same claim seen twice; the script mints one
+normalization are the same claim seen twice. The script mints one
 shared, canonical id for them automatically, because no judgment call is
 left once that much matches. Anything else that shares enough of its
 title or its tags, including a match across two different sources, is
-only shortlisted, at a score, for a person to read and decide; the
+only shortlisted, at a score, for a person to read and decide. The
 script never merges it.
 
-This guide's own thresholds for the shortlist step, a title-word overlap
-of 0.5 and a shared-tag count of 3, are starting values chosen
-independently for this guide, not copied from the project notes' own
-tuned figures. Calibrate them on your own material the way this guide
-already asks you to for the word-ratio band on
+This guide's own thresholds for the shortlist step are a title-word
+overlap of 0.5 and a shared-tag count of 3. Both are starting values
+chosen independently for this guide, not copied from the project notes'
+own tuned figures. Calibrate them on your own material the way this
+guide already asks you to for the word-ratio band on
 [S1.4b](screening-and-conversion.md).
 
 ## Artifacts and formats
@@ -169,17 +173,18 @@ All four draft items mint their own id: none of them shares both a
 source and a normalized title with another, so grouping finds no exact
 match in this small sample. The shortlist step, at the default
 thresholds, flags exactly one pair: KI-001 (from SRC-001) and KI-002
-(from SRC-003) both describe what the staging area holds, in different
-words, so their titles overlap enough (0.60, at or above the 0.5 bar)
-even though the two items come from different sources and would never be
-grouped as an exact match. A person reading both would likely treat them
-as the same claim seen twice; the script only shortlists the pair, it
-does not merge it. KI-003 and KI-004 also share a couple of words about
-something changing, but at 0.25 title overlap and no shared tags, they
-stay below both bars and are correctly left alone: one is about a
-commit's identifier, the other about a conflict marker, two different
-mechanisms. Exit code 0: shortlisting is advisory, never a failing check,
-so the exit code stays 0 here unless the input file itself cannot be
+(from SRC-003). Both describe what the staging area holds, in different
+words, so their titles overlap enough (0.60, at or above the 0.5 bar).
+The two items come from different sources, though, so grouping would
+never treat them as an exact match. A person reading both would likely
+treat them as the same claim seen twice; the script only shortlists the
+pair, it does not merge it. KI-003 and KI-004 also share a couple of
+words about something changing. At 0.25 title overlap and no shared
+tags, though, they stay below both bars and are correctly left alone:
+one is about a commit's identifier, the other about a conflict marker, a
+different mechanism. Exit code 0: shortlisting is advisory, never a
+failing check, so the exit code stays 0 here unless the input file
+itself cannot be
 read. See [Reading exit codes](index.md#reading-exit-codes) on the Stage
 1 index for what each exit code means.
 
@@ -227,16 +232,18 @@ grouping and minting only, skipping the shortlist step entirely.
 
 ## Common failures
 
-- An exact match minted under the wrong survivor, because two truly
-  different items happened to share a title; the script keeps the first
+- An exact match can mint under the wrong survivor, because two truly
+  different items happened to share a title. The script keeps the first
   item's title and the union of the group's tags, so check the body text
   of a mint before trusting its title.
 - Two sources' items merged when they should not have been, because a
   person accepted a shortlisted pair without reading both; a shortlist
   score is a reason to look, not a decision already made.
-- A seed claim, drafted by an agent rather than found in an admitted
-  source, cited later as if it were evidence; keep a seed claim's own
-  status distinct from a canonical item grounded in a source.
+- A seed claim (a starting claim an agent drafted, before any source
+  confirmed it) gets cited later as if an admitted source had grounded
+  it. Keep a seed claim's own status separate from a canonical item's,
+  so a reader can always tell which claims trace to a source and which
+  do not yet.
 
 ## Adapting to your platform
 

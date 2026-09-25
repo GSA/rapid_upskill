@@ -112,6 +112,15 @@ class PythonVersionGuardTests(unittest.TestCase):
     def test_quote_check(self) -> None:
         self.check_guard("scripts/s1/quote_check.py")
 
+    def test_ki_dedupe(self) -> None:
+        self.check_guard("scripts/s1/ki_dedupe.py")
+
+    def test_check_concept_graph(self) -> None:
+        self.check_guard("scripts/s1/check_concept_graph.py")
+
+    def test_gap_check(self) -> None:
+        self.check_guard("scripts/s1/gap_check.py")
+
     def test_current_python_is_not_blocked(self) -> None:
         result = run([str(REPO / "scripts/site/sync.py"), "--help"])
         self.assertEqual(result.returncode, 0, result.stderr)

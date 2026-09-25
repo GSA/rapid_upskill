@@ -215,7 +215,9 @@ def shortlist_pairs(
             overlap = jaccard(first_words, title_words(second.title))
             shared = len(first.tags & second.tags)
             if overlap >= title_overlap or shared >= shared_tags:
-                found.append(Shortlisted(first.minted_id, second.minted_id, overlap, shared))
+                found.append(
+                    Shortlisted(first.minted_id, second.minted_id, overlap, shared)
+                )
     found.sort(key=lambda pair: pair.score, reverse=True)
     return found
 
@@ -251,7 +253,10 @@ def build_parser() -> argparse.ArgumentParser:
         type=float,
         default=DEFAULT_TITLE_OVERLAP,
         metavar="X",
-        help=f"title-word Jaccard overlap that shortlists a pair (default {DEFAULT_TITLE_OVERLAP})",
+        help=(
+            "title-word Jaccard overlap that shortlists a pair "
+            f"(default {DEFAULT_TITLE_OVERLAP})"
+        ),
     )
     parser.add_argument(
         "--shared-tags",

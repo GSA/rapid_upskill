@@ -98,11 +98,11 @@ Exactly one objective, D4.2, has an empty `supported_by` list. No source teaches
 
 ## Where later pages will use each part
 
-[Stage 1](stage-1/index.md) already uses some of these files; other pages are planned and are not published yet, so this list does not link to them. Page titles may change.
+All of [Stage 1](stage-1/index.md) is now published and uses some of these files; other pages are planned and are not published yet, so this list does not link to them. Page titles may change.
 
-- Blueprint: [S1.3 Draft the blueprint](stage-1/blueprint.md) checks it with a sample script. The coverage page (S1.8, planned) will find the gap at D4.2. The page that maps how ideas depend on each other (S1.7, planned) will use the tiers. The stem-planning and difficulty pages (Stage 5, planned) will use the bank size, the difficulty split and the weights.
+- Blueprint: [S1.3 Draft the blueprint](stage-1/blueprint.md) checks it with a sample script. [S1.8 Coverage and gaps](stage-1/coverage-and-gaps.md) finds the gap at D4.2. [S1.7 Concept map and prerequisite hierarchy](stage-1/concept-map-and-hierarchy.md) assigns and checks the same kind of tier the blueprint already carries for each objective. The stem-planning and difficulty pages (Stage 5, planned) will use the bank size, the difficulty split and the weights.
 - SRC-002: [S1.5a Concept extraction](stage-1/concept-extraction.md) and [S1.5b Distillate and quote bank](stage-1/distillate-and-quote-bank.md) use it as a sample source. Its "common mistake" sentences will feed the [misconception catalog](glossary.md#misconception-catalog) and the [distractor](glossary.md#distractor) pages (Stage 4 and Stage 5, planned).
-- SRC-001 and SRC-003: The knowledge-item pages (S1.6, planned) will use them as clean sources.
+- SRC-001 and SRC-003: [S1.6 Knowledge items](stage-1/knowledge-items.md) uses them as clean sources.
 - SRC-004: [S1.4b Screening and conversion](stage-1/screening-and-conversion.md) uses a copy of it to show a conversion check. SRC-005, the older, conflicting source, remains for a later planned page; the older date will be one clue for deciding which claim to trust.
 - SRC-006: [S1.4c Injection screening](stage-1/injection-screening.md) reuses its text to practice spotting an instruction hidden inside otherwise normal text.
 - SRC-007: The search and relevance steps (S1.4a, published) use a record like it, low quality and promotional, as a source to reject; a page naming SRC-007 itself is still planned.

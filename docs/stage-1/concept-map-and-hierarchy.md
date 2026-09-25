@@ -52,7 +52,7 @@ depend on the order it gives. This page uses the
 | Consolidate each source's typed relations into one shared concept map, merging concepts that name the same idea | Agent | documented |
 | Assign each concept a tier from 1 to 4 | Agent | documented for the four names; suggested for the number each name gets |
 | Order concepts that share a tier: dependency order first, then how often the sources use them, then concrete before abstract, then known before unknown | Agent | documented |
-| A fresh reviewer samples about a tenth of the map against two acceptance checks | Person | documented, parameter |
+| A fresh reviewer samples about a tenth of the map against two checks: does each sampled edge's relation match what the source material actually supports, and does each sampled concept's tier make sense next to its prerequisites | Person | documented that a sample review with two checks happens; suggested for what the two checks are, since the project notes name a sample rate without naming the checks |
 | Run the concept-graph check for cycles, dangling prerequisites and a topological order | Script | suggested |
 | Read the manual-review list the check cannot resolve on its own | Person | documented |
 | Approve the map and hierarchy | Person | suggested |
@@ -78,8 +78,8 @@ says the concept-map sub-stage adds an objective's tier.
 
 | Parameter | Value used in this guide | Basis |
 |---|---|---|
-| Relations per concept | about 1.5 to 2.5 on average across the whole map; re-check once outside 1.0 to 3.0 | documented, parameter |
-| Reviewer sample | about a tenth of the map | documented, parameter |
+| Relations per concept | about 1.5 to 2.5 on average across the whole map; re-check once outside 1.0 to 3.0 | the reference implementation's parameters |
+| Reviewer sample | about a tenth of the map | the reference implementation's parameters |
 | Tier range | 1 to 4 (the script's default; `--min-tier` and `--max-tier` narrow or widen it) | documented; the same range `blueprint_check.py` already validates on an objective |
 
 ## Cycle and topological-order checks
@@ -196,8 +196,9 @@ is well-formed and has a workable order.
 - Every concept has a tier from 1 to 4.
 - The concept-graph check reports no cycle, no dangling prerequisite, no
   bad tier and no duplicate id.
-- A fresh reviewer has sampled about a tenth of the map against the two
-  acceptance checks.
+- A fresh reviewer has sampled about a tenth of the map, checking that
+  each sampled edge's relation matches the source material and each
+  sampled concept's tier makes sense next to its prerequisites.
 - The manual-review list, if any, has been read and closed by a person.
 - A person has approved the map and hierarchy.
 

@@ -3,7 +3,7 @@ title: "S1.3 Draft the blueprint"
 parent: "Stage 1 Knowledge acquisition"
 nav_order: 2
 status: "draft"
-last_reviewed: "2026-09-22"
+last_reviewed: "2026-09-25"
 stage: "S1"
 sub_stage: "S1.3"
 prompts: ["P-S1-03"]
@@ -18,7 +18,7 @@ At the end of this sub-stage you have a weighted **[blueprint](../glossary.md#bl
 
 ## Where it fits
 
-This sub-stage takes in the boundary file and the task list from [S1.1 and S1.2 Frame the domain and list the tasks](frame-and-tasks.md). It hands on the blueprint to every later Stage 1 sub-stage: search planning reads its objectives, screening and extraction check sources against it, and the planned coverage sub-stage reads it again once sources are admitted.
+This sub-stage takes in the boundary file and the task list from [S1.1 and S1.2 Frame the domain and list the tasks](frame-and-tasks.md). It hands on the blueprint to every later Stage 1 sub-stage: search planning reads its objectives, screening and extraction check sources against it, and [S1.8 Coverage and gaps](coverage-and-gaps.md) reads it again once sources are admitted.
 
 ## Why this way
 
@@ -61,14 +61,14 @@ Rounding rarely lands on 100 by itself. When it does not, edit the largest weigh
 |---|---|---|
 | Cognitive scale | Six levels: remember, understand, apply, analyze, evaluate, create (configurable) | documented; the project notes describe three different scales (a three-level scale, a six-level scale, and a three-band split), and this guide's script defaults to the six-level one |
 | Bank-size arithmetic | A domain's weight, times the bank size, divided by 100, should be a whole number | suggested |
-| Objectives per chapter | 3 to 8 | documented; a parameter, not a rule |
+| Objectives per chapter | scales with the chapter and the program's size; this guide's own chapters use 3 to 5 | suggested; an earlier version of this page called a fixed "3 to 8" range documented, but no primary source states one (see [S2.1](../stage-2/structural-drafting.md), which corrects the reading) |
 | Lifecycle-stage axis | Not used | documented; the project notes name this axis once and never define it, so it is left out of this guide's blueprint |
 
 ## Artifacts and formats
 
 This sub-stage produces one file, the blueprint: a JSON file with a top-level `program` name and a list of `domains`. Each domain holds an `id`, a `name`, a `weight` and a list of `objectives`, and may hold a one-line `rationale`. Each objective holds an `id`, a `text` statement and a `bloom` cognitive level.
 
-Three more objective fields are filled in later and may be empty or missing at this point: `tier` (added at the planned concept-map sub-stage), `chapter`, and `supported_by` (added from S1.4 onward, once sources are admitted). An empty `supported_by` list is allowed here; the blueprint check never reads it. It becomes a coverage gap only once sources exist to check it against. The [running example](../running-example.md)'s finished blueprint file has every field, including `tier`, `chapter` and `supported_by`, because later sub-stages have already filled them in.
+Three more objective fields are filled in later and may be empty or missing at this point: `tier` (added at [S1.7](concept-map-and-hierarchy.md)), `chapter`, and `supported_by` (added from S1.4 onward, once sources are admitted). An empty `supported_by` list is allowed here; the blueprint check never reads it. It becomes a coverage gap only once sources exist to check it against. The [running example](../running-example.md)'s finished blueprint file has every field, including `tier`, `chapter` and `supported_by`, because later sub-stages have already filled them in.
 
 ## Prompts
 

@@ -16,10 +16,10 @@ scripts: ["X-S1-10"]
 
 At the end of this sub-stage you have a gap list naming every
 [blueprint](../glossary.md#blueprint) objective this guide's own bar
-finds under-supported, and, for each gap a person chooses to close, one
-more targeted round of search, screening and extraction. A person still
-decides which gaps matter and when coverage is good enough to move on;
-the script only points at where to look.
+finds under-supported. For each gap a person chooses to close, you
+also have one more targeted round of search, screening and extraction.
+A person still decides which gaps matter and when coverage is good
+enough to move on; the script only points at where to look.
 
 ## Where it fits
 
@@ -29,10 +29,10 @@ This sub-stage takes in the blueprint from
 [S1.7 Concept map and prerequisite hierarchy](concept-map-and-hierarchy.md).
 It loops back into
 [S1.4a Search planning and execution](search-planning-and-execution.md)
-for a closing round on each gap a person chooses to close, or hands the
-admitted [knowledge base](../glossary.md#knowledge-base) on to the
-planned later stages once a person decides coverage is good enough to
-move on.
+for a closing round on each gap a person chooses to close. Otherwise,
+it hands the admitted [knowledge base](../glossary.md#knowledge-base)
+on to the planned later stages, once a person decides coverage is
+good enough to move on.
 
 ## Why this way
 
@@ -70,7 +70,7 @@ pass over the whole blueprint.
 | Run the closing round through S1.4a to S1.6 again | Script and agent | documented |
 | Decide whether to run another round | Person | Expansion-loop approval |
 
-Running the gap check as a script is this guide's own suggestion: the
+Running the gap check as a script is this guide's own suggestion. The
 project notes describe gap-finding and the closing round as a person
 and an agent judging the concept map and the knowledge-item records
 together, not as an automated check. Reading the gap list, scoping a
@@ -107,19 +107,19 @@ closing round's own artifacts.
 
 For example, the row for the running example's own flagged objective
 might read: objective `D4.2`, flagged because the gap check found 0
-supporting sources against a bar of 1, status open, until a closing
-round either finds a source or a person accepts the gap as open.
+supporting sources against a bar of 1, status open. That status stays
+open until a closing round finds a source, or a person accepts the
+gap as open.
 
 ## Prompts
 
 S1.8 adds no new prompt. Closing a gap reuses
 [S1.4a's search-plan prompt](search-planning-and-execution.md#prompts),
-scoped to the one objective with the gap, the same way the project
-notes reuse their own search-and-screen steps unchanged for an
-expansion round rather than defining a second procedure. Draft the new
-plan with that prompt, list its anchors, and carry it through the same
-approval and run steps [S1.4a](search-planning-and-execution.md)
-already describes.
+scoped to the one objective with the gap. The project notes reuse
+their own search-and-screen steps unchanged for an expansion round,
+rather than defining a second procedure. Draft the new plan with that
+prompt, list its anchors, and carry it through the same approval and
+run steps [S1.4a](search-planning-and-execution.md) already describes.
 
 ## Scripts
 
@@ -127,8 +127,8 @@ already describes.
 each objective's `supported_by` list and prints one line for every
 objective below the minimum. It never reads a blueprint's weights, ids
 or cognitive levels; [the blueprint check](blueprint.md#scripts)
-already does that, so a domain or an objective that is not well formed
-is skipped here, not reported; run the blueprint check first to catch
+already does that. A domain or an objective that is not well formed is
+skipped here, not reported. Run the blueprint check first to catch
 that kind of problem. Run the gap check from the repository root, on
 the running example's blueprint:
 
@@ -172,9 +172,9 @@ objectives=12 gaps=9
 Every objective with only one source, not only the one with none, is
 now a gap; the objective count stays the same, since that counts what
 the script read, not what it flagged. Set `--min-sources` back to the
-default, or leave it unset, once you are done checking a bar's effect:
-a program's real bar should match its own material, judged on its own
-terms, not stay at a value chosen only to show the flag.
+default, or leave it unset, once you are done checking a bar's effect.
+A program's real bar should match its own material, judged on its own
+terms; it should not stay at a value chosen only to show the flag.
 
 ## Definition of done
 

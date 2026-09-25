@@ -15,6 +15,8 @@ Everything here is invented for this guide. Authors are written as "Author A", "
 | `raw/tidy-routine.html` | A synthetic HTML page for [`scan_injection.py`](../../s1/scan_injection.py): reuses the running example's SRC-006 visible text and one visible instruction sentence, plus one hidden sentence (see below) and two invisible characters written as HTML numeric character references |
 | `extraction/SRC-002.concepts.json` | A six-concept list for the running example's SRC-002, for [`concept_lint.py`](../../s1/concept_lint.py) |
 | `extraction/SRC-002.distillate.md` | A nine-section distillate for SRC-002, with a quote bank for [`quote_check.py`](../../s1/quote_check.py). One quote is a paraphrase on purpose, so the failing run is real |
+| `knowledge_items/items.json` | Four draft knowledge items built from the running example's SRC-001 and SRC-003, for [`ki_dedupe.py`](../../s1/ki_dedupe.py): one genuine cross-source near-duplicate pair about the staging area, and one look-alike pair that is not a duplicate |
+| `concept_map/catalog.json` | A nine-node concept catalog for the running example, for [`check_concept_graph.py`](../../s1/check_concept_graph.py). A clean, valid graph: no cycle, no dangling reference |
 
 ## The hidden sentence in `raw/tidy-routine.html`
 

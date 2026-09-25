@@ -32,6 +32,8 @@ EXPECTED_FILES = {
     "raw/tidy-routine.html",
     "extraction/SRC-002.concepts.json",
     "extraction/SRC-002.distillate.md",
+    "knowledge_items/items.json",
+    "concept_map/catalog.json",
 }
 ALLOWED_HOSTS = {"example.com", "example.org", "example.net"}
 EMAIL = re.compile(r"[A-Za-z0-9._%+-]+@([A-Za-z0-9.-]+\.[A-Za-z]{2,})")
