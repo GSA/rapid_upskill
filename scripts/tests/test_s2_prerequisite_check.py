@@ -28,7 +28,12 @@ sys.dont_write_bytecode = True
 ROOT = Path(__file__).resolve().parents[2]
 SCRIPT = ROOT / "scripts" / "s2" / "prerequisite_check.py"
 CATALOG = (
-    ROOT / "scripts" / "sample_data" / "git_basics_stage1" / "concept_map" / "catalog.json"
+    ROOT
+    / "scripts"
+    / "sample_data"
+    / "git_basics_stage1"
+    / "concept_map"
+    / "catalog.json"
 )
 PREREQ_DIR = ROOT / "scripts" / "sample_data" / "git_basics_stage2" / "prerequisites"
 TAUGHT = PREREQ_DIR / "taught_so_far.json"
@@ -259,10 +264,7 @@ class CheckPrerequisitesTests(unittest.TestCase):
         lines = pc.check_prerequisites(tiers, taught, requires)
         self.assertEqual(
             lines,
-            [
-                'gap: section "1.3" requires "b" at tier 1, '
-                "catalog has it at tier 2"
-            ],
+            ['gap: section "1.3" requires "b" at tier 1, ' "catalog has it at tier 2"],
         )
 
     def test_unknown_concept_raises(self) -> None:
@@ -323,9 +325,7 @@ class MainExitCodeTests(unittest.TestCase):
             catalog = write_json(root, "catalog.json", base_catalog())
             taught = write_json(root, "taught.json", base_taught())
             requires = write_json(root, "requires.json", base_requires())
-            self.assertEqual(
-                pc.main([str(catalog), str(taught), str(requires)]), 0
-            )
+            self.assertEqual(pc.main([str(catalog), str(taught), str(requires)]), 0)
 
     def test_exit_one_on_a_gap(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -337,9 +337,7 @@ class MainExitCodeTests(unittest.TestCase):
                 "requires.json",
                 [{"section": "1.1", "requires": [{"concept": "b", "min_tier": 1}]}],
             )
-            self.assertEqual(
-                pc.main([str(catalog), str(taught), str(requires)]), 1
-            )
+            self.assertEqual(pc.main([str(catalog), str(taught), str(requires)]), 1)
 
     def test_exit_two_on_missing_file(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -357,9 +355,7 @@ class MainExitCodeTests(unittest.TestCase):
             bad.write_text("not json", encoding="utf-8")
             taught = write_json(root, "taught.json", base_taught())
             requires = write_json(root, "requires.json", base_requires())
-            self.assertEqual(
-                pc.main([str(bad), str(taught), str(requires)]), 2
-            )
+            self.assertEqual(pc.main([str(bad), str(taught), str(requires)]), 2)
 
     def test_exit_two_on_bad_structure(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -367,9 +363,7 @@ class MainExitCodeTests(unittest.TestCase):
             catalog = write_json(root, "catalog.json", {"not": "a list"})
             taught = write_json(root, "taught.json", base_taught())
             requires = write_json(root, "requires.json", base_requires())
-            self.assertEqual(
-                pc.main([str(catalog), str(taught), str(requires)]), 2
-            )
+            self.assertEqual(pc.main([str(catalog), str(taught), str(requires)]), 2)
 
     def test_exit_two_on_unknown_concept(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
@@ -381,9 +375,7 @@ class MainExitCodeTests(unittest.TestCase):
                 "requires.json",
                 [{"section": "1.2", "requires": [{"concept": "nope", "min_tier": 1}]}],
             )
-            self.assertEqual(
-                pc.main([str(catalog), str(taught), str(requires)]), 2
-            )
+            self.assertEqual(pc.main([str(catalog), str(taught), str(requires)]), 2)
 
 
 class CommandLineTests(unittest.TestCase):
@@ -402,9 +394,7 @@ class CommandLineTests(unittest.TestCase):
         requires_rel = REQUIRES.relative_to(ROOT).as_posix()
         result = run_cli(catalog_rel, taught_rel, requires_rel, cwd=ROOT)
         self.assertEqual(result.returncode, 1)
-        self.assertIn(
-            'pass: section "1.2" requires "commit", satisfied', result.stdout
-        )
+        self.assertIn('pass: section "1.2" requires "commit", satisfied', result.stdout)
         self.assertIn(
             'gap: section "1.3" requires "branch" at tier 1, '
             "catalog has it at tier 2",
@@ -415,9 +405,7 @@ class CommandLineTests(unittest.TestCase):
 
     def test_missing_file_is_a_clean_input_error(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
-            result = run_cli(
-                str(Path(tmp) / "nope.json"), str(TAUGHT), str(REQUIRES)
-            )
+            result = run_cli(str(Path(tmp) / "nope.json"), str(TAUGHT), str(REQUIRES))
         self.assertEqual(result.returncode, 2)
         self.assertEqual(result.stdout, "")
         self.assertIn("prerequisite_check.py: error:", result.stderr)

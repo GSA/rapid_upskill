@@ -1,0 +1,37 @@
+[
+  {
+    "source_id": "SRC-001",
+    "tier": 2,
+    "rationale": "Explains what a commit records in expert-level detail; reads as recognized-expert writing rather than an organization's own official documentation, so Tier 2."
+  },
+  {
+    "source_id": "SRC-002",
+    "tier": 2,
+    "rationale": "Explains branches, HEAD and merging at the same expert level as SRC-001, so Tier 2."
+  },
+  {
+    "source_id": "SRC-003",
+    "tier": 2,
+    "rationale": "A field-guide style article on conflicts, restore, revert and reset, the same expert level as SRC-001 and SRC-002, so Tier 2."
+  },
+  {
+    "source_id": "SRC-004",
+    "tier": 2,
+    "rationale": "Explains fetch, pull and push at the same expert level as SRC-001 through SRC-003, so Tier 2, though it also states its own version and setting caveats."
+  },
+  {
+    "source_id": "SRC-005",
+    "tier": 3,
+    "rationale": "An older quick-reference sheet that conflicts with SRC-004 on what a pull does; reads as informal individual writing with no stated venue, and its date is no longer the most relevant account, so Tier 3."
+  },
+  {
+    "source_id": "SRC-006",
+    "tier": 2,
+    "rationale": "An ordinary, competently written tutorial; closer to established tutorial content than to one person's own informal notes, so Tier 2."
+  },
+  {
+    "source_id": "SRC-007",
+    "tier": 4,
+    "rationale": "A promotional ranking with unsupported claims and no disclosed basis for its ranking, matching Tier 4's uncredentialed, biased content."
+  }
+]

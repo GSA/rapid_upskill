@@ -1,0 +1,174 @@
+"""
+ID: X-S3-01
+Title: Claim source check
+Stage: S3
+Purpose: Check whether every claim in a chapter's claim list cites a
+    source id that is actually present among the admitted sources,
+    and fail loudly, rather than silently, if no admitted sources are
+    found at all.
+Usage: python3 scripts/s3/claim_source_check.py --help
+    In a shell: python3 scripts/s3/claim_source_check.py CLAIMS.json
+    SOURCES_DIR
+Dependencies: stdlib
+Writes files: no
+License: CC0-1.0
+Inputs: CLAIMS.json, a list of {"claim_id", "text", "source_id"}
+    objects. SOURCES_DIR, a folder of admitted source files, each
+    named "SRC-<id>.md", read-only and never copied.
+Outputs: One line per claim ("pass: ..." or "gap: ..."), then a
+    summary line, all printed to standard output.
+
+This script checks one thing only: whether a claim's cited source id
+names a source file that is actually present in SOURCES_DIR. It does
+not check whether that source's own text actually supports the
+claim; a later, person-led review does that.
+
+If SOURCES_DIR holds zero files named "SRC-*.md", the script treats
+this as a usage or input error (exit 2) with a clear message, instead
+of silently reporting every claim as a gap. A folder that looks like
+an admitted-sources folder but happens to be empty, perhaps because a
+file-matching pattern went stale after a rename, is a setup problem,
+not a finding about the claims.
+"""
+
+import argparse
+import json
+import re
+import sys
+from pathlib import Path
+from typing import Any, NamedTuple
+
+sys.dont_write_bytecode = True
+if sys.version_info < (3, 10):
+    print(
+        "claim_source_check.py: this script needs Python 3.10 or newer, "
+        f"but this is {sys.version_info.major}.{sys.version_info.minor}. "
+        "Run it with a newer python3.",
+        file=sys.stderr,
+    )
+    sys.exit(2)
+
+MAX_BYTES = 5_000_000
+SOURCE_FILENAME_RE = re.compile(r"^SRC-[A-Za-z0-9._-]+\.md$")
+
+
+class Claim(NamedTuple):
+    """One claim, as read from claims.json."""
+
+    claim_id: str
+    text: str
+    source_id: str
+
+
+def load_json(path: Path) -> Any:
+    """Read and parse one JSON file; never follows a symlink."""
+    if path.is_symlink():
+        raise OSError(f"refusing to read a symlink: {path}")
+    size = path.stat().st_size
+    if size > MAX_BYTES:
+        raise ValueError(f"{path} is over {MAX_BYTES} bytes; skipping")
+    text = path.read_text(encoding="utf-8", errors="replace")
+    return json.loads(text)
+
+
+def load_claims(data: Any) -> list[Claim]:
+    """Return a validated list of Claim entries, in file order."""
+    if not isinstance(data, list):
+        raise ValueError("claims.json is not a JSON list")
+    claims: list[Claim] = []
+    for position, entry in enumerate(data, start=1):
+        if not isinstance(entry, dict):
+            raise ValueError(f"claims entry #{position} is not a JSON object")
+        claim_id = entry.get("claim_id")
+        if not isinstance(claim_id, str) or not claim_id:
+            raise ValueError(f"claims entry #{position} has no claim_id")
+        text = entry.get("text")
+        if not isinstance(text, str) or not text:
+            raise ValueError(f'claim "{claim_id}" has no text')
+        source_id = entry.get("source_id")
+        if not isinstance(source_id, str) or not source_id:
+            raise ValueError(f'claim "{claim_id}" has no source_id')
+        claims.append(Claim(claim_id, text, source_id))
+    return claims
+
+
+def admitted_source_ids(sources_dir: Path) -> set[str]:
+    """Return the source ids present as SRC-*.md files in sources_dir.
+
+    Only a regular file counts. A symlink is skipped even when its
+    name matches the pattern, since this script never follows one.
+    """
+    if sources_dir.is_symlink():
+        raise OSError(f"refusing to read a symlink: {sources_dir}")
+    if not sources_dir.is_dir():
+        raise ValueError(f"{sources_dir} is not a directory")
+    ids: set[str] = set()
+    for entry in sources_dir.iterdir():
+        if entry.is_symlink() or not entry.is_file():
+            continue
+        if SOURCE_FILENAME_RE.match(entry.name):
+            ids.add(entry.name[: -len(".md")])
+    return ids
+
+
+def check_claims(claims: list[Claim], admitted_ids: set[str]) -> list[str]:
+    """Return one "pass: ..." or "gap: ..." line per claim."""
+    lines: list[str] = []
+    for claim in claims:
+        if claim.source_id not in admitted_ids:
+            lines.append(
+                f'gap: claim "{claim.claim_id}" cites "{claim.source_id}", '
+                "no such source is admitted"
+            )
+        else:
+            lines.append(
+                f'pass: claim "{claim.claim_id}" cites "{claim.source_id}", ' "admitted"
+            )
+    return lines
+
+
+def build_parser() -> argparse.ArgumentParser:
+    """Build the command-line parser."""
+    parser = argparse.ArgumentParser(
+        prog="claim_source_check.py",
+        description=(
+            "Check whether every claim in a chapter's claim list cites a "
+            "source id that is actually present in an admitted-sources "
+            "folder. Writes no files."
+        ),
+    )
+    parser.add_argument("claims", metavar="CLAIMS.json", help="the claims JSON file")
+    parser.add_argument(
+        "sources_dir", metavar="SOURCES_DIR", help="the admitted-sources folder"
+    )
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    """Command line entry point; prints the report, returns an exit code."""
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    try:
+        claims = load_claims(load_json(Path(args.claims)))
+        admitted_ids = admitted_source_ids(Path(args.sources_dir))
+        if not admitted_ids:
+            raise ValueError("no admitted sources found in SOURCES_DIR")
+        findings = check_claims(claims, admitted_ids)
+    except (
+        OSError,
+        UnicodeError,
+        ValueError,
+        json.JSONDecodeError,
+        RecursionError,
+    ) as exc:
+        print(f"claim_source_check.py: error: {exc}", file=sys.stderr)
+        return 2
+    for line in findings:
+        print(line)
+    gaps = sum(1 for line in findings if line.startswith("gap:"))
+    print(f"claims={len(findings)} gaps={gaps}")
+    return 1 if gaps else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

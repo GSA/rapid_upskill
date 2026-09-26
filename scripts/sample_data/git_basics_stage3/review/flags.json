@@ -1,0 +1,24 @@
+[
+  {
+    "claim_id": "C1",
+    "status": "accurate",
+    "reason": "Matches the source text: a commit records the tracked files as they stood at that moment, with an author, a time, a message and a parent, not a line-by-line diff."
+  },
+  {
+    "claim_id": "C2",
+    "status": "needs-review",
+    "reason": "States that HEAD always points to a branch; the source text does not rule out HEAD pointing directly to a commit.",
+    "suggestion": "Add a note that HEAD can point directly to a commit, in a detached state, not only to a branch."
+  },
+  {
+    "claim_id": "C3",
+    "status": "reject",
+    "reason": "States that running git commit sends the new snapshot to a remote server; the source text never says this, and a commit by itself stays local.",
+    "suggestion": "Remove the claim, or replace it with the source's own statement that a commit is recorded locally."
+  },
+  {
+    "claim_id": "C4",
+    "status": "unverifiable",
+    "reason": "States how quickly a typical new team member creates a first branch; the source text gives no such figure, and this guide has no data to check it against."
+  }
+]

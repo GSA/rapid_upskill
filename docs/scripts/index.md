@@ -25,5 +25,13 @@ These pages are generated from the files in `scripts/`. Edit a source file and r
 | [X-S1-08](s1/x-s1-08.md) | Knowledge-item dedupe and mint | Group draft knowledge items into canonical items, minting one id per group, then shortlist likely-but-uncertain duplicates, including a match across two different sources, for a person to read and decide. |
 | [X-S1-09](s1/x-s1-09.md) | Concept graph check | Check a concept-map catalog JSON file for cycles, dangling prerequisites, out-of-range tiers and duplicate node ids, then print a topological order and a tier-count summary. |
 | [X-S1-10](s1/x-s1-10.md) | Gap check | Flag each blueprint objective whose supported\_by list has fewer entries than a minimum source count, and print a summary line. |
+| [X-S2-01](s2/x-s2-01.md) | Chapter structure check | Check a chapter draft Markdown file's H2 headings, the objectives list under Learning Objectives, and the Content section's lab or formative-check heading, then print a summary line. |
+| [X-S2-02](s2/x-s2-02.md) | Condensation check | Check a condensed passage against its original: how much shorter it is, and how much each of two readability scores moved. |
+| [X-S2-03](s2/x-s2-03.md) | Readability report | Print a text file's Grade Level and Reading Ease scores against target bands, each clearly labelled, and never fail on its own. |
+| [X-S2-04](s2/x-s2-04.md) | Prerequisite check | Check, section by section, whether every concept a section requires was already taught by that point, and at a tier no higher than the concept map's own tier for it. |
+| [X-S3-01](s3/x-s3-01.md) | Claim source check | Check whether every claim in a chapter's claim list cites a source id that is actually present among the admitted sources, and fail loudly, rather than silently, if no admitted sources are found at all. |
+| [X-S3-02](s3/x-s3-02.md) | Review record check | Check a set of Layer 2 review flags: that each status is one of the four allowed values, that every flag gives a reason, and that a flag whose status calls for a suggestion has one. |
+| [X-S3-03](s3/x-s3-03.md) | Citation fidelity check | Check that every claim's quoted phrase is an exact substring of its named source file, across a whole folder of admitted sources. |
+| [X-S3-04](s3/x-s3-04.md) | Source tier check | Print each admitted source's own credibility tier, then warn if too large a share of them sit at Tier 3 or below. |
 | [X-OP-01](op/x-op-01.md) | LLM adapter with mock and OpenAI-compatible providers | Give every script one function, complete(prompt), that returns text from a language model. The default mock provider is deterministic and offline, so tests and dry runs need no network and no key. |
 {% endraw %}

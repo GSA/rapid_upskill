@@ -9,7 +9,7 @@ last_reviewed: "2026-09-21"
 
 ## The shape of the framework
 
-The framework has five [stages](glossary.md#stage) that run in order. Each stage pairs a job for AI, a mechanism aimed at the learner, and a quality check. The description follows the [reference implementation](glossary.md#reference-implementation), the project this guide draws on. This guide calls that project's own working documents the project notes. [Stage 1](stage-1/index.md) is published as a worked sequence of sub-stage pages with sample prompts and scripts; the other stages are planned.
+The framework has five [stages](glossary.md#stage) that run in order. Each stage pairs a job for AI, a mechanism aimed at the learner, and a quality check. The description follows the [reference implementation](glossary.md#reference-implementation), the project this guide draws on. This guide calls that project's own working documents the project notes. Stage 1, Stage 2 and Stage 3 are published as a worked sequence of sub-stage pages with sample prompts and scripts; the other two stages are planned.
 
 ![Five stages in a row, Knowledge acquisition to Assessment development, with human judgment above and possible external checks below. The figure shows the framework as specified; no results are reported. Certification alignment and delivery sit apart, outside the stages.](assets/images/pipeline-overview.svg)
 

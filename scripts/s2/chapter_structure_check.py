@@ -1,0 +1,196 @@
+"""
+ID: X-S2-01
+Title: Chapter structure check
+Stage: S2
+Purpose: Check a chapter draft Markdown file's H2 headings, the
+    objectives list under Learning Objectives, and the Content section's
+    lab or formative-check heading, then print a summary line.
+Usage: python3 scripts/s2/chapter_structure_check.py --help
+    In a shell: python3 scripts/s2/chapter_structure_check.py CHAPTER.md
+Dependencies: stdlib
+Writes files: no
+License: CC0-1.0
+Inputs: A chapter draft Markdown file: optional front matter, delimited
+    by a line holding only "---" at the start and another such line
+    later, then Markdown headings. Under "Learning Objectives" the file
+    should hold a Markdown list; under "Content" it should hold at least
+    one "### Lab" or "### Formative Check" heading.
+Outputs: One line per finding, then a summary line, all printed to
+    standard output.
+
+Required H2 headings, in this exact order: Overview, Learning
+Objectives, Content, Key Concepts, Assessment.
+
+Errors (exit 1): a required H2 heading is missing; a required H2
+heading is present but out of order relative to another required
+heading; the Learning Objectives section holds no Markdown list item
+(no-objectives); the Content section holds no "### Lab" and no
+"### Formative Check" heading (no-lab-or-check).
+
+A missing objectives list still counts the headings that were found; a
+missing Content section still counts as zero objectives when there is
+no Learning Objectives section either. This script never invents
+content: it only reports what it did not find. Exit 2 is a usage or
+input error, such as a missing file, reported on one line to standard
+error, with no traceback.
+"""
+
+import argparse
+import re
+import sys
+from pathlib import Path
+
+sys.dont_write_bytecode = True
+if sys.version_info < (3, 10):
+    print(
+        "chapter_structure_check.py: this script needs Python 3.10 or "
+        f"newer, but this is {sys.version_info.major}.{sys.version_info.minor}. "
+        "Run it with a newer python3.",
+        file=sys.stderr,
+    )
+    sys.exit(2)
+
+MAX_BYTES = 5_000_000
+H2_PREFIX = "## "
+H3_PREFIX = "### "
+REQUIRED_HEADINGS = (
+    "Overview",
+    "Learning Objectives",
+    "Content",
+    "Key Concepts",
+    "Assessment",
+)
+LAB_OR_CHECK_HEADINGS = ("Lab", "Formative Check")
+LIST_ITEM_RE = re.compile(r"^\s*(?:[-*+]|\d+[.)])\s+\S")
+
+
+def load_chapter(path: Path) -> str:
+    """Read the chapter file as text; never follows a symlink."""
+    if path.is_symlink():
+        raise OSError(f"refusing to read a symlink: {path}")
+    size = path.stat().st_size
+    if size > MAX_BYTES:
+        raise ValueError(f"{path} is over {MAX_BYTES} bytes; skipping")
+    return path.read_text(encoding="utf-8", errors="replace")
+
+
+def strip_front_matter(text: str) -> str:
+    """Drop a leading '---' ... '---' front-matter block, if one is there."""
+    lines = text.splitlines()
+    if lines and lines[0].strip() == "---":
+        for index in range(1, len(lines)):
+            if lines[index].strip() == "---":
+                rest_start = index + 1
+                return "\n".join(lines[rest_start:])
+    return text
+
+
+def collect_h2_sections(body: str) -> tuple[list[str], dict[str, list[str]]]:
+    """Return (H2 headings in document order, heading -> its body lines).
+
+    A line counts as an H2 heading only with the exact "## " prefix, which
+    an H3 line's "### " prefix never matches. Lines before the first H2
+    heading belong to no section and are dropped.
+    """
+    order: list[str] = []
+    sections: dict[str, list[str]] = {}
+    current: str | None = None
+    for line in body.splitlines():
+        if line.startswith(H2_PREFIX):
+            current = line.removeprefix(H2_PREFIX).strip()
+            order.append(current)
+            sections.setdefault(current, [])
+            continue
+        if current is not None:
+            sections[current].append(line)
+    return order, sections
+
+
+def count_objectives(section_lines: list[str]) -> int:
+    """Count Markdown list items (bulleted or numbered) in a section."""
+    return sum(1 for line in section_lines if LIST_ITEM_RE.match(line))
+
+
+def has_lab_or_check(section_lines: list[str]) -> bool:
+    """True if the section holds an H3 "Lab" or "Formative Check" heading."""
+    for line in section_lines:
+        if line.startswith(H3_PREFIX):
+            heading = line.removeprefix(H3_PREFIX).strip()
+            if heading in LAB_OR_CHECK_HEADINGS:
+                return True
+    return False
+
+
+def check_chapter(text: str) -> tuple[list[str], int, int]:
+    """Return (finding lines, required headings found, objectives found)."""
+    body = strip_front_matter(text)
+    order, sections = collect_h2_sections(body)
+    order_set = set(order)
+
+    findings: list[str] = []
+    present = [heading for heading in REQUIRED_HEADINGS if heading in order_set]
+    missing = [heading for heading in REQUIRED_HEADINGS if heading not in order_set]
+    for heading in missing:
+        findings.append(f'missing-heading: "{heading}"')
+
+    seen: set[str] = set()
+    actual: list[str] = []
+    for heading in order:
+        if heading in REQUIRED_HEADINGS and heading not in seen:
+            actual.append(heading)
+            seen.add(heading)
+
+    required_index = {heading: i for i, heading in enumerate(REQUIRED_HEADINGS)}
+    for earlier, later in zip(actual, actual[1:]):
+        if required_index[earlier] > required_index[later]:
+            findings.append(f'out-of-order: "{earlier}" appears before "{later}"')
+
+    objectives_lines = sections.get("Learning Objectives", [])
+    objectives_count = count_objectives(objectives_lines)
+    if objectives_count == 0:
+        findings.append("no-objectives")
+
+    content_lines = sections.get("Content", [])
+    if not has_lab_or_check(content_lines):
+        findings.append("no-lab-or-check")
+
+    return findings, len(present), objectives_count
+
+
+def build_parser() -> argparse.ArgumentParser:
+    """Build the argument parser."""
+    parser = argparse.ArgumentParser(
+        prog="chapter_structure_check.py",
+        description=(
+            "Check a chapter draft Markdown file's required H2 headings, "
+            "its objectives list and its lab or formative-check heading. "
+            "Writes no files."
+        ),
+    )
+    parser.add_argument(
+        "chapter", metavar="CHAPTER", help="path to the chapter draft Markdown file"
+    )
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    """Command line entry point; prints the report, returns an exit code."""
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    try:
+        text = load_chapter(Path(args.chapter))
+        findings, headings_found, objectives_found = check_chapter(text)
+    except (OSError, UnicodeError, ValueError, RecursionError) as exc:
+        print(f"chapter_structure_check.py: error: {exc}", file=sys.stderr)
+        return 2
+    for line in findings:
+        print(line)
+    print(
+        f"headings={headings_found} objectives={objectives_found} "
+        f"errors={len(findings)}"
+    )
+    return 1 if findings else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

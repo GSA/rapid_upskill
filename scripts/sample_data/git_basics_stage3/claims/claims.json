@@ -1,0 +1,22 @@
+[
+  {
+    "claim_id": "C1",
+    "text": "A commit stores the full set of tracked files as they stood at that moment, together with an author, a time, a message and a link to the commit before it, rather than a line-by-line diff.",
+    "source_id": "SRC-001"
+  },
+  {
+    "claim_id": "C2",
+    "text": "A branch is a movable label that points at one commit, and HEAD is the pointer that says which commit, and usually which branch, you are currently on.",
+    "source_id": "SRC-002"
+  },
+  {
+    "claim_id": "C3",
+    "text": "Staging changes on purpose, rather than adding everything out of habit, lets you check the staged content with a diff command before committing it.",
+    "source_id": "SRC-006"
+  },
+  {
+    "claim_id": "C4",
+    "text": "A merge commit can record two parent commits at once.",
+    "source_id": "SRC-009"
+  }
+]

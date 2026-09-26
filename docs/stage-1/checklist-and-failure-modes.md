@@ -66,4 +66,4 @@ Confirm each of these exists and has a recorded approval before moving on:
 - A checked concept map and prerequisite hierarchy, with every concept's tier filled in ([S1.7](concept-map-and-hierarchy.md)).
 - A gap list with a decision recorded for every open row: closed, deferred, or accepted as a known gap ([S1.8](coverage-and-gaps.md)).
 
-Next: [Stage 1 Knowledge acquisition](index.md).
+Next: [Stage 2 Content development](../stage-2/index.md).

@@ -24,4 +24,12 @@ These pages are generated from the files in `prompts/`. Edit a source file and r
 | [P-S1-07](s1/p-s1-07.md) | Source distillate and quote bank | Write a nine-section distillate for one source, ending with a quote bank. |
 | [P-S1-08](s1/p-s1-08.md) | Knowledge-item extraction from one source | Turn one source's concepts and distillate into draft knowledge items, each linked to at least one existing item by a typed relation. |
 | [P-S1-09](s1/p-s1-09.md) | Concept map consolidation and tiering | Consolidate several sources' typed concept relations into one concept map, and propose a prerequisite-hierarchy tier for each concept. |
+| [P-S2-01](s2/p-s2-01.md) | Chapter structural draft | Draft one chapter's first-draft content on the fixed skeleton, from its objectives, admitted sources' knowledge items, and the concept map. |
+| [P-S2-02](s2/p-s2-02.md) | Condense a passage | Condense one already-drafted passage with the five named techniques, keeping its meaning. |
+| [P-S2-03](s2/p-s2-03.md) | Six-pass revision for one chapter section | Revise one chapter section through the six fixed passes, one pass per call, drafting each of the first five and leaving the sixth to a person. |
+| [P-S2-04](s2/p-s2-04.md) | Chapter summary and prerequisite review | Draft a chapter summary (concepts by tier, exam-skill mapping, and cross-chapter links) and a prerequisite-review block for one section. |
+| [P-S3-01](s3/p-s3-01.md) | Claim scan and classify for one chapter | Scan a chapter's claims, flag any with no cited source or one outside the admitted list, and classify each flagged claim by the four-type taxonomy. |
+| [P-S3-02](s3/p-s3-02.md) | Deep-verification note for one flagged claim | Draft a deep-verification note for one flagged claim: status, issue, evidence and a suggested correction, for a person to check. |
+| [P-S3-03](s3/p-s3-03.md) | Audit record from review | Turn one completed review's findings into a per-claim audit-trail record. |
+| [P-S3-04](s3/p-s3-04.md) | Propose a source tier | Propose a credibility tier for one candidate source, against the five-point checklist and the four tier definitions. |
 {% endraw %}

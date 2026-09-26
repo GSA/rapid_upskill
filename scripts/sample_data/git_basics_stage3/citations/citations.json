@@ -1,0 +1,27 @@
+[
+  {
+    "claim_id": "C1",
+    "source_id": "SRC-001",
+    "quote": "The staging area, also called the index, is where you assemble the next commit."
+  },
+  {
+    "claim_id": "C2",
+    "source_id": "SRC-001",
+    "quote": "Many newcomers believe that a commit stores only the lines you changed."
+  },
+  {
+    "claim_id": "C3",
+    "source_id": "SRC-002",
+    "quote": "A branch is a movable label attached to one commit."
+  },
+  {
+    "claim_id": "C4",
+    "source_id": "SRC-002",
+    "quote": "HEAD says where you are."
+  },
+  {
+    "claim_id": "C5",
+    "source_id": "SRC-001",
+    "quote": "A file you have not changed points to the same saved content it had in the earlier commit."
+  }
+]

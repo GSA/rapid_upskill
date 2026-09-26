@@ -121,6 +121,30 @@ class PythonVersionGuardTests(unittest.TestCase):
     def test_gap_check(self) -> None:
         self.check_guard("scripts/s1/gap_check.py")
 
+    def test_chapter_structure_check(self) -> None:
+        self.check_guard("scripts/s2/chapter_structure_check.py")
+
+    def test_condensation_check(self) -> None:
+        self.check_guard("scripts/s2/condensation_check.py")
+
+    def test_readability_report(self) -> None:
+        self.check_guard("scripts/s2/readability_report.py")
+
+    def test_prerequisite_check(self) -> None:
+        self.check_guard("scripts/s2/prerequisite_check.py")
+
+    def test_claim_source_check(self) -> None:
+        self.check_guard("scripts/s3/claim_source_check.py")
+
+    def test_review_record_check(self) -> None:
+        self.check_guard("scripts/s3/review_record_check.py")
+
+    def test_citation_fidelity_check(self) -> None:
+        self.check_guard("scripts/s3/citation_fidelity_check.py")
+
+    def test_source_tier_check(self) -> None:
+        self.check_guard("scripts/s3/source_tier_check.py")
+
     def test_current_python_is_not_blocked(self) -> None:
         result = run([str(REPO / "scripts/site/sync.py"), "--help"])
         self.assertEqual(result.returncode, 0, result.stderr)

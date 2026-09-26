@@ -7,16 +7,16 @@ other side, and one ends the other side. This guide calls your side
 "ours" and the other side "theirs", the same two words Git itself
 prints in the file.
 
-Worked example: your branch and a teammate's branch both change the
-same line of a shared file, and you run the merge command to combine
-the two branches. Git reports a conflict on that one file and keeps
-the markers for you to read. You open the file, compare the "ours"
-side against the "theirs" side, and decide which wording to keep,
-sometimes combining both. You delete the three markers, save the
-file, stage it, and finish the merge with a commit. That commit has
-two parents, one from each branch, instead of the usual single
-parent.
+Worked example: your branch and a teammate's branch both alter the
+same line of a shared file, and you run the merge command to unify
+the two branches. Git reports a conflict on that one file and retains
+the markers for you to review. You open the file, examine the "ours"
+side against the "theirs" side, and decide which wording to
+preserve, sometimes combining both. You delete the three markers,
+save the file, stage it, and finish the merge with a commit. That
+commit has two parents, one from each branch, instead of the usual
+single parent.
 
-Now try it yourself: open a file with a marked conflict, compare both
+Now try it yourself: open a file with a marked conflict, examine both
 sides against the change each branch made, choose the wording to
-keep, then stage the file and commit the result.
+preserve, then stage the file and commit the result.
