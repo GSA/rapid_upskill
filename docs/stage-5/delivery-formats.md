@@ -15,10 +15,11 @@ scripts: ["X-S5-06"]
 
 At the end of this stage, a finished [item bank](../glossary.md#item-bank)
 of [stems](../glossary.md#stem) reaches a learner through more than one
-delivery format. Every stem the bank holds has been checked against at
-least one of those formats. A script only reports where that check
-fails; a person still decides what a real gap means and what, if
-anything, to do about it. This stage's own history of delivery tooling
+delivery format. Every stem the bank holds has been checked for whether
+it appears in at least one of those formats; some may not, and a real
+gap like that is exactly what this page's own script is built to find.
+A script only reports where that check fails; a person still decides
+what a real gap means and what, if anything, to do about it. This stage's own history of delivery tooling
 also holds real, generalizable lessons about keeping that tooling safe.
 This page states three of them plainly, in general terms only.
 

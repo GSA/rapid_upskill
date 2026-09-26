@@ -6,8 +6,8 @@
     "feedback_correct": "Correct. A commit records a snapshot of every tracked file as staged at that moment, not only the lines that changed since the previous commit.",
     "feedback_by_distractor": {
       "B": "This option treats a commit as recording only the lines that changed, but a commit stores a snapshot of every tracked file as it stood when staged.",
-      "C": "This option treats a commit as accumulating the whole project history inside itself, rather than as one point-in-time snapshot linked to its parent commit.",
-      "D": "This option describes the working directory, including unstaged changes; a commit only ever reflects what was staged, not the full working directory."
+      "C": "This option treats a commit as storing a computed difference from the previous commit; `git diff` computes a difference between two snapshots on the spot, it does not read one Git stored directly.",
+      "D": "This option treats an untouched file as left out of the new commit entirely, but a file you did not touch still refers to the same stored content as the previous commit, so it is still part of the snapshot."
     }
   },
   {
@@ -16,9 +16,9 @@
     "points": 8,
     "feedback_correct": "Correct. Merging integrates one branch's own work into another; whether that produces a new commit depends on whether history allows a fast-forward.",
     "feedback_by_distractor": {
-      "B": "This option assumes every merge must add a new commit; a fast-forward merge only moves a branch label forward, so no merge commit is created.",
-      "C": "This option mixes up when a conflict marker is added with when a commit is created; the two happen at different points in a merge.",
-      "D": "This option treats the merge as finished once conflict markers in the working directory are resolved, but the merge is not complete until the resolved files are staged and committed."
+      "B": "This option stages the file before its conflict markers are removed; Git does not block that commit by default, but the file still holds unresolved markers when committed, so the order matters.",
+      "C": "This option assumes every merge must add a new commit; a fast-forward merge only moves the branch label forward, so no merge commit is created.",
+      "D": "This option treats `git merge --abort` as finishing the merge, but it cancels the merge and returns to the state before it started, discarding any resolution already made, rather than completing it."
     }
   }
 ]

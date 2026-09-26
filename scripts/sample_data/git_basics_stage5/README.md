@@ -23,7 +23,7 @@ Related files outside this folder: `docs/stage-5/` (the six pages that describe 
 
 ## The `broken_on_purpose` convention
 
-`stems/stems.json` keeps one deliberately broken stem, `STEM-2.1-BROKEN`, in the same file as the two clean ones, marked `"broken_on_purpose": true`. `format_rules_check.py` skips it by default and only checks it with `--include-broken-examples`. Every other script that reads this file (`answer_key_check.py`, `delivery_coverage_check.py`) also skips any entry marked this way, so the one real gap `delivery_coverage_check.py` reports (`STEM-2.1-002`, not assigned to any deliverable) is never confused with the broken fixture.
+`stems/stems.json` keeps one deliberately broken stem, `STEM-2.1-BROKEN`, in the same file as the two clean ones, marked `"broken_on_purpose": true`. `format_rules_check.py` skips it by default and only checks it with `--include-broken-examples`. `delivery_coverage_check.py` also skips any entry marked this way, so the one real gap it reports (`STEM-2.1-002`, not assigned to any deliverable) is never confused with the broken fixture. `answer_key_check.py` has no such skip: it indexes every stem in the file unconditionally. This is harmless here, since `answer_key/key.json` never references `STEM-2.1-BROKEN`, but a reader extending this sample should not assume `answer_key_check.py` would skip a broken-on-purpose entry if one were ever added to the key.
 
 ## Reserved ID formats
 

@@ -14,7 +14,7 @@ scripts: ["X-S5-02"]
 
 ## Outcome
 
-At the end of this sub-stage you have a chapter's own **stem plan**: before any [stem](../glossary.md#stem) is drafted, a chapter's own [assessment concept items](misconception-to-distractor-bridge.md) are mapped to a planned set of rows by difficulty, and each planned [distractor](../glossary.md#distractor) already names the [misconception](../glossary.md#misconception) behind it.
+At the end of this sub-stage you have a chapter's own **stem plan**. Before any [stem](../glossary.md#stem) is drafted, a chapter's own [assessment concept items](misconception-to-distractor-bridge.md) are mapped to a planned set of rows by difficulty, and each planned [distractor](../glossary.md#distractor) already names the [misconception](../glossary.md#misconception) behind it.
 
 ## Where it fits
 
@@ -22,7 +22,7 @@ This sub-stage takes in a chapter's own assessment concept items from [S5.1 Misc
 
 ## Why this way
 
-A plan fixes what a stem will draw on, and where each of its distractors will come from, before any stem text exists. Naming the assessment concept item ids and the misconception behind each planned distractor first means a later drafting pass fills in wording against an already-checked shape, rather than inventing a combination of items and a wrong-answer story at the same moment a stem's own text is written.
+A plan fixes what a stem will draw on, and where each of its distractors will come from, before any stem text exists. Naming the assessment concept item ids and the misconception behind each planned distractor first means a later drafting pass fills in wording against an already-checked shape. It never has to invent a combination of items and a wrong-answer story at the same moment a stem's own text is written.
 
 ## Steps
 
@@ -33,7 +33,7 @@ A plan fixes what a stem will draw on, and where each of its distractors will co
 | Check the plan against the eight-point checklist below | Agent | documented |
 | Approve the plan before any stem is drafted | Person | suggested |
 
-[The project notes](../glossary.md#reference-implementation) describe the difficulty-to-item-count mapping and the eight-point checklist as templates a person fills in by hand; naming a distractor's own misconception before any stem text exists is the one point every source this guide drew on agrees on. Approving the plan before drafting begins is this guide's own suggestion, since the project notes name no approver for this step.
+[The project notes](../glossary.md#reference-implementation) describe the difficulty-to-item-count mapping and the eight-point checklist as templates a person fills in by hand. Naming a distractor's own misconception before any stem text exists is the one point every source this guide drew on agrees on. Approving the plan before drafting begins is this guide's own suggestion, since the project notes name no approver for this step.
 
 ## The eight-point checklist
 
@@ -48,7 +48,7 @@ Documented, in full. A person reads the plan against every point below before ap
 7. No two planned rows duplicate the same concept.
 8. Every stem type the chapter needs is represented.
 
-The script also confirms that every id a row names resolves to a real assessment concept item; it does not confirm the reverse, that every concept item the chapter has appears somewhere in the plan (point 1), so that half of point 1 stays a person's own read.
+The script also confirms that every id a row names resolves to a real assessment concept item. It does not confirm the reverse, that every concept item the chapter has appears somewhere in the plan (point 1), so half of point 1 stays a person's own read.
 
 ## The difficulty-to-item-count mapping
 
@@ -78,7 +78,7 @@ The running example's own Chapter 2 gives this plan two rows. `PLAN-1` is easy a
 
 `PLAN-2` is medium and combines two Chapter 2 items, `ACI-2-001` and `ACI-2-002`, in a single merge-conflict scenario: one item about what merging itself does, the other about resolving a conflict a merge stops on. [S5.1](misconception-to-distractor-bridge.md) names both items in full; this plan only needs their ids and one misconception named per planned distractor, drawn from what each item's own extraction already found.
 
-This small sample stops at two rows on purpose. A hard row needs three to five assessment concept items synthesized in one scenario, and this chapter's own plan has only three items to draw from in total; adding two invented items just to show a hard row would add a fact this guide's running example does not otherwise use. The pattern the difficulty-to-item-count table gives is what matters here, not a complete easy-medium-hard triple.
+This small sample stops at two rows on purpose. A hard row needs three to five assessment concept items synthesized in one scenario, and this chapter's own plan has only three items to draw from in total. Adding two invented items just to show a hard row would add a fact this guide's running example does not otherwise use. The pattern the difficulty-to-item-count table gives is what matters here, not a complete easy-medium-hard triple.
 
 ## Artifacts and formats
 
@@ -101,7 +101,7 @@ warning mix: plan is easy=50% medium=50% hard=0%, target is 30/50/20 (off by up 
 rows=2 errors=0 warnings=1
 ```
 
-The script reports zero errors: both rows' own item counts match their difficulty, and every id either row names is present among the chapter's own assessment concept items. It still warns about the mix, because two rows split evenly between easy and medium cannot land anywhere near 30/50/20; that is expected on a sample this small, and the warning is exactly what checklist point 2 asks a person to read, not evidence the plan is wrong. The script does not check the other checklist points above, or the `distractor_misconceptions` field's own contents, so a clean run here is not the same as an approved plan.
+The script reports zero errors: both rows' own item counts match their difficulty, and every id either row names is present among the chapter's own assessment concept items. It still warns about the mix, because two rows split evenly between easy and medium cannot land anywhere near 30/50/20. That is expected on a sample this small. The warning is exactly what checklist point 2 asks a person to read, not evidence the plan is wrong. The script does not check the other checklist points above, or the `distractor_misconceptions` field's own contents, so a clean run here is not the same as an approved plan.
 
 ## Definition of done
 

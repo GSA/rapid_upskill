@@ -14,11 +14,11 @@ scripts: ["X-S5-01"]
 
 ## Outcome
 
-At the end of this sub-stage, a chapter's own content has become a small
-set of assessment concept items (this guide's own name for this
-sub-stage's artifact, defined in full below), each holding at least two
-documented [misconceptions](../glossary.md#misconception), ready to
-feed a stem plan.
+At the end of this sub-stage, a chapter's own content has become a
+small set of assessment concept items, this guide's own name for this
+sub-stage's artifact, defined in full below. Each one holds at least
+two documented [misconceptions](../glossary.md#misconception), ready
+to feed a stem plan.
 
 ## Where it fits
 
@@ -48,31 +48,39 @@ defines; it does not redefine them.
 the eight extraction categories and the eight-point checklist in a
 template written for this exact step. Approving a chapter's own
 extracted items before stem planning begins is not itself named there
-as a gate; it is this guide's own suggested checkpoint, added because
+as a gate. It is this guide's own suggested checkpoint, added because
 every later sub-stage in this stage builds on what these items name.
 
 ### The eight extraction categories
 
 A concept worth an assessment concept item usually falls under one of
-eight categories: a definition or a piece of terminology; a process or
-a workflow; a best practice or a pattern; a common pitfall or an
-anti-pattern; a technical specification; a code example and what it
-implies; a real-world application; or a comparison between two things
-that are easy to confuse. Rereading a chapter with this list in hand
+eight categories. It may be a definition or a piece of terminology, a
+process or a workflow, a best practice or a pattern, a common pitfall
+or an anti-pattern, a technical specification, a code example and what
+it implies, a real-world application, or a comparison between two
+things that are easy to confuse. Rereading a chapter with this list in
+hand
 finds more testable concepts than reading straight through once for
 whatever stands out.
 
 ### The eight-point checklist
 
 An extracted item is checked against eight points before it counts as
-finished: it names one concept, atomically, not a paragraph's worth of
-several claims at once; its description is clear and measurable, not a
-vague restatement of the concept's own name; its cognitive level
-matches how complex the concept actually is; it names at least two
-misconceptions; every reference is specific enough that a person could
-actually check it; every dependency it lists is accurate; its id is
-shaped correctly; and it does not duplicate a concept an existing item
-already covers. [X-S5-01](../scripts/s5/x-s5-01.md) checks the fourth,
+finished:
+
+- It names one concept, atomically, not a paragraph's worth of several
+  claims at once.
+- Its description is clear and measurable, not a vague restatement of
+  the concept's own name.
+- Its cognitive level matches how complex the concept actually is.
+- It names at least two misconceptions.
+- Every reference is specific enough that a person could actually
+  check it.
+- Every dependency it lists is accurate.
+- Its id is shaped correctly.
+- It does not duplicate a concept an existing item already covers.
+
+[X-S5-01](../scripts/s5/x-s5-01.md) checks the fourth,
 the seventh and the eighth points in full; the rest stay a person's own
 read, stated plainly again under Common failures below.
 
@@ -85,20 +93,20 @@ never once says to consult [Stage 1](../stage-1/index.md)'s own
 recorded misconceptions or [Stage 4](../stage-4/index.md)'s own
 [misconception catalog](../glossary.md#misconception-catalog). This
 sub-stage is its own fresh pass over the chapter, not a pull-forward of
-misconceptions already recorded elsewhere in this guide's own pipeline,
-mirroring, and more pronounced than, the gap
+misconceptions already recorded elsewhere in this guide's own pipeline.
+It mirrors, and is more pronounced than, the gap
 [S4.5](../stage-4/misconception-catalog-and-error-diagnosis.md) already
 admits between a Stage 1 knowledge item and its own catalog entries. A
 team building this for real could choose to consult those earlier
 records first, to save an extraction pass a chapter has already been
-through once; that is this guide's own suggested time-saver, not
+through once. That is this guide's own suggested time-saver, not
 something the project notes themselves describe.
 
 ## The naming choice: an assessment concept item, not a knowledge item
 
 This is where the artifact is first defined, so the choice is restated
 in full here. This guide calls its own version of this artifact an
-**assessment concept item**, never a "knowledge item", because its own
+**assessment concept item**, never a "knowledge item". Its own
 field list (a section, a cognitive level, a Bloom level, key concepts,
 at least two misconceptions, references, dependencies) differs enough
 from [Stage 1](../stage-1/knowledge-items.md)'s own published knowledge
@@ -114,8 +122,8 @@ An assessment concept item carries both a cognitive level and a Bloom
 level rather than one or the other.
 [S1.3 Draft the blueprint](../stage-1/blueprint.md#parameters) already
 told readers that a cognitive level and a Bloom level are near-synonyms
-in the project notes, and that the project notes describe as many as
-three disagreeing scales for the same idea. This item's own cognitive
+in the project notes. It also told readers that the project notes
+describe as many as three disagreeing scales for the same idea. This item's own cognitive
 level (knowledge, application or analysis) and its Bloom level (the
 standard six-level scale, remember through create) are two more entries
 in that same, already-acknowledged disagreement, not a new one. A
@@ -141,10 +149,10 @@ other assessment concept item ids, or an empty list).
 repository, not just the changed lines. `SRC-001` states this directly,
 and separately names two things newcomers commonly get wrong about it:
 "Many newcomers believe that a commit stores only the lines you
-changed", and a common mistake of running `git add`, continuing to edit
-that file, and assuming the commit already holds the later edits. Both
-are quoted from `SRC-001`'s own text, not paraphrased away from it, and
-both become `ACI-1-001`'s two misconceptions.
+changed", and "A common mistake is to run `git add notes.txt`, keep
+typing in that file, and then assume the commit contains the later
+edits." Both are quoted from `SRC-001`'s own text, not paraphrased away
+from it, and both become `ACI-1-001`'s two misconceptions.
 
 Chapter 2 supplies two more items, `ACI-2-001` and `ACI-2-002`, because
 [S5.2](stem-planning.md)'s own medium-difficulty stem later combines
@@ -156,10 +164,10 @@ that merging must create a commit" as one of its two misconceptions.
 choice among the chapter's own objectives and sources: resolving a
 merge conflict, drawn from `SRC-003`'s "When a merge stops" section and
 its own objective, D2.3. This guide picked D2.3 over Chapter 2's two
-other objectives (D2.1, the branch-and-HEAD concept, and D2.2, the
+other objectives: D2.1, the branch-and-HEAD concept, and D2.2, the
 fast-forward-versus-merge-commit distinction `ACI-2-001` already
-covers) because a conflict is the concept a merge-combining scenario
-most naturally needs next, and because `SRC-003` states its own real
+covers. A conflict is the concept a merge-combining scenario
+most naturally needs next, and `SRC-003` states its own real
 "common mistake" sentence to build a misconception from, the same kind
 of grounding `ACI-1-001` and `ACI-2-001` already use.
 

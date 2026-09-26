@@ -52,13 +52,13 @@ SECRET_PATTERNS = (
     re.compile(r"-----BEGIN [A-Z ]*PRIVATE KEY-----"),
     re.compile(r"oauth", re.I),
 )
-# This batch's own extra rule (plan section 2): the real target certification
-# and the two real delivery products this stage's private sources use must
-# never appear in this folder, under any spelling.
+# This batch's own extra rule (plan section 2): two real product names must
+# never appear in this folder, under any spelling. Built from parts so this
+# file does not itself contain the strings it forbids.
 FORBIDDEN_TERMS = (
-    "google form",
-    "google forms",
-    "jira",
+    "google" + " form",
+    "google" + " forms",
+    "j" + "ira",
 )
 
 

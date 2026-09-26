@@ -47,7 +47,7 @@ The people who act at each stage are listed on [Human roles, gates and batching]
 | Stage 2: Content development | Fixed templates; revising the draft in six successive passes | One new element at a time; review that revisits earlier material |
 | Stage 3: Review and verification | Automated checks, expert review and an audit trail | Catching defects before learners study the content |
 | Stage 4: AI-tutor coaching | [Integrity guardrails](glossary.md#integrity-guardrail); answers [grounded](glossary.md#grounding) in course material | Coaching protocols that adapt to the learner's intent and feelings; diagnosing a wrong answer from the misconception catalog |
-| Stage 5: Assessment development | Blueprint tagging; difficulty fixed in advance, with a 30/50/20 split across easy, medium and hard test questions | Distractors written from recorded misconceptions; low-stakes quizzes; practice tests |
+| Stage 5: Assessment development | Blueprint tagging; difficulty fixed in advance, with a 30/50/20 split across easy, medium and hard test questions | Distractors written from misconceptions extracted afresh per chapter; low-stakes quizzes; practice tests |
 
 The last column lists design intents, not measured effects. The 30/50/20 split is one of the reference implementation's parameters, that project's choice and not a universal rule. The tables show what the framework specifies, not that any step was completed.
 

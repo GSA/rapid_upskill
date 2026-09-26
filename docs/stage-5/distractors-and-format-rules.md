@@ -14,14 +14,14 @@ scripts: ["X-S5-03"]
 
 ## Outcome
 
-At the end of this sub-stage, a **[stem](../glossary.md#stem)** is fully
+At the end of this sub-stage, a [stem](../glossary.md#stem) is fully
 drafted: its own text, one correct answer, and three to four
-**[distractors](../glossary.md#distractor)**, each tied to one named
-**[misconception](../glossary.md#misconception)**. Each distractor is
+[distractors](../glossary.md#distractor), each tied to one named
+[misconception](../glossary.md#misconception). Each distractor is
 also pitched at a sophistication that matches the stem's own
 difficulty. Every drafted stem passes a fixed set of format rules that
 apply regardless of difficulty, before a person reviews it and it
-enters the **[item bank](../glossary.md#item-bank)**.
+enters the [item bank](../glossary.md#item-bank).
 
 ## Where it fits
 
