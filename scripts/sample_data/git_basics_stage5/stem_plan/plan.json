@@ -1,0 +1,20 @@
+[
+  {
+    "plan_row_id": "PLAN-1",
+    "difficulty": "easy",
+    "concept_item_ids": ["ACI-1-001"],
+    "distractor_misconceptions": [
+      "a commit stores only the lines that changed, not a full snapshot of every tracked file",
+      "a commit's snapshot leaves out files that were not touched, instead of reusing their already-stored content"
+    ]
+  },
+  {
+    "plan_row_id": "PLAN-2",
+    "difficulty": "medium",
+    "concept_item_ids": ["ACI-2-001", "ACI-2-002"],
+    "distractor_misconceptions": [
+      "merging must always create a new commit, even when Git can finish with a fast-forward",
+      "staging a file that still contains conflict markers clears the unmerged status and finishes the merge properly"
+    ]
+  }
+]

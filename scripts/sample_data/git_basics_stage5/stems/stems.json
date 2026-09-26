@@ -1,0 +1,86 @@
+[
+  {
+    "stem_id": "STEM-2.1-001",
+    "difficulty": "easy",
+    "cognitive_level": "knowledge",
+    "bloom_level": "understand",
+    "concept_item_ids": ["ACI-1-001"],
+    "stem_content": "After you run `git commit`, what does the new commit actually record?",
+    "correct_answer": "A",
+    "correct_answer_text": "A complete snapshot of every tracked file as it was staged at that moment, not only the files you edited.",
+    "distractors": [
+      {
+        "option": "B",
+        "text": "Only the lines that changed since the previous commit, the same way a diff does.",
+        "misconception": "A commit stores only the lines that changed, not the whole set of tracked files."
+      },
+      {
+        "option": "C",
+        "text": "The output `git diff` would show between the working folder and the last commit.",
+        "misconception": "Git stores a computed diff as the commit, rather than a full snapshot compared later on demand."
+      },
+      {
+        "option": "D",
+        "text": "Only the files you explicitly staged; an untouched file is left out of the new commit entirely.",
+        "misconception": "A file not touched in a commit is left out of that commit's snapshot entirely."
+      }
+    ],
+    "explanation": "A commit points to a complete listing of every tracked file as it was staged, not a partial record of only the changed lines. A file you did not touch still refers to the same stored content as the previous commit, so it is part of the snapshot, and `git diff` computes a difference between two snapshots on the spot; it does not read a difference that Git stored directly."
+  },
+  {
+    "stem_id": "STEM-2.1-002",
+    "difficulty": "medium",
+    "cognitive_level": "application",
+    "bloom_level": "apply",
+    "concept_item_ids": ["ACI-2-001", "ACI-2-002"],
+    "stem_content": "You are on branch `main` and run `git merge feature`. Git stops the merge and reports a conflict in `notes.txt`. Which sequence of actions correctly finishes the merge?",
+    "correct_answer": "A",
+    "correct_answer_text": "Edit `notes.txt` to remove the conflict markers and keep the text you want, stage it with `git add notes.txt`, then run `git commit`.",
+    "distractors": [
+      {
+        "option": "B",
+        "text": "Stage `notes.txt` first with `git add`, then edit out the conflict markers, then run `git commit`.",
+        "misconception": "Staging a file that still contains conflict markers is treated as harmless, since Git does not block that commit by default."
+      },
+      {
+        "option": "C",
+        "text": "Run `git commit` as soon as Git reports the conflict, since merging always produces a new commit that records the combination.",
+        "misconception": "A common mistake is to assume that merging must create a commit."
+      },
+      {
+        "option": "D",
+        "text": "Run `git merge --abort` once `notes.txt` looks correct, since that finishes a conflicted merge.",
+        "misconception": "`git merge --abort` is confused with completing a conflicted merge, rather than cancelling it."
+      }
+    ],
+    "explanation": "Git stops on a file both branches edited and marks it as both modified; finishing the merge means editing the file into the text you want, deleting the marker lines, staging the result, then committing (or running `git merge --continue`). Staging a file before its markers are removed does not fail by default, so the order matters. A fast-forward merge only moves a branch label and makes no new commit, so merging does not always produce one. `git merge --abort` cancels the merge and returns to the state before it started; it does not finish or keep any resolution already made."
+  },
+  {
+    "stem_id": "STEM-2.1-BROKEN",
+    "broken_on_purpose": true,
+    "difficulty": "easy",
+    "cognitive_level": "knowledge",
+    "bloom_level": "remember",
+    "concept_item_ids": ["ACI-1-001"],
+    "stem_content": "Which of the following is not something a commit records, except its parent pointer?",
+    "correct_answer": "A",
+    "correct_answer_text": "A complete snapshot of every tracked file as it was staged at that moment.",
+    "distractors": [
+      {
+        "option": "B",
+        "text": "All of the above.",
+        "misconception": "A commit stores only the lines that changed, not the whole set of tracked files."
+      },
+      {
+        "option": "C",
+        "text": "Only the lines that changed since the previous commit, the same way a diff does."
+      },
+      {
+        "option": "D",
+        "text": "The output `git diff` would show between the working folder and the last commit.",
+        "misconception": "Git stores a computed diff as the commit, rather than a full snapshot compared later on demand."
+      }
+    ],
+    "explanation": "This entry is kept only to demonstrate format_rules_check.py's error paths: a negative stem, an all-of-the-above option, and a distractor with no misconception field. It is marked broken_on_purpose, is skipped by a normal run, and is never referenced by any other sample-data file in this stage."
+  }
+]

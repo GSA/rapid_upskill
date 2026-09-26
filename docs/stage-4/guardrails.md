@@ -40,8 +40,8 @@ Skipping straight to a solution also skips the struggle a person
 needs to actually work through a step, not just finish it. Stating
 the rule up front lets a learner expect that struggle, rather than
 read it as the tutor being unhelpful. Every rule on this page is
-documented in the project notes; this page states none of its own as
-merely suggested.
+documented in [the project notes](../glossary.md#reference-implementation);
+this page states none of its own as merely suggested.
 
 ## Two readings of the integrity guardrail
 

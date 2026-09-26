@@ -24,8 +24,8 @@ same catalog serves every learner who reaches this chapter.
 ## Where it fits
 
 This sub-stage takes in a finished, reviewed chapter from
-[Stage 3](../stage-3/index.md). It hands the resulting misconception
-catalog on to two later pages. [S4.1 and S4.2](principles-and-protocol-library.md)'s
+[Stage 3](../stage-3/index.md). It hands the resulting [misconception
+catalog](../glossary.md#misconception-catalog) on to two later pages. [S4.1 and S4.2](principles-and-protocol-library.md)'s
 Error Diagnosis protocol reads the catalog whenever a learner's wrong
 answer calls for it. [S4.7](packaging-and-scope.md) bundles the
 catalog for a target platform, alongside the chapter's own text. This
@@ -133,8 +133,8 @@ states, verbatim: "A common mistake is to assume that merging must
 create a commit."
 
 That sentence sits under `SRC-002`'s own "How do I combine two
-branches?" heading. It comes right after the paragraph that describes
-the two ways a merge can finish: a fast-forward, or a merge commit.
+branches?" heading, two paragraphs after the one that describes the
+two ways a merge can finish: a fast-forward, or a merge commit.
 
 Suggested, to show what the missing link above would look like if it
 existed: a Stage 1 knowledge item of this kind could exist. It would
@@ -142,7 +142,7 @@ be of type `misconception`, quoting that sentence with its real
 locator: source `SRC-002`, under the heading named above. That
 knowledge item could then feed one catalog entry:
 
-> `MC-1-001: Merging always creates a commit` — correction: a
+> `MC-1-001: Merging always creates a commit` - correction: a
 > fast-forward merge only moves a label; no new commit is made.
 
 A learner who answers a "does merging always create a new commit"

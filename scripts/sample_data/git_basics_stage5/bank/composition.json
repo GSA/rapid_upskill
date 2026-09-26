@@ -1,0 +1,8 @@
+{
+  "domains": {
+    "D1": {"easy": 2, "medium": 2, "hard": 1},
+    "D2": {"easy": 2, "medium": 3, "hard": 1},
+    "D3": {"easy": 1, "medium": 3, "hard": 1},
+    "D4": {"easy": 1, "medium": 2, "hard": 1}
+  }
+}

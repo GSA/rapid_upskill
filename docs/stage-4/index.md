@@ -45,7 +45,7 @@ This stage's own five pages do not chain in one straight line the way earlier st
 
 This page and every Stage 4 sub-stage page use the same three [basis labels](../stage-1/index.md#basis-labels) Stage 1's index defines: `documented`, `inferred` and `suggested`. This page does not redefine them.
 
-Unlike Stage 1 through Stage 3, the project notes describe no code anywhere in this stage. Every page here has one prompt and no script, stated plainly on each page's own Scripts section, not omitted.
+Unlike Stage 1 through Stage 3, [the project notes](../glossary.md#reference-implementation) describe no code anywhere in this stage. Every page here has one prompt and no script, stated plainly on each page's own Scripts section, not omitted.
 
 ## How Stage 4 is run
 

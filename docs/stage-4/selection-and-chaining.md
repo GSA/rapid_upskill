@@ -14,11 +14,12 @@ scripts: []
 
 ## Outcome
 
-At the end of this sub-stage, which coaching protocol runs next is
-chosen by a fixed priority order, not left to a model's own judgment
-call each time. A session can also move through more than one
-protocol in a documented sequence, rather than stopping once the
-first one finishes.
+At the end of this sub-stage, which [coaching
+protocol](../glossary.md#protocol-tutor) runs next is chosen by a
+fixed priority order, not left to a model's own judgment call each
+time. A session can also move through more than one protocol in a
+documented sequence, rather than stopping once the first one
+finishes.
 
 ## Where it fits
 
@@ -158,19 +159,19 @@ stuck-on-a-merge-conflict moment like the one
 [S4.1 and S4.2](principles-and-protocol-library.md#worked-illustration-the-hint-ladder-in-a-merge-conflict)
 also uses.
 
-1. **Productive Failure**: the learner attempts to resolve the
+1. Productive Failure: the learner attempts to resolve the
    conflict unaided first, with no hint offered yet.
-2. **Direct Explanation**: once the learner is genuinely stuck, the
+2. Direct Explanation: once the learner is genuinely stuck, the
    tutor explains how the conflict resolves.
-3. **Self-Explanation**: the learner explains, in their own words,
+3. Self-Explanation: the learner explains, in their own words,
    why staging the edited file and completing the merge actually
    settles it.
-4. **Step-by-Step Hinting**: a second conflict, later in the same
+4. Step-by-Step Hinting: a second conflict, later in the same
    session, is hinted at one level at a time rather than explained
    outright.
-5. **Quiz/Exam Coaching**: a short quiz then compares merging and
+5. Quiz/Exam Coaching: a short quiz then compares merging and
    rebasing, checking that the learner can now tell the two apart.
-6. **Reflection**: a short reflection closes the session, asking what
+6. Reflection: a short reflection closes the session, asking what
    the learner would do differently on the next conflict.
 
 The selection layer chooses each step in turn; the arc itself is what

@@ -1,0 +1,76 @@
+[
+  {
+    "id": "ACI-1-001",
+    "chapter": 1,
+    "section": "A commit is a snapshot",
+    "description": "A commit records a full snapshot of every tracked file at that moment, not a list of the lines that changed.",
+    "cognitive_level": "knowledge",
+    "bloom_level": "understand",
+    "key_concepts": ["commit", "snapshot", "tracked files", "parent commit"],
+    "misconceptions": [
+      {
+        "text": "Many newcomers believe that a commit stores only the lines you changed.",
+        "source_id": "SRC-001"
+      },
+      {
+        "text": "A common mistake is to run git add notes.txt, keep typing in that file, and then assume the commit contains the later edits.",
+        "source_id": "SRC-001"
+      }
+    ],
+    "references": [
+      "SRC-001, \"A commit is a snapshot\"",
+      "SRC-001, \"The staging area sits in between\""
+    ],
+    "dependencies": []
+  },
+  {
+    "id": "ACI-2-001",
+    "chapter": 2,
+    "section": "How do I combine two branches?",
+    "description": "Merging integrates one branch's own work into the branch you are standing on, either by moving a label forward or by recording a new commit with two parents.",
+    "cognitive_level": "analysis",
+    "bloom_level": "analyze",
+    "key_concepts": ["merge", "fast-forward", "merge commit", "branch label"],
+    "misconceptions": [
+      {
+        "text": "A common mistake is to assume that merging must create a commit.",
+        "source_id": "SRC-002"
+      },
+      {
+        "text": "A common mistake is to think that deleting a branch deletes its work.",
+        "source_id": "SRC-002"
+      }
+    ],
+    "references": [
+      "SRC-002, \"How do I combine two branches?\"",
+      "SRC-002, \"Does merging delete the other branch?\""
+    ],
+    "dependencies": []
+  },
+  {
+    "id": "ACI-2-002",
+    "chapter": 2,
+    "section": "When a merge stops",
+    "description": "Resolving a merge conflict means editing the conflict markers Git leaves in a file, then staging and completing the merge; Git does not check by itself that the markers are gone before it accepts the commit.",
+    "cognitive_level": "application",
+    "bloom_level": "apply",
+    "key_concepts": [
+      "merge conflict",
+      "conflict markers",
+      "staging",
+      "neighboring lines"
+    ],
+    "misconceptions": [
+      {
+        "text": "A common mistake is to stage a file that still contains markers to clear the unmerged status.",
+        "source_id": "SRC-003"
+      },
+      {
+        "text": "A newcomer may believe any change both branches made to the same file will conflict, when only changes to the same or neighboring lines actually do; changes to lines that are not next to each other usually merge automatically.",
+        "source_id": "SRC-003"
+      }
+    ],
+    "references": ["SRC-003, \"When a merge stops\""],
+    "dependencies": ["ACI-2-001"]
+  }
+]

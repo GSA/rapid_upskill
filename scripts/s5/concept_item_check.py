@@ -1,0 +1,152 @@
+"""
+ID: X-S5-01
+Title: Concept item check
+Stage: S5
+Purpose: Check an assessment concept item JSON file for a malformed id,
+    a duplicate id, or fewer than two misconceptions, then print a
+    summary.
+Usage: python3 scripts/s5/concept_item_check.py --help
+    In a shell: python3 scripts/s5/concept_item_check.py ITEMS.json
+Dependencies: stdlib
+Writes files: no
+License: CC0-1.0
+Inputs: An assessment concept item JSON file: a list of items, each
+    with an id, a chapter, a section, a description, a cognitive
+    level, a Bloom level, key concepts, at least two misconceptions,
+    references and dependencies.
+Outputs: One line per finding, then a summary line, printed to
+    standard output.
+
+This script checks three things only: whether an item's id is shaped
+ACI-<chapter>-<NNN>, whether that id is used more than once, and
+whether an item names at least two misconceptions. It does not judge
+whether a description stays atomic, whether a reference is specific
+enough to check, or whether a dependency id actually names another
+item; those stay a person's own read against the eight-point
+checklist, not something this script can decide from the file alone.
+
+Errors (exit 1): fewer than 2 misconceptions; a malformed id (not
+ACI-<chapter>-<NNN>, where the chapter and the sequence number are
+both digits and the sequence number is exactly three digits); a
+duplicate id.
+"""
+
+import argparse
+import json
+import re
+import sys
+from pathlib import Path
+from typing import Any
+
+sys.dont_write_bytecode = True
+if sys.version_info < (3, 10):
+    print(
+        "concept_item_check.py: this script needs Python 3.10 or newer, "
+        f"but this is {sys.version_info.major}.{sys.version_info.minor}. "
+        "Run it with a newer python3.",
+        file=sys.stderr,
+    )
+    sys.exit(2)
+
+MAX_BYTES = 5_000_000
+MIN_MISCONCEPTIONS = 2
+ID_RE = re.compile(r"^ACI-[0-9]+-[0-9]{3}$")
+
+
+def load_items(path: Path) -> Any:
+    """Read and parse the items file; never follows a symlink."""
+    if path.is_symlink():
+        raise OSError(f"refusing to read a symlink: {path}")
+    size = path.stat().st_size
+    if size > MAX_BYTES:
+        raise ValueError(f"{path} is over {MAX_BYTES} bytes; skipping")
+    text = path.read_text(encoding="utf-8", errors="replace")
+    return json.loads(text)
+
+
+def validate_items(data: Any) -> list[dict[str, Any]]:
+    """Check the top-level shape; raise ValueError on anything malformed.
+
+    Only the shape a finding could not otherwise describe is checked
+    here: a top-level list, each entry a JSON object, each entry with a
+    real id. A bad id shape, a repeated id or too few misconceptions
+    are findings instead, reported by check_items below, not raised
+    here.
+    """
+    if not isinstance(data, list):
+        raise ValueError("the items file is not a JSON list")
+    items: list[dict[str, Any]] = []
+    for position, entry in enumerate(data, start=1):
+        if not isinstance(entry, dict):
+            raise ValueError(f"item #{position} is not a JSON object")
+        item_id = entry.get("id")
+        if not isinstance(item_id, str) or not item_id:
+            raise ValueError(f"item #{position} has no id")
+        items.append(entry)
+    return items
+
+
+def check_items(items: list[dict[str, Any]]) -> list[str]:
+    """Return one finding line per gap, malformed id or duplicate id."""
+    findings: list[str] = []
+    seen: dict[str, bool] = {}
+    for entry in items:
+        item_id = entry["id"]
+        misconceptions = entry.get("misconceptions")
+        count = len(misconceptions) if isinstance(misconceptions, list) else 0
+        if count < MIN_MISCONCEPTIONS:
+            plural = "" if count == 1 else "s"
+            findings.append(
+                f'gap: "{item_id}" has {count} misconception{plural}, '
+                f"needs at least {MIN_MISCONCEPTIONS}"
+            )
+        if not ID_RE.fullmatch(item_id):
+            findings.append(
+                f'malformed-id: "{item_id}" is not shaped ACI-<chapter>-<NNN>'
+            )
+        if item_id in seen:
+            findings.append(f'duplicate-id: "{item_id}" is used more than once')
+        else:
+            seen[item_id] = True
+    return findings
+
+
+def build_parser() -> argparse.ArgumentParser:
+    """Build the argument parser."""
+    parser = argparse.ArgumentParser(
+        prog="concept_item_check.py",
+        description=(
+            "Check an assessment concept item JSON file for a malformed id, "
+            "a duplicate id, or fewer than two misconceptions. Writes no "
+            "files."
+        ),
+    )
+    parser.add_argument("items", metavar="ITEMS", help="path to the items JSON")
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    """Command line entry point; prints the report, returns an exit code."""
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    try:
+        data = load_items(Path(args.items))
+        items = validate_items(data)
+    except (
+        OSError,
+        UnicodeError,
+        ValueError,
+        json.JSONDecodeError,
+        RecursionError,
+    ) as exc:
+        print(f"concept_item_check.py: error: {exc}", file=sys.stderr)
+        return 2
+    findings = check_items(items)
+    for message in findings:
+        print(message)
+    print(f"items={len(items)} errors={len(findings)}")
+    return 1 if findings else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

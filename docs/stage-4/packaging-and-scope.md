@@ -52,9 +52,10 @@ happened to assume.
 | Produce size-bounded bundle files: combine a chapter's own drafted parts into files kept under a stated character cap, splitting an oversized range across more than one file so no single file exceeds the cap | Agent | documented |
 | Prepare the content for a target platform: read that platform's own current size limits, then build whatever configuration and reference files it expects | Agent drafts; a person confirms the platform's current limits | documented |
 
-The project notes describe these as one builder prompt's two ordered
-jobs, not two separate prompts. [P-S4-05](../prompts/s4/p-s4-05.md),
-below, follows the same order.
+[The project notes](../glossary.md#reference-implementation) describe
+these as one builder prompt's two ordered jobs, not two separate
+prompts. [P-S4-05](../prompts/s4/p-s4-05.md), below, follows the same
+order.
 
 A 500,000-character cap per bundle file is documented as one stated
 cap among [the reference implementation](../glossary.md#reference-implementation)'s

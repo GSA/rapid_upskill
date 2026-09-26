@@ -1,0 +1,24 @@
+[
+  {
+    "stem_id": "STEM-2.1-001",
+    "correct_answer": "A",
+    "points": 5,
+    "feedback_correct": "Correct. A commit records a snapshot of every tracked file as staged at that moment, not only the lines that changed since the previous commit.",
+    "feedback_by_distractor": {
+      "B": "This option treats a commit as recording only the lines that changed, but a commit stores a snapshot of every tracked file as it stood when staged.",
+      "C": "This option treats a commit as accumulating the whole project history inside itself, rather than as one point-in-time snapshot linked to its parent commit.",
+      "D": "This option describes the working directory, including unstaged changes; a commit only ever reflects what was staged, not the full working directory."
+    }
+  },
+  {
+    "stem_id": "STEM-2.1-002",
+    "correct_answer": "A",
+    "points": 8,
+    "feedback_correct": "Correct. Merging integrates one branch's own work into another; whether that produces a new commit depends on whether history allows a fast-forward.",
+    "feedback_by_distractor": {
+      "B": "This option assumes every merge must add a new commit; a fast-forward merge only moves a branch label forward, so no merge commit is created.",
+      "C": "This option mixes up when a conflict marker is added with when a commit is created; the two happen at different points in a merge.",
+      "D": "This option treats the merge as finished once conflict markers in the working directory are resolved, but the merge is not complete until the resolved files are staged and committed."
+    }
+  }
+]
