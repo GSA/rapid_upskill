@@ -55,7 +55,7 @@ The amount of text an AI model can take in at one time. When a long task fills i
 
 ## Distractor {#distractor}
 
-A plausible wrong answer option in a multiple-choice test question. In the framework, Stage 5 builds distractors from the [misconceptions](#misconception) recorded in Stage 1. The question part is the [stem](#stem).
+A plausible wrong answer option in a multiple-choice test question. In the framework, Stage 5 extracts its own misconceptions afresh from each chapter's own text and builds distractors from those, not from the [misconceptions](#misconception) recorded in Stage 1. The question part is the [stem](#stem).
 
 ## Dry run {#dry-run}
 
@@ -107,11 +107,11 @@ An extracted content record: a small self-contained idea in your own words, with
 
 ## Misconception {#misconception}
 
-A specific wrong belief that many people hold about a topic. In the framework, misconceptions are recorded for each [knowledge item](#knowledge-item) in Stage 1, and Stage 5 builds [distractors](#distractor) from those records.
+A specific wrong belief that many people hold about a topic. In the framework, misconceptions are recorded for each [knowledge item](#knowledge-item) in Stage 1. Stage 5 records a further, separate set of misconceptions afresh from each chapter's own text, and builds [distractors](#distractor) from those, not from the Stage 1 records.
 
 ## Misconception catalog {#misconception-catalog}
 
-In the framework, a numbered list of the [misconceptions](#misconception) for one chapter. The tutor uses it to diagnose learner errors. It is not used to write distractors, which are built from the Stage 1 misconception records.
+In the framework, a numbered list of the [misconceptions](#misconception) for one chapter. The tutor uses it to diagnose learner errors. It is not used to write distractors, which Stage 5 builds from its own misconceptions, extracted afresh from each chapter's own text, not from the catalog and not from the Stage 1 records.
 
 ## Orchestrator {#orchestrator}
 
@@ -183,7 +183,7 @@ Each row compares terms that are easy to mix up.
 | [Blueprint](#blueprint) vs [certification outline](#certification-outline) | A blueprint is the program's own plan. A certification outline is a certifying body's list of exam skills. |
 | [Certification outline](#certification-outline) vs [exam skill](#exam-skill) | The outline is the whole published list. An exam skill is one entry on it. |
 | [Misconception](#misconception) vs [distractor](#distractor) | A misconception is a wrong belief. A distractor is a wrong answer option built from one. |
-| [Misconception catalog](#misconception-catalog) vs [distractor](#distractor) | The catalog is the tutor's per-chapter list for diagnosing learner errors. Distractors are built from the Stage 1 misconception records, not from the catalog. |
+| [Misconception catalog](#misconception-catalog) vs [distractor](#distractor) | The catalog is the tutor's per-chapter list for diagnosing learner errors. Distractors are built from misconceptions Stage 5 extracts afresh from each chapter's own text, not from the catalog and not from the Stage 1 records. |
 | [Hallucination](#hallucination) vs [misconception](#misconception) | A hallucination is false or invented output from an AI model. A misconception is a wrong belief a learner holds. |
 | [Protocol (tutor)](#protocol-tutor) vs [prompt](#prompt) | A protocol is a teaching pattern. A prompt is the text that instructs the AI. |
 | [Agent](#agent) vs [subagent](#subagent) vs [orchestrator](#orchestrator) | An agent is an AI that works toward a goal. A subagent is a helper agent for one part of a task. An orchestrator coordinates subagents and, in the reference implementation, is given the accept and merge decisions. |

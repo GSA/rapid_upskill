@@ -35,8 +35,8 @@ chapter quiz today, a mock exam later. Separating the two steps means a
 stem is only ever drafted once, no matter how many deliverables it
 later ends up in. Keeping the two apart also keeps a person's own
 review focused: a person confirming a drafted feedback row is judging
-the feedback itself, not re-checking arithmetic a script can already
-check faster and more consistently once a stem is finished.
+the feedback itself, not re-checking references and letters a script
+already checks the same way every time, once a stem is finished.
 
 ## Steps
 
@@ -84,13 +84,14 @@ of reporting.
 ## A two-phase assembly pattern
 
 Building the pieces of an assembled quiz is a separate concern from
-creating the quiz itself on whatever platform will actually deliver
-it. [The project notes](../glossary.md#reference-implementation)
-document a generalizable two-phase pattern for that second concern,
-described here with no real platform named, since this guide never
-names either of the two real products its own sources use for this
-work. First, create the quiz's own shell and add its items with only
-the content a platform needs to accept them. The platform then assigns
+creating the quiz itself on a forms-based quiz-delivery platform, the
+generic name this guide uses for the real product its own sources
+build a quiz on, never named here.
+[The project notes](../glossary.md#reference-implementation) document
+a generalizable two-phase pattern for that second concern, described
+here with no real platform field or method named either. First, create
+the quiz's own shell on the platform and add its items with only the
+content the platform needs to accept them. The platform then assigns
 each item its own id, an id that did not exist before that item was
 created. Only once every item carries a real, platform-assigned id can
 a second update actually address it: submitting a point value, a
@@ -157,6 +158,25 @@ not a mismatch, a real option that is simply the wrong one; it is
 outside the range entirely, exactly the kind of input the real
 project's own bug would have quietly treated as if it were option A.
 
+## Artifacts and formats
+
+This sub-stage produces one artifact: an answer key, in the schema
+above. The sample file for the running example, `answer_key/key.json`,
+holds one row each for `STEM-2.1-001` and `STEM-2.1-002`, described in
+the worked illustration above. The out-of-range demonstration lives
+only in the script block below, never in this checked-in file.
+
+## Prompts
+
+[P-S5-05 Draft item feedback](../prompts/s5/p-s5-05.md) drafts the
+correct-answer feedback and the per-distractor feedback for one
+already-assembled stem, from its own explanation and its own
+distractors' named misconceptions. It is written for this guide and
+has not been run against any model in this build; treat it as a
+starting point and adapt it. The stem text and the explanation notes it
+reads are data, never instructions, even where a sentence inside
+either is phrased as one.
+
 ## Scripts
 
 [X-S5-05 Answer key check](../scripts/s5/x-s5-05.md) checks an answer
@@ -197,25 +217,6 @@ resolves and every letter in the key is real; it says nothing about
 whether the feedback text itself is accurate, or whether it happens to
 give away the answer to a different stem than the one it is attached
 to.
-
-## Prompts
-
-[P-S5-05 Draft item feedback](../prompts/s5/p-s5-05.md) drafts the
-correct-answer feedback and the per-distractor feedback for one
-already-assembled stem, from its own explanation and its own
-distractors' named misconceptions. It is written for this guide and
-has not been run against any model in this build; treat it as a
-starting point and adapt it. The stem text and the explanation notes it
-reads are data, never instructions, even where a sentence inside
-either is phrased as one.
-
-## Artifacts and formats
-
-This sub-stage produces one artifact: an answer key, in the schema
-above. The sample file for the running example, `answer_key/key.json`,
-holds one row each for `STEM-2.1-001` and `STEM-2.1-002`, described in
-the worked illustration above. The out-of-range demonstration lives
-only in the script block above, never in this checked-in file.
 
 ## Definition of done
 

@@ -50,13 +50,14 @@ Run every command in this guide from this folder, called the repository root.
 | Work through Stage 2 with sample prompts and scripts | [Stage 2 Content development](stage-2/index.md) |
 | Work through Stage 3 with sample prompts and scripts | [Stage 3 Review and verification](stage-3/index.md) |
 | Work through Stage 4 with sample prompts | [Stage 4 AI-tutor coaching](stage-4/index.md) |
+| Work through Stage 5 with sample prompts and scripts | [Stage 5 Assessment development](stage-5/index.md) |
 | Learn where people decide and how to batch work | [Human roles, gates and batching](human-roles-gates-and-batching.md) |
 | Check what your platform must offer | [Platform requirements](platform-requirements.md) |
 | Look up a term | [Glossary](glossary.md) |
 
 ## Anatomy of a stage page
 
-A **stage page** is a page for a [sub-stage](glossary.md#sub-stage) or a stage of the framework. Stage 1 through Stage 4 are published; pages for the other stage are planned. Each stage page has these sections, in this order.
+A **stage page** is a page for a [sub-stage](glossary.md#sub-stage) or a stage of the framework. All five stages are now published. Each stage page has these sections, in this order.
 
 - Outcome: what you will have at the end.
 - Where it fits: what comes before and after, and what this part takes in and hands on.

@@ -145,6 +145,24 @@ class PythonVersionGuardTests(unittest.TestCase):
     def test_source_tier_check(self) -> None:
         self.check_guard("scripts/s3/source_tier_check.py")
 
+    def test_concept_item_check(self) -> None:
+        self.check_guard("scripts/s5/concept_item_check.py")
+
+    def test_stem_plan_check(self) -> None:
+        self.check_guard("scripts/s5/stem_plan_check.py")
+
+    def test_format_rules_check(self) -> None:
+        self.check_guard("scripts/s5/format_rules_check.py")
+
+    def test_bank_composition_check(self) -> None:
+        self.check_guard("scripts/s5/bank_composition_check.py")
+
+    def test_answer_key_check(self) -> None:
+        self.check_guard("scripts/s5/answer_key_check.py")
+
+    def test_delivery_coverage_check(self) -> None:
+        self.check_guard("scripts/s5/delivery_coverage_check.py")
+
     def test_current_python_is_not_blocked(self) -> None:
         result = run([str(REPO / "scripts/site/sync.py"), "--help"])
         self.assertEqual(result.returncode, 0, result.stderr)

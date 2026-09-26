@@ -34,7 +34,9 @@ sys.dont_write_bytecode = True
 
 ROOT = Path(__file__).resolve().parents[2]
 SCRIPT = ROOT / "scripts" / "s5" / "stem_plan_check.py"
-PLAN = ROOT / "scripts" / "sample_data" / "git_basics_stage5" / "stem_plan" / "plan.json"
+PLAN = (
+    ROOT / "scripts" / "sample_data" / "git_basics_stage5" / "stem_plan" / "plan.json"
+)
 PAGE = ROOT / "docs" / "stage-5" / "stem-planning.md"
 
 
@@ -155,7 +157,7 @@ class CheckPlanTests(unittest.TestCase):
 
     def test_bad_row_not_an_object(self) -> None:
         errors, _, _ = spc.check_plan(["not an object"], set(FIXTURE_ITEM_IDS))
-        self.assertEqual(errors, ['bad-row: row #1 is not a JSON object'])
+        self.assertEqual(errors, ["bad-row: row #1 is not a JSON object"])
 
     def test_missing_plan_row_id(self) -> None:
         rows = base_plan()
@@ -167,7 +169,7 @@ class CheckPlanTests(unittest.TestCase):
         rows = base_plan()
         del rows[0]["difficulty"]
         errors, _, _ = spc.check_plan(rows, set(FIXTURE_ITEM_IDS))
-        self.assertIn('missing-field: row "PLAN-1" has no \'difficulty\'', errors)
+        self.assertIn("missing-field: row \"PLAN-1\" has no 'difficulty'", errors)
 
     def test_bad_difficulty_value(self) -> None:
         rows = base_plan()
@@ -210,7 +212,7 @@ class CheckPlanTests(unittest.TestCase):
         rows[1]["concept_item_ids"] = ["ACI-2-001", "ACI-9-999"]
         errors, _, _ = spc.check_plan(rows, set(FIXTURE_ITEM_IDS))
         self.assertIn(
-            "missing-item: row \"PLAN-2\" references concept item id "
+            'missing-item: row "PLAN-2" references concept item id '
             "'ACI-9-999' not found in ITEMS.json",
             errors,
         )
@@ -313,9 +315,7 @@ class CommandLineTests(unittest.TestCase):
     def test_real_plan_against_a_stand_in_items_file(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             items = write_json(Path(tmp), "items.json", base_items())
-            result = run_cli(
-                PLAN.relative_to(ROOT).as_posix(), str(items), cwd=ROOT
-            )
+            result = run_cli(PLAN.relative_to(ROOT).as_posix(), str(items), cwd=ROOT)
         self.assertEqual(result.returncode, 0)
         self.assertIn(
             "warning mix: plan is easy=50% medium=50% hard=0%, "
@@ -401,9 +401,7 @@ class SampleDataTests(unittest.TestCase):
 
     def test_plan_uses_the_shared_fixture_ids(self) -> None:
         data = json.loads(PLAN.read_text(encoding="utf-8"))
-        self.assertEqual(
-            [row["plan_row_id"] for row in data], ["PLAN-1", "PLAN-2"]
-        )
+        self.assertEqual([row["plan_row_id"] for row in data], ["PLAN-1", "PLAN-2"])
         self.assertEqual(data[0]["concept_item_ids"], ["ACI-1-001"])
         self.assertEqual(data[1]["concept_item_ids"], ["ACI-2-001", "ACI-2-002"])
         self.assertEqual(data[0]["difficulty"], "easy")
@@ -439,16 +437,16 @@ class PageOutputTests(unittest.TestCase):
     def test_fence_matches_the_real_run(self) -> None:
         with tempfile.TemporaryDirectory() as tmp:
             items = write_json(Path(tmp), "items.json", base_items())
-            result = run_cli(
-                PLAN.relative_to(ROOT).as_posix(), str(items), cwd=ROOT
-            )
+            result = run_cli(PLAN.relative_to(ROOT).as_posix(), str(items), cwd=ROOT)
         lines = [line for line in self.fences[0].splitlines() if line.strip()]
         self.assertTrue(lines)
         for line in lines:
             self.assertIn(line, result.stdout, f"pasted line not found: {line!r}")
 
     def test_page_names_both_real_sample_paths(self) -> None:
-        self.assertIn("scripts/sample_data/git_basics_stage5/stem_plan/plan.json", self.page_text)
+        self.assertIn(
+            "scripts/sample_data/git_basics_stage5/stem_plan/plan.json", self.page_text
+        )
         self.assertIn(
             "scripts/sample_data/git_basics_stage5/concept_items/items.json",
             self.page_text,

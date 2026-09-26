@@ -13,24 +13,24 @@ scripts: ["X-S5-04"]
 # S5.5 and S5.7 Difficulty distribution and blueprint bank
 
 S5.5 and S5.7 are not adjacent sub-stage numbers. S5.6, quiz and exam
-assembly, sits between them in the project notes' own numbering, but
-its own content is different enough, and rich enough, that this guide
+assembly, sits between them in the project notes' own numbering. Its
+own content is different enough, and rich enough, that this guide
 gives it two pages of its own instead: [S5.6 Quiz and exam
 assembly](quiz-and-exam-assembly.md) and [the delivery-formats
 page](delivery-formats.md). This page covers S5.5 and S5.7 together
 because they are two tightly linked halves of one idea: fix the bank's
 own difficulty mix first, then weight its domain coverage against the
-blueprint.
+[blueprint](../glossary.md#blueprint).
 
 ## Outcome
 
 At the end of these two sub-stages, a whole [item
 bank](../glossary.md#item-bank)'s own difficulty mix is fixed up
-front and mapped to Bloom's levels, and the bank's own domain coverage
-mirrors the [blueprint](../glossary.md#blueprint)'s own weights: the
-same arithmetic [S1.3 Draft the blueprint](../stage-1/blueprint.md)
-already defines for its own bank of test items, applied here at Stage
-5's own larger scale.
+front and mapped to Bloom's levels. The bank's own domain coverage
+also mirrors the blueprint's own weights: the same arithmetic
+[S1.3 Draft the blueprint](../stage-1/blueprint.md) already defines
+for its own bank of test items, applied here at Stage 5's own larger
+scale.
 
 ## Where it fits
 
@@ -44,9 +44,9 @@ bank's own stems are assembled into a deliverable quiz.
 ## Why this way
 
 Fixing the difficulty mix and the domain weighting before assembly,
-rather than checking only after a bank is finished, means a gap in one
-domain or one difficulty tier is caught while there is still time to
-write the stems that would close it.
+rather than checking only after a bank is finished, catches a gap
+early. A gap in one domain or one difficulty tier is caught while
+there is still time to write the stems that would close it.
 
 ## Steps
 
@@ -61,17 +61,13 @@ The difficulty split and its Bloom crosswalk are documented: [the
 project notes](../glossary.md#reference-implementation) fix them
 exactly, and this guide has already stated the split publicly
 elsewhere (see below). The blueprint arithmetic is also documented,
-not this guide's own invention: the project notes describe matching a
-bank's own item counts to a blueprint's weights the same way
+not this guide's own invention. The project notes describe matching a
+bank's own item counts to a blueprint's weights, the same way
 [S1.3](../stage-1/blueprint.md)'s own Parameters table already defines
-it, under its "Bank-size arithmetic" row, for the bank of test items
-S1.3's own blueprint already sizes. Stage 1's blueprint sizes a bank
-of stems, not concepts, at a small, toy scale; Stage 5 applies the
-identical mechanism at this stage's own much larger, real scale, not a
-new mechanism borrowed from a concept-count check. The bank
-composition check itself, and the judgment call of approving a
-finished composition, have no described precedent, so both are marked
-suggested.
+it, under its "Bank-size arithmetic" row. The section below says how
+this differs from a concept-count check. The bank composition check
+itself, and the judgment call of approving a finished composition,
+have no described precedent, so both are marked suggested.
 
 ## The difficulty split and the Bloom crosswalk
 
@@ -80,21 +76,26 @@ suggested.
 that project's choice and not a universal rule." This page reuses that
 exact split and its own crosswalk onto Bloom's six-level scale
 (documented, the reference implementation's own mapping of that
-already-public split onto Bloom's levels): Remember and Understand map
-to easy (30 percent); Apply and Analyze map to medium (50 percent);
-Evaluate and Create map to hard (20 percent).
+already-public split onto Bloom's levels):
+
+- Remember and Understand map to easy (30 percent).
+- Apply and Analyze map to medium (50 percent).
+- Evaluate and Create map to hard (20 percent).
 
 ## A separate, industry-generic range
 
 A separate, industry-generic exam-development guide gives a wider
 range for the same three-tier idea, not tied to any one certification:
-roughly 20 to 30 percent foundational (Remember and Understand), 50 to
-60 percent intermediate (Apply and Analyze), and 15 to 20 percent
-advanced (Evaluate and Create). Keep the two figures distinct: the
-industry-generic range is a general reference point, useful when no
-project-specific split exists yet; the reference implementation's own
-fixed 30/50/20 above is one project's chosen instance inside that kind
-of range, not the same figure restated twice.
+
+- Roughly 20 to 30 percent foundational (Remember and Understand).
+- Roughly 50 to 60 percent intermediate (Apply and Analyze).
+- Roughly 15 to 20 percent advanced (Evaluate and Create).
+
+Keep the two figures distinct. The industry-generic range above is a
+general reference point, useful when no project-specific split exists
+yet. The reference implementation's own fixed 30/50/20 is one
+project's chosen instance inside that kind of range, not the same
+figure restated twice.
 
 ## Blueprint arithmetic applied to a bank of test items
 
@@ -104,14 +105,22 @@ scale): "A domain's weight, times the bank size, divided by 100,
 should be a whole number." [The running example](../running-example.md)'s
 own blueprint already applies this: four domains weighted 25, 30, 25
 and 20, against a bank of 20 stems, gives target counts of 5, 6, 5 and
-4. A real bank at Stage 5's own scale can span many more domains,
-unevenly weighted, but the arithmetic does not change: multiply a
-domain's weight by the bank size, divide by 100, and a domain's own
-real item count should land close to that number. This is not a
-mechanism first used for counting concepts and then carried over to
-items; the blueprint's own bank-size field already counts stems, the
-finished test items, at both scales, so Stage 5 reuses the same
-mechanism, not a new one, at its own larger scale.
+4.
+
+This is not a mechanism first used for counting concepts and then
+carried over to items. The blueprint's own bank-size field already
+counts stems, the finished test items, at both scales. Stage 5 reuses
+the same mechanism, not a new one, at its own larger scale.
+
+Without naming the real target certification anywhere: a real
+project's own blueprint can weight a much larger number of domains
+unevenly across many more skills than the running example's four
+domains and twelve objectives. This guide demonstrates the same
+arithmetic on the running example's own small, real blueprint instead,
+because the mechanism is the same regardless of scale. Multiply a
+domain's weight by the bank size, then divide by 100: a domain's own
+real item count should land close to that number, no matter how many
+domains a real program's blueprint weights.
 
 ## Worked illustration
 
@@ -142,18 +151,18 @@ bank-wide split also lands on 30/50/20:
 | Bank-wide | 6 (30%) | 10 (50%) | 4 (20%) | 20 |
 
 Every domain's own real count matches its target exactly, and the
-bank-wide difficulty split matches 30/50/20 exactly, so
+bank-wide difficulty split matches 30/50/20 exactly. So
 `bank_composition_check.py` reports no warnings on this file, shown
 below.
 
 ## Artifacts and formats
 
-This sub-stage's own artifact is a bank-composition record: item
+This sub-stage's own artifact is a **bank-composition record**: item
 counts by domain and by difficulty. Its JSON shape
 (`bank/composition.json`) is a single object with one key, `domains`,
 mapping each domain id to an object holding an `easy`, a `medium` and
-a `hard` count (this guide's own suggested shape; the project notes
-give no machine-checkable format for this record).
+a `hard` count. This is this guide's own suggested shape. The project
+notes give no machine-checkable format for this record.
 
 ## Prompts
 
@@ -168,10 +177,10 @@ in this build.
 [X-S5-04 Bank composition check](../scripts/s5/x-s5-04.md) reads a
 bank composition file and the blueprint it is meant to match. For each
 blueprint domain, it checks whether the composition's own real item
-count is within 1 of `weight * bank_size / 100`; it also checks
+count is within 1 of `weight * bank_size / 100`. It also checks
 whether the bank-wide easy, medium and hard split is within 10
 percentage points of 30/50/20. A composition gap is a person's
-judgment call, not a hard failure, the same limit [Stage 2's
+judgment call, not a hard failure. This is the same limit [Stage 2's
 readability report](../stage-2/readability-and-revision.md) already
 sets for its own two scores: this script never exits 1 on its own, and
 exits 0 whenever it can read both files.
@@ -196,14 +205,14 @@ domains=4 warnings=0
 ```
 
 A clean run only shows that this one small, invented composition
-happens to match its blueprint and its difficulty split exactly; it is
+happens to match its blueprint and its difficulty split exactly. It is
 not proof that every stem behind those counts is itself sound, only
 that the counts add up.
 
 Break it on purpose: copy the file, then change domain D2's own `hard`
-count from 1 to 5, so it drifts far past its own target and the
-bank-wide hard share balloons past its own 10-point tolerance, and run
-the check again on the copy:
+count from 1 to 5. It now drifts past its own target, and the
+bank-wide hard share balloons past its own 10-point tolerance. Run the
+check again on the copy:
 
 ```text
 warning domain-count: domain D2 weight 30 gives bank_size * weight / 100 = 7.2 target, actual count is 10 (+2.8 away)
@@ -219,12 +228,12 @@ domains=4 warnings=2
 
 The one-domain change trips two warnings at once, the same way a
 single weight edit trips two checks on [S1.3](../stage-1/blueprint.md)'s
-own blueprint check: adding four items to one domain both moves that
-domain away from its own target and pulls the whole bank's hard share
-away from 30/50/20, since the added items were all hard. See [Reading
-exit codes](../stage-1/index.md#reading-exit-codes) on the Stage 1
-index for what the exit code means; here it stays 0, since a
-composition gap is always a warning on this script, never a failure.
+own blueprint check. Adding four items to one domain moves that domain
+away from its own target, and pulls the whole bank's hard share away
+from 30/50/20, since the added items were all hard. See [Reading exit
+codes](../stage-1/index.md#reading-exit-codes) on the Stage 1 index for
+what the exit code means; here it stays 0, since a composition gap is
+always a warning on this script, never a failure.
 
 ## Definition of done
 

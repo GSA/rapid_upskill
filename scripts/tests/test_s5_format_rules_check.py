@@ -25,14 +25,7 @@ sys.dont_write_bytecode = True
 
 ROOT = Path(__file__).resolve().parents[2]
 SCRIPT = ROOT / "scripts" / "s5" / "format_rules_check.py"
-SAMPLE = (
-    ROOT
-    / "scripts"
-    / "sample_data"
-    / "git_basics_stage5"
-    / "stems"
-    / "stems.json"
-)
+SAMPLE = ROOT / "scripts" / "sample_data" / "git_basics_stage5" / "stems" / "stems.json"
 PAGE = ROOT / "docs" / "stage-5" / "distractors-and-format-rules.md"
 
 
@@ -161,7 +154,9 @@ class CheckOneStemTests(unittest.TestCase):
         stem = base_stem()
         del stem["distractors"]
         errors = frc.check_one_stem(stem, "stem X")
-        self.assertTrue(any("missing-field" in e and "distractors" in e for e in errors))
+        self.assertTrue(
+            any("missing-field" in e and "distractors" in e for e in errors)
+        )
         self.assertTrue(any("distractor-count" in e for e in errors), errors)
 
     def test_multi_answer_error(self) -> None:
@@ -381,7 +376,7 @@ class CommandLineTests(unittest.TestCase):
             result.stdout,
         )
         self.assertIn(
-            "error all-or-none: stem \"STEM-2.1-BROKEN\" distractor B text is "
+            'error all-or-none: stem "STEM-2.1-BROKEN" distractor B text is '
             "'All of the above.'",
             result.stdout,
         )

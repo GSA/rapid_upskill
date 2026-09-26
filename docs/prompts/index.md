@@ -37,4 +37,10 @@ These pages are generated from the files in `prompts/`. Edit a source file and r
 | [P-S4-03](s4/p-s4-03.md) | Diagnose a wrong answer | Classify a wrong answer by the four-type taxonomy and check it against a small excerpt of the misconception catalog. |
 | [P-S4-04](s4/p-s4-04.md) | Respond to a solution request | Apply the attempt-first and graded-work-AI-free rules to a learner's request and produce an appropriate response. |
 | [P-S4-05](s4/p-s4-05.md) | Package a chapter bundle | Chunk a finished chapter's text into size-bounded bundle files, then draft the reference files a target platform's own package needs, from that platform's own current limits. |
+| [P-S5-01](s5/p-s5-01.md) | Extract an assessment concept item | Extract one assessment concept item from a chapter section: concepts, at least two misconceptions, references and dependencies. |
+| [P-S5-02](s5/p-s5-02.md) | Draft a stem plan | Plan a chapter's own stems before any is drafted: which assessment concept items combine at which difficulty, and which misconception backs each planned distractor. |
+| [P-S5-03](s5/p-s5-03.md) | Draft a stem with distractors | Draft one stem's text, correct answer and distractors, each distractor tied to one named misconception, following the format rules. |
+| [P-S5-04](s5/p-s5-04.md) | Propose a bank composition | Propose how many items a bank needs per domain and per difficulty, from a blueprint's own weights and the reference implementation's difficulty split. |
+| [P-S5-05](s5/p-s5-05.md) | Draft item feedback | Draft the right-answer and wrong-answer feedback text for one assembled stem, from its explanation and its distractors' own misconceptions. |
+| [P-S5-06](s5/p-s5-06.md) | Assign a stem to a deliverable | Assign one finished stem to one or more deliverable kinds (the bank, a mock exam, a chapter quiz, a practice test), and give a one-line reason for each assignment. |
 {% endraw %}

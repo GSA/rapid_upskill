@@ -149,7 +149,11 @@ step, not in the stem.
 delivery manifest and a stem file, and warns about every stem the
 manifest assigns to zero deliverable kinds. It checks one direction
 only: it never reports a manifest entry naming a stem id no longer in
-the bank. Like the [bank composition check](difficulty-and-blueprint-bank.md)
+the bank. It also skips a stem entry it cannot make sense of. One entry
+in the sample stem file is marked as a deliberately broken copy, kept
+only for a different script's own demonstration; a normal run here
+skips that entry too, so it never counts toward the totals below.
+Like the [bank composition check](difficulty-and-blueprint-bank.md)
 earlier in this stage, it never exits 1 on its own; a gap here is a
 person's decision, not a hard failure the script can settle by itself.
 Run it from the repository root:
