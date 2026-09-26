@@ -25,7 +25,7 @@ whole chapter's own citations.
 This sub-stage takes in Layer 2's signed-off findings from
 [S3.2](layer-2-expert-review.md). It hands on a recorded, checked
 chapter to [S3.4 and S3.5](tiering-and-remediation.md), the last step
-before the planned Stage 4.
+before [Stage 4](../stage-4/index.md).
 
 ## Why this way
 

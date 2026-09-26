@@ -10,11 +10,11 @@ stage: "S3"
 
 ## Outcome
 
-[Stage 3](../glossary.md#stage) turns a finished Stage 2 chapter into a reviewed one. A chapter's claims are scanned automatically and handed off to a person where the scan cannot resolve them. What was found is recorded in an audit trail, and the chapter's own sources are classified by credibility, before the chapter is considered ready for the planned Stage 4.
+[Stage 3](../glossary.md#stage) turns a finished Stage 2 chapter into a reviewed one. A chapter's claims are scanned automatically and handed off to a person where the scan cannot resolve them. What was found is recorded in an audit trail, and the chapter's own sources are classified by credibility, before the chapter is considered ready for [Stage 4](../stage-4/index.md).
 
 ## Where it fits
 
-Stage 3 takes in a finished, revised chapter from [Stage 2](../stage-2/index.md). It hands on a reviewed chapter to the planned Stage 4 (AI-tutor coaching).
+Stage 3 takes in a finished, revised chapter from [Stage 2](../stage-2/index.md). It hands on a reviewed chapter to [Stage 4](../stage-4/index.md) (AI-tutor coaching).
 
 ## Sub-stages
 

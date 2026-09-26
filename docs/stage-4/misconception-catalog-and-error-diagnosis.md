@@ -15,19 +15,21 @@ scripts: []
 ## Outcome
 
 At the end of this sub-stage, a wrong answer is classified by kind,
-then checked against a per-chapter catalog of known misconceptions, so
-a tutor's response addresses the actual gap rather than just marking
-the answer wrong.
+then checked against a per-chapter catalog of known misconceptions. A
+tutor's response then addresses the actual gap, rather than just
+marking the answer wrong. The catalog itself, and the classify-then-check
+habit this sub-stage builds, both persist beyond any one answer: the
+same catalog serves every learner who reaches this chapter.
 
 ## Where it fits
 
 This sub-stage takes in a finished, reviewed chapter from
 [Stage 3](../stage-3/index.md). It hands the resulting misconception
-catalog to [S4.1 and S4.2](principles-and-protocol-library.md)'s Error
-Diagnosis protocol, which reads the catalog whenever a learner's wrong
-answer calls for it, and to [S4.7](packaging-and-scope.md), which
-bundles the catalog for a target platform alongside the chapter's own
-text. This sub-stage's own diagnosis step is one destination
+catalog on to two later pages. [S4.1 and S4.2](principles-and-protocol-library.md)'s
+Error Diagnosis protocol reads the catalog whenever a learner's wrong
+answer calls for it. [S4.7](packaging-and-scope.md) bundles the
+catalog for a target platform, alongside the chapter's own text. This
+sub-stage's own diagnosis step is one destination
 [S4.3 and S4.4](selection-and-chaining.md)'s selection layer can route
 an interaction to, once a learner's answer is wrong.
 
@@ -38,7 +40,7 @@ classification by kind, checked against what the catalog already
 knows learners tend to get wrong on this material, lets a response
 target the actual misunderstanding instead of repeating the correct
 answer louder. Marking an answer wrong without diagnosing why tells a
-learner nothing they did not already suspect; naming the gap, and
+learner nothing they did not already suspect. Naming the gap, and
 matching it against a known, chapter-specific misconception, is what
 turns a wrong answer into a useful teaching moment.
 
@@ -57,10 +59,10 @@ this four-step sequence as a single named protocol.
 lists it, under the library's own letter, as Error Diagnosis: one of
 sixteen protocols in the library this sub-stage's catalog feeds. The
 project notes illustrate the classify-and-check steps only with
-generic examples, not with one of the catalog's own ids, so the second
+generic examples, not with one of the catalog's own ids. The second
 step's own worked example on this page is this guide's own
-construction (see the suggested illustration below), fitted to the
-documented four-step shape.
+construction instead, fitted to the documented four-step shape (see
+the suggested illustration below).
 
 ## The four-type taxonomy
 
@@ -99,10 +101,10 @@ the wrong belief and the correction. The project notes' own catalog
 nests each entry under a chapter heading that itself carries a
 sub-chapter number, inside a still larger, part-level grouping. That
 scheme does not fit a three-chapter running example with no parts and
-no sub-chapters, so the worked illustration below drops the
-sub-chapter piece and uses a plain chapter number instead, giving an
-id such as `MC-1-001`. This is this guide's own adaptation of a
-documented format, not a different format the project notes describe.
+no sub-chapters. The worked illustration below drops the sub-chapter
+piece and uses a plain chapter number instead, giving an id such as
+`MC-1-001`. This is this guide's own adaptation of a documented
+format, not a different format the project notes describe.
 
 ## This guide's own honest gap
 
@@ -128,15 +130,17 @@ shows that they do.
 
 [The running example](../running-example.md)'s own `SRC-002` already
 states, verbatim: "A common mistake is to assume that merging must
-create a commit." The sentence sits under that source's own "How do I
-combine two branches?" heading, in the paragraph that follows the
-two-way description of how a merge can finish (a fast-forward, or a
-merge commit).
+create a commit."
+
+That sentence sits under `SRC-002`'s own "How do I combine two
+branches?" heading. It comes right after the paragraph that describes
+the two ways a merge can finish: a fast-forward, or a merge commit.
 
 Suggested, to show what the missing link above would look like if it
-existed: a Stage 1 knowledge item of type `misconception`, quoting
-that sentence with its real locator (source `SRC-002`, heading "How do
-I combine two branches?"), could feed one catalog entry:
+existed: a Stage 1 knowledge item of this kind could exist. It would
+be of type `misconception`, quoting that sentence with its real
+locator: source `SRC-002`, under the heading named above. That
+knowledge item could then feed one catalog entry:
 
 > `MC-1-001: Merging always creates a commit` — correction: a
 > fast-forward merge only moves a label; no new commit is made.
@@ -159,6 +163,12 @@ file.
 - **Per-answer diagnosis**: an error type (conceptual, procedural,
   factual or careless), a one-line diagnosis, and a catalog entry id
   when one applies.
+
+Neither artifact records who classified an error or when. A team
+adopting this sub-stage still has to decide, on its own, how to keep a
+record of a diagnosis beyond the single reply a learner sees. Earlier
+stages ask a team to build its own record the same way, for an
+approval the project notes do not themselves leave a trail for.
 
 ## Prompts
 
@@ -195,6 +205,10 @@ None; the project notes describe no code for this sub-stage.
 - Skipping the catalog check because the wrong answer looks obviously
   careless, which misses the cases where a slip was actually a
   conceptual gap in disguise.
+- Treating this guide's own suggested Stage-1-to-catalog link as if it
+  were documented, not suggested. Citing a catalog entry's id as
+  though it traced back to a specific Stage 1 record, when the project
+  notes do not show that connection being made.
 
 ## Adapting to your platform
 
@@ -203,7 +217,13 @@ None; the project notes describe no code for this sub-stage.
 - `file-read`: reads the chapter's own misconception catalog, or the
   excerpt of it a person supplies.
 - Without `file-read`, paste the relevant catalog entries into the
-  prompt by hand before running it.
+  prompt by hand before running it. A chapter's whole catalog can grow
+  large; passing only the excerpt a diagnosis actually needs keeps the
+  request small and keeps the model from guessing at entries it was
+  never shown.
+- `human-approval`: covers the catalog-approval step below; a platform
+  with no built-in approval step still needs a person to read and
+  record it somewhere, such as a shared document.
 
 ## Where humans decide
 
@@ -212,5 +232,8 @@ None; the project notes describe no code for this sub-stage.
 - Confirming that this guide's own illustrative Stage-1-to-catalog
   link is only a suggestion, not something to copy as if the project
   notes required it.
+- Judging, for any real diagnosis a tutor gives, whether the cited
+  catalog entry actually matches the learner's own mistake, since
+  neither artifact above records that judgment automatically.
 
 Next: [S4.6 Learner-facing guardrails](guardrails.md).

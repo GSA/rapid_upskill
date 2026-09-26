@@ -32,4 +32,9 @@ These pages are generated from the files in `prompts/`. Edit a source file and r
 | [P-S3-02](s3/p-s3-02.md) | Deep-verification note for one flagged claim | Draft a deep-verification note for one flagged claim: status, issue, evidence and a suggested correction, for a person to check. |
 | [P-S3-03](s3/p-s3-03.md) | Audit record from review | Turn one completed review's findings into a per-claim audit-trail record. |
 | [P-S3-04](s3/p-s3-04.md) | Propose a source tier | Propose a credibility tier for one candidate source, against the five-point checklist and the four tier definitions. |
+| [P-S4-01](s4/p-s4-01.md) | One hint from the step-by-step ladder | Give a stuck learner one hint at a time, from a four-level ladder, without revealing the solution outright. |
+| [P-S4-02](s4/p-s4-02.md) | Select the next protocol for one interaction | Apply the fixed priority order to one interaction and name which protocol runs next; for an orchestrator session to call, not for a learner to run directly. |
+| [P-S4-03](s4/p-s4-03.md) | Diagnose a wrong answer | Classify a wrong answer by the four-type taxonomy and check it against a small excerpt of the misconception catalog. |
+| [P-S4-04](s4/p-s4-04.md) | Respond to a solution request | Apply the attempt-first and graded-work-AI-free rules to a learner's request and produce an appropriate response. |
+| [P-S4-05](s4/p-s4-05.md) | Package a chapter bundle | Chunk a finished chapter's text into size-bounded bundle files, then draft the reference files a target platform's own package needs, from that platform's own current limits. |
 {% endraw %}

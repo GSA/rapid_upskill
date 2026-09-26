@@ -16,11 +16,12 @@ scripts: []
 
 At the end of this sub-stage, a chapter's finished text, its
 misconception catalog, and its protocol library exist as two kinds of
-package: bundle files a person can upload to a plain chat session, and
-a package sized and shaped for one target platform's own current
-limits. Neither package changes what the chapter says; packaging only
-chunks and arranges material that earlier sub-stages have already
-produced and, where needed, already had a person approve.
+package. One is a set of bundle files a person can upload to a plain
+chat session. The other is a package sized and shaped for one target
+platform's own current limits. Neither package changes what the
+chapter says; packaging only chunks and arranges material that earlier
+sub-stages have already produced and, where needed, already had a
+person approve.
 
 ## Where it fits
 
@@ -35,13 +36,14 @@ outside the chapter-production pipeline the earlier stages describe.
 
 A platform's own size limits are real, and they vary by platform.
 Packaging as its own, separate step means a chapter's own content does
-not have to be redesigned every time a target platform changes; only
+not have to be redesigned every time a target platform changes. Only
 the chunking and the reference files built around it need to change.
-Keeping the two jobs in a fixed order also matters: producing the
+
+Keeping the two jobs in a fixed order also matters. Producing the
 bundle files first, and only then reading a target platform's own
 current limits, means the second job always starts from a platform's
-own present-day figures rather than from whatever limit an earlier
-build happened to assume.
+own present-day figures, not from whatever limit an earlier build
+happened to assume.
 
 ## Steps
 
@@ -60,8 +62,8 @@ parameters. This guide's own scripts and pages elsewhere use character
 or word counts of their own, unrelated to this figure, so do not
 confuse the two. Treat the 500,000-character figure exactly as what it
 is: one project's own working number, useful as an example of the
-shape a per-file cap takes, and not a rule this guide asks a reader to
-copy onto a different platform.
+shape a per-file cap takes. It is not a rule this guide asks a reader
+to copy onto a different platform.
 
 A target platform's own real limits should always be checked at build
 time, never assumed from a printed number anywhere, including the
@@ -101,10 +103,10 @@ claims.
 Chapter 2 of [the running example](../running-example.md) (Branching
 and merging), once Stage 3 has reviewed it, supplies the sample
 chapter text for this illustration. An author picks a size limit for
-chunking that is deliberately small and clearly labelled as this
-guide's own arbitrary choice for the illustration, not the reference
-implementation's own cap and not a limit to copy: 2,000 characters per
-bundle file. Chapter 2's own drafted text runs longer than that, so it
+chunking that is deliberately small: 2,000 characters per bundle file.
+This limit is clearly labelled as this guide's own arbitrary choice for
+the illustration, not the reference implementation's own cap and not a
+limit to copy. Chapter 2's own drafted text runs longer than that, so it
 is combined and split into two bundle files, `part1.md` and `part2.md`,
 each measured and confirmed to fall under the chosen limit.
 
@@ -188,10 +190,10 @@ None; the project notes describe no code for this sub-stage.
 - Without `file-read`, paste the chapter text and the platform's own
   current limits into the prompt by hand before running it.
 - `human-approval`: pauses before a packaged bundle reaches a learner,
-  and before a build proceeds on any target platform's current
-  limits; a platform with no built-in approval step still needs a
-  person to read and record each one, such as in a shared document or
-  a version-control commit message.
+  and before a build proceeds on any target platform's current limits.
+  A platform with no built-in approval step still needs a person to
+  read and record each one, such as in a shared document or a
+  version-control commit message.
 
 ## Where humans decide
 
@@ -202,8 +204,8 @@ None; the project notes describe no code for this sub-stage.
   build, not only the first one, since a platform's own published
   limits can change between one build and the next.
 - Deciding what to do when a platform's own documentation disagrees
-  with itself about a limit: no script can settle a genuine
-  disagreement in a platform's own published figures, so a person
-  picks the more conservative reading and records why.
+  with itself about a limit. No script can settle a genuine
+  disagreement in a platform's own published figures; a person picks
+  the more conservative reading and records why.
 
 Next: [Stage 4 AI-tutor coaching](index.md).

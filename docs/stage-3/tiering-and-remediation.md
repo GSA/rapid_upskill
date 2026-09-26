@@ -30,7 +30,7 @@ the source is admitted, as early as [Stage 1](../stage-1/index.md).
 This page places the check at the end of Stage 3 because that is where
 this guide's own sample script runs it, against a chapter that is
 about to move on. This sub-stage hands on a checked, tiered chapter to
-the planned Stage 4 (AI-tutor coaching).
+[Stage 4](../stage-4/index.md) (AI-tutor coaching).
 
 ## Why this way
 
@@ -261,4 +261,4 @@ what the script produces.
 - Assigning a flagged defect's severity, action, owner role and
   response-time target.
 
-Next: [Stage 3 Review and verification](index.md).
+Next: [Stage 4 AI-tutor coaching](../stage-4/index.md).
