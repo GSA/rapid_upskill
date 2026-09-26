@@ -51,6 +51,8 @@ Run every command in this guide from this folder, called the repository root.
 | Work through Stage 3 with sample prompts and scripts | [Stage 3 Review and verification](stage-3/index.md) |
 | Work through Stage 4 with sample prompts | [Stage 4 AI-tutor coaching](stage-4/index.md) |
 | Work through Stage 5 with sample prompts and scripts | [Stage 5 Assessment development](stage-5/index.md) |
+| See the parallel certification-alignment workstream | [Certification alignment](certification-alignment.md) |
+| See how delivery tooling turns chapters into slides, infographics, and finished volumes | [Delivery](delivery/index.md) |
 | Learn where people decide and how to batch work | [Human roles, gates and batching](human-roles-gates-and-batching.md) |
 | Check what your platform must offer | [Platform requirements](platform-requirements.md) |
 | Look up a term | [Glossary](glossary.md) |

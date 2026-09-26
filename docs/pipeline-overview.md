@@ -9,7 +9,7 @@ last_reviewed: "2026-09-21"
 
 ## The shape of the framework
 
-The framework has five [stages](glossary.md#stage) that run in order. Each stage pairs a job for AI, a mechanism aimed at the learner, and a quality check. The description follows the [reference implementation](glossary.md#reference-implementation), the project this guide draws on. This guide calls that project's own working documents the project notes. Stage 1 through Stage 3, and Stage 5, are published as a worked sequence of sub-stage pages with sample prompts and scripts, and Stage 4 with sample prompts; all five stages are now published.
+The framework has five [stages](glossary.md#stage) that run in order. Each stage pairs a job for AI, a mechanism aimed at the learner, and a quality check. The description follows the [reference implementation](glossary.md#reference-implementation), the project this guide draws on. This guide calls that project's own working documents the project notes. Stage 1 through Stage 3, and Stage 5, are published as a worked sequence of sub-stage pages with sample prompts and scripts, and Stage 4 with sample prompts; all five stages are now published. The parallel certification-alignment workstream and the Delivery tooling described below are also now published.
 
 ![Five stages in a row, Knowledge acquisition to Assessment development, with human judgment above and possible external checks below. The figure shows the framework as specified; no results are reported. Certification alignment and delivery sit apart, outside the stages.](assets/images/pipeline-overview.svg)
 
@@ -53,9 +53,9 @@ The last column lists design intents, not measured effects. The 30/50/20 split i
 
 ## The parallel workstream and delivery
 
-[Certification alignment](glossary.md#certification-alignment) compares each chapter with a [certification outline](glossary.md#certification-outline), the list of skills a certifying body publishes. Its output is an [alignment matrix](glossary.md#alignment-matrix): a grid that rates how well each chapter prepares learners for each [exam skill](glossary.md#exam-skill), one entry in that list. The ratings are high, medium, low or none, and they are meant to show learners where to spend study time. Agents produced the ratings in the reference implementation. One certification was the design target. This is a parallel workstream, not a stage.
+[Certification alignment](glossary.md#certification-alignment) compares each chapter with a [certification outline](glossary.md#certification-outline), the list of skills a certifying body publishes. Its output is an [alignment matrix](glossary.md#alignment-matrix): a grid that rates how well each chapter prepares learners for each [exam skill](glossary.md#exam-skill), one entry in that list. The ratings are high, medium, low or none, and they are meant to show learners where to spend study time. Agents produced the ratings in the reference implementation. One certification was the design target. This is a parallel workstream, not a stage. See [Certification alignment](certification-alignment.md) for the full page.
 
-Delivery is outside the framework and not assessed here. This guide makes no claims about it.
+Delivery is outside the framework and not assessed here. This guide makes no claims about it. See [Delivery](delivery/index.md) for the full page.
 
 ## How the stages connect
 

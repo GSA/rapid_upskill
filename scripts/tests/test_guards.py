@@ -163,6 +163,15 @@ class PythonVersionGuardTests(unittest.TestCase):
     def test_delivery_coverage_check(self) -> None:
         self.check_guard("scripts/s5/delivery_coverage_check.py")
 
+    def test_schedule_check(self) -> None:
+        self.check_guard("scripts/ca/schedule_check.py")
+
+    def test_slide_notes_check(self) -> None:
+        self.check_guard("scripts/dl/slide_notes_check.py")
+
+    def test_volume_manifest_check(self) -> None:
+        self.check_guard("scripts/dl/volume_manifest_check.py")
+
     def test_current_python_is_not_blocked(self) -> None:
         result = run([str(REPO / "scripts/site/sync.py"), "--help"])
         self.assertEqual(result.returncode, 0, result.stderr)

@@ -43,4 +43,7 @@ These pages are generated from the files in `prompts/`. Edit a source file and r
 | [P-S5-04](s5/p-s5-04.md) | Propose a bank composition | Propose how many items a bank needs per domain and per difficulty, from a blueprint's own weights and the reference implementation's difficulty split. |
 | [P-S5-05](s5/p-s5-05.md) | Draft item feedback | Draft the right-answer and wrong-answer feedback text for one assembled stem, from its explanation and its distractors' own misconceptions. |
 | [P-S5-06](s5/p-s5-06.md) | Assign a stem to a deliverable | Assign one finished stem to one or more deliverable kinds (the bank, a mock exam, a chapter quiz, a practice test), and give a one-line reason for each assignment. |
+| [P-CA-01](ca/p-ca-01.md) | Propose a study schedule | Propose one chapter's own weekly reading and active-learning time split, from its word count and its assessed importance tier. |
+| [P-DL-01](dl/p-dl-01.md) | Draft slide content and a presenter script | Draft one chapter's own slide bullets and a matching presenter script from a chapter's finished text, sized to a stated time window and following this guide's own slide-notes format. |
+| [P-DL-02](dl/p-dl-02.md) | Plan a volume compilation | Assign a set of finished chapters to a small, fixed number of output volumes and sequence each volume's own chapters, following the numeral-aware sort and per-chapter section-numbering reset. |
 {% endraw %}

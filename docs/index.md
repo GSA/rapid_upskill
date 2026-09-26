@@ -27,7 +27,7 @@ The five stages are knowledge acquisition, content development, review and verif
 
 ## Where to start
 
-Start with the [Pipeline overview](pipeline-overview.md). It shows all five stages on one page. Then read [How to use this guide](how-to-use-this-guide.md). It says what you need and how each page is laid out. Every stage will use one small, fictional program, the [running example](running-example.md). Stage 1 through Stage 3 and Stage 5 are published with sample prompts and scripts, and Stage 4 with sample prompts; all five stages are now published.
+Start with the [Pipeline overview](pipeline-overview.md). It shows all five stages on one page. Then read [How to use this guide](how-to-use-this-guide.md). It says what you need and how each page is laid out. Every stage will use one small, fictional program, the [running example](running-example.md). Stage 1 through Stage 3 and Stage 5 are published with sample prompts and scripts, and Stage 4 with sample prompts; all five stages are now published. The [certification-alignment](certification-alignment.md) workstream and the [Delivery](delivery/index.md) tooling are also now described.
 
 ## Should you try this?
 

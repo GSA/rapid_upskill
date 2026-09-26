@@ -1,0 +1,23 @@
+[
+  {
+    "chapter": 1,
+    "importance_tier": "high",
+    "reading_minutes": 90,
+    "active_minutes": 30,
+    "total_minutes": 120
+  },
+  {
+    "chapter": 2,
+    "importance_tier": "medium",
+    "reading_minutes": 60,
+    "active_minutes": 20,
+    "total_minutes": 80
+  },
+  {
+    "chapter": 3,
+    "importance_tier": "low",
+    "reading_minutes": 45,
+    "active_minutes": 15,
+    "total_minutes": 60
+  }
+]

@@ -247,4 +247,4 @@ would see it.
   stem it names should be added to a deliverable, or set aside on
   purpose, and why.
 
-Next: [Stage 5 Assessment development](index.md).
+Next: [Certification alignment](../certification-alignment.md).

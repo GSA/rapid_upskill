@@ -98,7 +98,7 @@ Exactly one objective, D4.2, has an empty `supported_by` list. No source teaches
 
 ## Where later pages will use each part
 
-All of [Stage 1](stage-1/index.md) through [Stage 5](stage-5/index.md) are now published and use some of these files; other pages (certification alignment, provenance) are planned and are not published yet, so this list does not link to them. Page titles may change.
+All of [Stage 1](stage-1/index.md) through [Stage 5](stage-5/index.md), and [certification alignment](certification-alignment.md), are now published and use some of these files; the provenance pages are still planned and not published yet, so this list does not link to them. Page titles may change.
 
 - Blueprint: [S1.3 Draft the blueprint](stage-1/blueprint.md) checks it with a sample script. [S1.8 Coverage and gaps](stage-1/coverage-and-gaps.md) finds the gap at D4.2. [S1.7 Concept map and prerequisite hierarchy](stage-1/concept-map-and-hierarchy.md) assigns and checks the same kind of tier the blueprint already carries for each objective. [S2.1 Structural drafting](stage-2/structural-drafting.md) drafts Chapter 1 from its own four objectives, D1.1, D1.2, D1.3 and D2.1. [S5.2 Stem planning](stage-5/stem-planning.md) and [S5.5 and S5.7 Difficulty distribution and blueprint bank](stage-5/difficulty-and-blueprint-bank.md) use the bank size, the difficulty split and the weights.
 - D2.3 and SRC-003: [S4.1 and S4.2 Principles and protocol library](stage-4/principles-and-protocol-library.md) walks its four-level hint ladder through this objective's own merge-conflict scenario. [S5.1 Misconception-to-distractor bridge](stage-5/misconception-to-distractor-bridge.md) draws its own second Chapter 2 assessment concept item from this same D2.3/SRC-003 pairing, this guide's own choice among Chapter 2's own objectives.
@@ -109,7 +109,7 @@ All of [Stage 1](stage-1/index.md) through [Stage 5](stage-5/index.md) are now p
 - SRC-004: [S1.4b Screening and conversion](stage-1/screening-and-conversion.md) uses a copy of it to show a conversion check. SRC-005, the older, conflicting source, remains for a later planned page on resolving the conflict itself; the older date will be one clue for deciding which claim to trust. [S3.4 and S3.5](stage-3/tiering-and-remediation.md) also uses SRC-005 as an example of a lower-tier source.
 - SRC-006: [S1.4c Injection screening](stage-1/injection-screening.md) reuses its text to practice spotting an instruction hidden inside otherwise normal text.
 - SRC-007: The search and relevance steps (S1.4a, published) use a record like it, low quality and promotional, as a source to reject. [S3.4 and S3.5](stage-3/tiering-and-remediation.md) also uses it as this guide's own suggested lowest tier; a page discussing SRC-007's own content in full is still planned.
-- Certification outline: The alignment pages (certification alignment, planned) will use it to find one exam skill that no chapter covers and one chapter that matches no exam skill.
+- Certification outline: [Certification alignment](certification-alignment.md) uses it to find one exam skill that no chapter covers and one chapter that matches no exam skill.
 - Tested Git version: The [provenance](glossary.md#provenance) pages (planned) will use it to show how the facts in the accurate sources were checked.
 
 ## Get the files

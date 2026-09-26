@@ -1,0 +1,269 @@
+"""
+ID: X-DL-01
+Title: Slide notes check
+Stage: DL
+Purpose: Check a slide-notes Markdown file against the schema described in
+    "Delivery: slides and infographics": a chapter heading; one or more
+    "## Slide N:" sections, each with 4 to 7 flat bullets; a bolded
+    "**Presenter Script:**" block of 150 to 250 words; and, where present,
+    a well-formed "References:" block.
+Usage: python3 scripts/dl/slide_notes_check.py --help
+    In a shell: python3 scripts/dl/slide_notes_check.py NOTES.md
+Dependencies: stdlib
+Writes files: no
+License: CC0-1.0
+Inputs: A slide-notes Markdown file: a single "#" chapter heading, then
+    one or more "## Slide N: <Title>" sections. Each slide section holds
+    4 to 7 flat "- " bullets, a "**Presenter Script:**" marker on its own
+    line followed by narration text, and an optional "References:" line
+    followed by a bulleted list.
+Outputs: One line per finding, then a summary line, all printed to
+    standard output.
+
+This script checks the file's own shape only: heading presence, bullet
+counts, presenter-script word counts, and References-block formatting.
+It never checks whether a bullet, a script, or a reference is accurate;
+a person still reviews that before a deck is populated from this file.
+
+Errors (exit 1): the chapter heading is missing; a slide has fewer than
+4 or more than 7 flat bullets; a slide's "**Presenter Script:**" block
+is missing or malformed (the bolded marker is not written exactly as
+"**Presenter Script:**" on its own line); a presenter script has fewer
+than 150 or more than 250 words; a slide's "References:" block is
+present but malformed, meaning the line immediately after "References:"
+is not a "- " bulleted list, or a later line inside that block is
+neither blank nor a "- " bulleted line. Prints one line per finding,
+then "slides=N errors=E".
+
+A slide's word count is checked only when its own presenter-script
+marker matches exactly; a missing or malformed marker is reported on
+its own; the script does not also guess at a word count from unmarked
+text, since it cannot then be sure where the script actually starts and
+ends.
+"""
+
+import argparse
+import re
+import sys
+from pathlib import Path
+
+sys.dont_write_bytecode = True
+if sys.version_info < (3, 10):
+    print(
+        "slide_notes_check.py: this script needs Python 3.10 or newer, "
+        f"but this is {sys.version_info.major}.{sys.version_info.minor}. "
+        "Run it with a newer python3.",
+        file=sys.stderr,
+    )
+    sys.exit(2)
+
+MAX_BYTES = 5_000_000
+MIN_BULLETS, MAX_BULLETS = 4, 7
+MIN_WORDS, MAX_WORDS = 150, 250
+PRESENTER_MARKER = "**Presenter Script:**"
+REFERENCES_LINE = "References:"
+
+CHAPTER_HEADING_RE = re.compile(r"^#\s+\S")
+SLIDE_HEADING_RE = re.compile(r"^## Slide\s+(\d+)\s*:\s*(.*)$")
+BULLET_RE = re.compile(r"^-\s+\S")
+REFERENCES_BULLET_RE = re.compile(r"^-\s")
+PRESENTER_ATTEMPT_RE = re.compile(
+    r"^\*\*[^*\n]*presenter\s+script[^*\n]*\*\*", re.IGNORECASE
+)
+WORD_RE = re.compile(r"[A-Za-z]+(?:'[A-Za-z]+)*")
+
+Slide = tuple[str, list[str]]
+
+
+def load_notes(path: Path) -> str:
+    """Read and return the slide-notes file's text; never follows a symlink."""
+    if path.is_symlink():
+        raise OSError(f"refusing to read a symlink: {path}")
+    size = path.stat().st_size
+    if size > MAX_BYTES:
+        raise ValueError(f"{path} is over {MAX_BYTES} bytes; skipping")
+    return path.read_text(encoding="utf-8", errors="replace")
+
+
+def has_chapter_heading(text: str) -> bool:
+    """True if the file's first non-blank line is a single '#' heading."""
+    for line in text.splitlines():
+        if line.strip():
+            return bool(CHAPTER_HEADING_RE.match(line))
+    return False
+
+
+def split_slides(text: str) -> list[Slide]:
+    """Return (label, body lines) for each "## Slide N:" section, in order.
+
+    Lines before the first slide heading, and any "##" heading that does
+    not match "## Slide N:", belong to no slide and are dropped.
+    """
+    slides: list[Slide] = []
+    label: str | None = None
+    lines: list[str] = []
+    for line in text.splitlines():
+        match = SLIDE_HEADING_RE.match(line)
+        if match:
+            if label is not None:
+                slides.append((label, lines))
+            label = f"Slide {match.group(1)}"
+            lines = []
+            continue
+        if label is not None:
+            lines.append(line)
+    if label is not None:
+        slides.append((label, lines))
+    return slides
+
+
+def find_presenter_marker(lines: list[str]) -> tuple[int | None, bool]:
+    """Return (index of the exact marker line, whether an attempt was seen).
+
+    The index is None when no line matches "**Presenter Script:**"
+    exactly. "attempted" is True when some earlier line looks like a
+    near-miss at the same marker (wrong case, a missing colon, or extra
+    text sharing the line), which distinguishes a malformed block from
+    one that is simply missing.
+    """
+    attempted = False
+    for index, line in enumerate(lines):
+        stripped = line.strip()
+        if stripped == PRESENTER_MARKER:
+            return index, attempted
+        if PRESENTER_ATTEMPT_RE.match(stripped):
+            attempted = True
+    return None, attempted
+
+
+def count_bullets(lines: list[str]) -> int:
+    """Count flat "- " bullets (no leading whitespace) in lines."""
+    return sum(1 for line in lines if BULLET_RE.match(line))
+
+
+def presenter_script_text(lines: list[str]) -> str:
+    """Return the narration text after a confirmed marker line.
+
+    Stops at a "References:" line, if one follows, so a References
+    block is never counted as part of the spoken script.
+    """
+    for index, line in enumerate(lines):
+        if line.strip() == REFERENCES_LINE:
+            lines = lines[:index]
+            break
+    return "\n".join(lines).strip()
+
+
+def check_references(lines: list[str], label: str) -> list[str]:
+    """Return findings for a slide's own "References:" block, if present."""
+    findings: list[str] = []
+    references_index = None
+    for index, line in enumerate(lines):
+        if line.strip() == REFERENCES_LINE:
+            references_index = index
+            break
+    if references_index is None:
+        return findings
+
+    rest_start = references_index + 1
+    rest = lines[rest_start:]
+    malformed = not rest or not REFERENCES_BULLET_RE.match(rest[0])
+    if not malformed:
+        for line in rest:
+            if line.strip() and not REFERENCES_BULLET_RE.match(line):
+                malformed = True
+                break
+    if malformed:
+        findings.append(
+            f"references: {label}'s References block is malformed (no "
+            f"'- ' bulleted list immediately follows the "
+            f"'{REFERENCES_LINE}' line)"
+        )
+    return findings
+
+
+def check_slide(label: str, lines: list[str]) -> list[str]:
+    """Return every finding for one slide's own body lines."""
+    findings: list[str] = []
+
+    marker_index, attempted = find_presenter_marker(lines)
+    bullet_scope = lines[:marker_index] if marker_index is not None else lines
+    bullets = count_bullets(bullet_scope)
+    if not (MIN_BULLETS <= bullets <= MAX_BULLETS):
+        findings.append(
+            f"bullet-count: {label} has {bullets} bullets, needs "
+            f"{MIN_BULLETS} to {MAX_BULLETS}"
+        )
+
+    if marker_index is None:
+        if attempted:
+            findings.append(
+                f"presenter-script-malformed: {label}'s presenter-script "
+                f"marker does not read exactly '{PRESENTER_MARKER}' on "
+                "its own line"
+            )
+        else:
+            findings.append(
+                f"presenter-script-missing: {label} has no "
+                f"'{PRESENTER_MARKER}' block"
+            )
+    else:
+        script_start = marker_index + 1
+        script_text = presenter_script_text(lines[script_start:])
+        word_count = len(WORD_RE.findall(script_text))
+        if not (MIN_WORDS <= word_count <= MAX_WORDS):
+            findings.append(
+                f"presenter-script-words: {label} presenter script has "
+                f"{word_count} words, needs {MIN_WORDS} to {MAX_WORDS}"
+            )
+
+    findings.extend(check_references(lines, label))
+    return findings
+
+
+def check_notes(text: str) -> tuple[list[str], int]:
+    """Return (finding lines, slide count) for a whole slide-notes file."""
+    findings: list[str] = []
+    if not has_chapter_heading(text):
+        findings.append("chapter-heading: the chapter heading is missing")
+    slides = split_slides(text)
+    for label, lines in slides:
+        findings.extend(check_slide(label, lines))
+    return findings, len(slides)
+
+
+def build_parser() -> argparse.ArgumentParser:
+    """Build the argument parser."""
+    parser = argparse.ArgumentParser(
+        prog="slide_notes_check.py",
+        description=(
+            "Check a slide-notes Markdown file's chapter heading, "
+            "bullet counts, presenter-script word counts, and References "
+            "block against this guide's own slide-notes schema. Writes "
+            "no files."
+        ),
+    )
+    parser.add_argument(
+        "notes", metavar="NOTES", help="path to the slide-notes Markdown file"
+    )
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    """Command line entry point; prints the report, returns an exit code."""
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    try:
+        text = load_notes(Path(args.notes))
+        findings, slide_count = check_notes(text)
+    except (OSError, UnicodeError, ValueError, RecursionError) as exc:
+        print(f"slide_notes_check.py: error: {exc}", file=sys.stderr)
+        return 2
+    for line in findings:
+        print(line)
+    print(f"slides={slide_count} errors={len(findings)}")
+    return 1 if findings else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())
