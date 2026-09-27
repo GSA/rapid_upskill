@@ -1,0 +1,23 @@
+{
+  "done": [
+    "Reviewed write-ups 1 through 5",
+    "Logged write-up 6 as needing a second pass"
+  ],
+  "pending": [
+    "Review write-ups 7 and 8",
+    "Give write-up 6 its second pass",
+    "Send the comments back to the group"
+  ],
+  "artifact_locations": {
+    "comments": "work/comments/",
+    "flagged_writeup_log": "work/flagged.csv"
+  },
+  "open_decisions": [
+    "Whether write-up 6 needs a second reviewer, not just a second pass",
+    "Whether to send comments individually or as one combined file"
+  ],
+  "remaining_budget": {
+    "writeups_remaining": 3,
+    "review_batches_remaining": 1
+  }
+}

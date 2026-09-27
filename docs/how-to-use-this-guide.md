@@ -2,7 +2,7 @@
 title: "How to use this guide"
 nav_order: 3
 status: "draft"
-last_reviewed: "2026-09-21"
+last_reviewed: "2026-09-26"
 ---
 
 # How to use this guide
@@ -53,6 +53,7 @@ Run every command in this guide from this folder, called the repository root.
 | Work through Stage 5 with sample prompts and scripts | [Stage 5 Assessment development](stage-5/index.md) |
 | See the parallel certification-alignment workstream | [Certification alignment](certification-alignment.md) |
 | See how delivery tooling turns chapters into slides, infographics, and finished volumes | [Delivery](delivery/index.md) |
+| Learn the cross-cutting operating practices behind every stage | [Operating practices](operating-practices/index.md) |
 | Learn where people decide and how to batch work | [Human roles, gates and batching](human-roles-gates-and-batching.md) |
 | Check what your platform must offer | [Platform requirements](platform-requirements.md) |
 | Look up a term | [Glossary](glossary.md) |

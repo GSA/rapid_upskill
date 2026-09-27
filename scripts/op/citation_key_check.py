@@ -1,0 +1,162 @@
+"""
+ID: X-OP-03
+Title: Citation key check
+Stage: OP
+Purpose: Check a body-text excerpt's citation keys against a reference
+    list, in both directions: a key used in the text but not defined in
+    the reference list is an error, and a key defined but never used is
+    a warning.
+Usage: python3 scripts/op/citation_key_check.py --help
+    In a shell: python3 scripts/op/citation_key_check.py TEXT.md
+    REFERENCES.json
+Dependencies: stdlib
+Writes files: no
+License: CC0-1.0
+Inputs: A body-text file (TEXT.md), read as plain text, holding zero or
+    more citations written as a bracketed key, such as
+    "[atomic-checkpoint]"; and a reference-list JSON file
+    (REFERENCES.json), a JSON object mapping each citation key to a
+    JSON object of that reference's own metadata (a "title" field and
+    any others).
+Outputs: One line per finding, then a summary line, all printed to
+    standard output.
+
+A citation is a run of letters, digits, a hyphen, an underscore or a
+period, inside square brackets, starting with a letter or a digit. A
+bracketed phrase containing a space, such as an ordinary Markdown
+link's own visible text, never matches this pattern and is never
+treated as a citation.
+
+Errors (exit 1): a citation key found in TEXT.md that has no matching
+entry in REFERENCES.json. Warnings (exit 0, never change the exit
+code): a key defined in REFERENCES.json that TEXT.md never cites. Each
+key is reported once, however many times it is cited or repeated: the
+`keys_used` count in the summary line is the number of distinct
+citation keys found in TEXT.md, not the number of citations.
+
+This script does not judge whether a traced source actually supports
+the claim it is cited for; it only checks that the key resolves.
+"""
+
+import argparse
+import json
+import re
+import sys
+from pathlib import Path
+from typing import Any
+
+sys.dont_write_bytecode = True
+if sys.version_info < (3, 10):
+    print(
+        "citation_key_check.py: this script needs Python 3.10 or newer, "
+        f"but this is {sys.version_info.major}.{sys.version_info.minor}. "
+        "Run it with a newer python3.",
+        file=sys.stderr,
+    )
+    sys.exit(2)
+
+MAX_BYTES = 5_000_000
+KEY_PATTERN = re.compile(r"\[([A-Za-z0-9][A-Za-z0-9_.-]*)\]")
+
+
+def _check_readable(path: Path) -> None:
+    """Refuse a symlink and a file over MAX_BYTES; shared by both loaders."""
+    if path.is_symlink():
+        raise OSError(f"refusing to read a symlink: {path}")
+    if path.stat().st_size > MAX_BYTES:
+        raise ValueError(f"{path} is over {MAX_BYTES} bytes; skipping")
+
+
+def load_text(path: Path) -> str:
+    """Read a body-text file as UTF-8, replacing anything that will not decode."""
+    _check_readable(path)
+    return path.read_text(encoding="utf-8", errors="replace")
+
+
+def load_references(path: Path) -> dict[str, Any]:
+    """Read and parse a reference-list JSON file; never follows a symlink."""
+    _check_readable(path)
+    text = path.read_text(encoding="utf-8", errors="replace")
+    data = json.loads(text)
+    if not isinstance(data, dict):
+        raise ValueError("the reference list is not a JSON object")
+    for key, value in data.items():
+        if not isinstance(value, dict):
+            raise ValueError(f"reference {key!r} is not a JSON object")
+    return data
+
+
+def find_used_keys(text: str) -> list[str]:
+    """Return each distinct citation key in TEXT.md, in first-seen order."""
+    seen: dict[str, None] = {}
+    for match in KEY_PATTERN.finditer(text):
+        seen.setdefault(match.group(1), None)
+    return list(seen.keys())
+
+
+def check_citations(
+    text: str, references: dict[str, Any]
+) -> tuple[list[str], list[str], int]:
+    """Return (errors, warnings, keys_used): the bidirectional citation check."""
+    used_keys = find_used_keys(text)
+    used_set = set(used_keys)
+    reference_keys = list(references.keys())
+
+    errors = [
+        f"undefined: citation key {key!r} is used in TEXT.md but not "
+        "defined in REFERENCES.json"
+        for key in used_keys
+        if key not in references
+    ]
+    warnings = [
+        f"uncited: reference key {key!r} is defined in REFERENCES.json "
+        "but never used in TEXT.md"
+        for key in reference_keys
+        if key not in used_set
+    ]
+    return errors, warnings, len(used_keys)
+
+
+def build_parser() -> argparse.ArgumentParser:
+    """Build the argument parser."""
+    parser = argparse.ArgumentParser(
+        prog="citation_key_check.py",
+        description=(
+            "Check a body-text excerpt's citation keys against a reference "
+            "list, in both directions. Writes no files."
+        ),
+    )
+    parser.add_argument("text", metavar="TEXT", help="path to the body-text file")
+    parser.add_argument(
+        "references", metavar="REFERENCES", help="path to the reference-list JSON"
+    )
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    """Command line entry point; prints the report, returns an exit code."""
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    try:
+        text = load_text(Path(args.text))
+        references = load_references(Path(args.references))
+        errors, warnings, keys_used = check_citations(text, references)
+    except (
+        OSError,
+        UnicodeError,
+        ValueError,
+        json.JSONDecodeError,
+        RecursionError,
+    ) as exc:
+        print(f"citation_key_check.py: error: {exc}", file=sys.stderr)
+        return 2
+    for message in errors:
+        print(f"error {message}")
+    for message in warnings:
+        print(f"warning {message}")
+    print(f"keys_used={keys_used} errors={len(errors)} warnings={len(warnings)}")
+    return 1 if errors else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

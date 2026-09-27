@@ -1,0 +1,6 @@
+{"ts": "2026-09-26T09:00:00Z", "level": "info", "step": "run", "type": "run_start", "message": "Starting run 2026-09-26-1."}
+{"ts": "2026-09-26T09:00:00Z", "level": "info", "step": "gather", "type": "step_start", "message": "Starting step 'gather'."}
+{"ts": "2026-09-26T09:15:00Z", "level": "info", "step": "gather", "type": "batch_complete", "message": "Batch of 5 candidates complete.", "detail": {"gate": {"decision": "approved"}}}
+{"ts": "2026-09-26T09:15:00Z", "level": "info", "step": "gather", "type": "step_end", "message": "Step 'gather' finished."}
+{"ts": "2026-09-26T09:42:00Z", "level": "info", "step": "run", "type": "handoff", "message": "A hand-off document was written; the session rotated."}
+{"ts": "2026-09-26T09:42:00Z", "level": "info", "step": "run", "type": "run_end", "message": "Run 2026-09-26-1 finished."}

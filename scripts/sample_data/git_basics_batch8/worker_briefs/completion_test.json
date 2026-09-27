@@ -1,0 +1,3 @@
+{
+  "required_fields": ["document_id", "status", "findings"]
+}

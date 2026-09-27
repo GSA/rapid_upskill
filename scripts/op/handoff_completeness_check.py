@@ -1,0 +1,140 @@
+"""
+ID: X-OP-04
+Title: Hand-off completeness check
+Stage: OP
+Purpose: Check a hand-off document JSON file for the five required
+    structured fields described below, and flag a purely narrative
+    hand-off (free text, with none of them) as a finding rather than
+    accepting it silently.
+Usage: python3 scripts/op/handoff_completeness_check.py --help
+    In a shell: python3 scripts/op/handoff_completeness_check.py HANDOFF.json
+Dependencies: stdlib
+Writes files: no
+License: CC0-1.0
+Inputs: A hand-off document JSON file, read as a single JSON object.
+    The structured shape has five required fields: done (a list),
+    pending (a list), artifact_locations (an object), open_decisions (a
+    list), and remaining_budget (an object). A purely narrative shape
+    has none of these five fields, such as {"note": "..."}.
+Outputs: One line per finding, then a summary line, all printed to
+    standard output.
+
+This script checks whether the five required fields are present. It
+does not check what each field itself holds: whether every entry in
+`done` names something real, whether `artifact_locations` points at
+files that actually exist, or whether `remaining_budget` uses units
+that make sense for the task at hand. A person still has to read what
+is inside each field.
+
+Errors (exit 1): the hand-off has none of the five required fields at
+all. A purely narrative shape, such as a single free-text `note` field
+with no structured fields alongside it, is one finding of this kind,
+not five separate missing-field findings. A hand-off with at least one
+of the five required fields, but not all of them, gets one
+missing-field finding for each field it lacks.
+
+A hand-off file that is not a JSON object at all is a usage or input
+error (exit 2), not a finding, since there is no shape here to check
+against.
+"""
+
+import argparse
+import json
+import sys
+from pathlib import Path
+from typing import Any
+
+sys.dont_write_bytecode = True
+if sys.version_info < (3, 10):
+    print(
+        "handoff_completeness_check.py: this script needs Python 3.10 or "
+        f"newer, but this is {sys.version_info.major}.{sys.version_info.minor}. "
+        "Run it with a newer python3.",
+        file=sys.stderr,
+    )
+    sys.exit(2)
+
+REQUIRED_FIELDS = (
+    "done",
+    "pending",
+    "artifact_locations",
+    "open_decisions",
+    "remaining_budget",
+)
+MAX_BYTES = 5_000_000
+
+
+def load_handoff(path: Path) -> Any:
+    """Read and parse the hand-off file; never follows a symlink."""
+    if path.is_symlink():
+        raise OSError(f"refusing to read a symlink: {path}")
+    size = path.stat().st_size
+    if size > MAX_BYTES:
+        raise ValueError(f"{path} is over {MAX_BYTES} bytes; skipping")
+    text = path.read_text(encoding="utf-8", errors="replace")
+    return json.loads(text)
+
+
+def check_handoff(data: Any) -> list[str]:
+    """Return one finding per problem found in a parsed hand-off document."""
+    if not isinstance(data, dict):
+        raise ValueError("the hand-off is not a JSON object")
+
+    present = [field_name for field_name in REQUIRED_FIELDS if field_name in data]
+    findings: list[str] = []
+    if not present:
+        shown = ", ".join(REQUIRED_FIELDS)
+        findings.append(
+            "narrative-only: the hand-off has none of the required structured "
+            f"fields ({shown}); a free-text note is not enough for a fresh "
+            "session to act on directly"
+        )
+    else:
+        for field_name in REQUIRED_FIELDS:
+            if field_name not in data:
+                findings.append(
+                    f"missing-field: the hand-off has no '{field_name}' field"
+                )
+    return findings
+
+
+def build_parser() -> argparse.ArgumentParser:
+    """Build the argument parser."""
+    parser = argparse.ArgumentParser(
+        prog="handoff_completeness_check.py",
+        description=(
+            "Check a hand-off document JSON file for its five required "
+            "structured fields, and flag a purely narrative hand-off as a "
+            "finding. Writes no files."
+        ),
+    )
+    parser.add_argument(
+        "handoff", metavar="HANDOFF", help="path to the hand-off document JSON file"
+    )
+    return parser
+
+
+def main(argv: list[str] | None = None) -> int:
+    """Command line entry point; prints the report, returns an exit code."""
+    parser = build_parser()
+    args = parser.parse_args(argv)
+    try:
+        data = load_handoff(Path(args.handoff))
+        findings = check_handoff(data)
+    except (
+        OSError,
+        UnicodeError,
+        ValueError,
+        json.JSONDecodeError,
+        RecursionError,
+    ) as exc:
+        print(f"handoff_completeness_check.py: error: {exc}", file=sys.stderr)
+        return 2
+    for message in findings:
+        print(f"error {message}")
+    print(f"handoff=1 errors={len(findings)}")
+    return 1 if findings else 0
+
+
+if __name__ == "__main__":
+    sys.exit(main())

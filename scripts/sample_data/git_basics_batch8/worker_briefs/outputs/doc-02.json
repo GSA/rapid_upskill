@@ -1,0 +1,7 @@
+{
+  "document_id": "doc-02",
+  "status": "reviewed",
+  "findings": [
+    "one heading level is skipped near the middle of the document"
+  ]
+}

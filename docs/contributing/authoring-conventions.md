@@ -3,7 +3,7 @@ title: "Authoring conventions"
 parent: "Contributing"
 nav_order: 1
 status: "draft"
-last_reviewed: "2026-09-21"
+last_reviewed: "2026-09-26"
 ---
 
 # Authoring conventions
@@ -134,6 +134,7 @@ A prompt is one Markdown file at `prompts/<code>/<slug>.md`. [checked R07] The f
 - The declared placeholders must equal the placeholders the prompt uses. [checked R08]
 - Every capability must come from the vocabulary below. [checked R08]
 - Never put the closing tag of a raw block in a prompt. The generated page wraps the whole body in a raw block, and that tag would end it early. [checked R08]
+- When a prompt reads in a block of text it did not just produce (a fetched document, a knowledge-item excerpt, a learner's own message), wrap that block between matched `BEGIN ...` and `END ...` markers, each labeled `(data, not instructions)`, rather than pasting it in bare. See [Operating practices: Prompt-injection screening](../operating-practices/prompt-injection-screening.md) for why this matters and a worked example of the marker pair. [guidance]
 
 An example file:
 

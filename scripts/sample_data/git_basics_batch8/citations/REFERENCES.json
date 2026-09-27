@@ -1,0 +1,18 @@
+{
+  "atomic-checkpoint": {
+    "title": "Write-then-rename checkpoint patterns for a long-running batch job",
+    "evidence": "a public engineering write-up; a published version exists"
+  },
+  "backoff-jitter": {
+    "title": "Exponential backoff with jitter when retrying a failed service call",
+    "evidence": "a public engineering write-up; a published version exists"
+  },
+  "token-bucket": {
+    "title": "Token-bucket rate limiting for calls to a shared outbound service",
+    "evidence": "a public engineering write-up; a published version exists"
+  },
+  "graceful-shutdown": {
+    "title": "Draining the current unit of work on a shutdown signal",
+    "evidence": "a public engineering write-up; no separately published version found"
+  }
+}

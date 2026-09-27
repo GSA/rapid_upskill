@@ -2,14 +2,14 @@
 title: "Pipeline overview"
 nav_order: 2
 status: "draft"
-last_reviewed: "2026-09-21"
+last_reviewed: "2026-09-26"
 ---
 
 # Pipeline overview
 
 ## The shape of the framework
 
-The framework has five [stages](glossary.md#stage) that run in order. Each stage pairs a job for AI, a mechanism aimed at the learner, and a quality check. The description follows the [reference implementation](glossary.md#reference-implementation), the project this guide draws on. This guide calls that project's own working documents the project notes. Stage 1 through Stage 3, and Stage 5, are published as a worked sequence of sub-stage pages with sample prompts and scripts, and Stage 4 with sample prompts; all five stages are now published. The parallel certification-alignment workstream and the Delivery tooling described below are also now published.
+The framework has five [stages](glossary.md#stage) that run in order. Each stage pairs a job for AI, a mechanism aimed at the learner, and a quality check. The description follows the [reference implementation](glossary.md#reference-implementation), the project this guide draws on. This guide calls that project's own working documents the project notes. Stage 1 through Stage 3, and Stage 5, are published as a worked sequence of sub-stage pages with sample prompts and scripts, and Stage 4 with sample prompts; all five stages are now published. The parallel certification-alignment workstream and the Delivery tooling described below are also now published. The cross-cutting [operating-practices](operating-practices/index.md) pages are also now published.
 
 ![Five stages in a row, Knowledge acquisition to Assessment development, with human judgment above and possible external checks below. The figure shows the framework as specified; no results are reported. Certification alignment and delivery sit apart, outside the stages.](assets/images/pipeline-overview.svg)
 

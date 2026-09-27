@@ -1,0 +1,8 @@
+{
+  "document_id": "doc-01",
+  "status": "reviewed",
+  "findings": [
+    "heading levels are consistent",
+    "every internal link resolves"
+  ]
+}

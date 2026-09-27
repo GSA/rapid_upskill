@@ -46,4 +46,8 @@ These pages are generated from the files in `prompts/`. Edit a source file and r
 | [P-CA-01](ca/p-ca-01.md) | Propose a study schedule | Propose one chapter's own weekly reading and active-learning time split, from its word count and its assessed importance tier. |
 | [P-DL-01](dl/p-dl-01.md) | Draft slide content and a presenter script | Draft one chapter's own slide bullets and a matching presenter script from a chapter's finished text, sized to a stated time window and following this guide's own slide-notes format. |
 | [P-DL-02](dl/p-dl-02.md) | Plan a volume compilation | Assign a set of finished chapters to a small, fixed number of output volumes and sequence each volume's own chapters, following the numeral-aware sort and per-chapter section-numbering reset. |
+| [P-OP-01](op/p-op-01.md) | Draft a worker brief | Draft one dispatched worker's own brief: its bound inputs, its exact output path, and its completion test, so the worker never has to guess what finishing its own item actually means. |
+| [P-OP-02](op/p-op-02.md) | Draft a run-record step update | Draft the steps\[\] entry for one finished step, including its metrics and breakdowns, from that step's own real output. |
+| [P-OP-03](op/p-op-03.md) | Check a fragment for invented numbers | Check one drafted text fragment's numeric claims against a source list, flagging any number that does not trace to a named source, a specific record, or something the requester directly supplied. |
+| [P-OP-04](op/p-op-04.md) | Draft a hand-off document | Draft a hand-off document from a session's own tracking file: what is done, what is pending, the location of every artifact, open decisions, and the remaining budget. |
 {% endraw %}

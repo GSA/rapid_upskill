@@ -1,10 +1,10 @@
 """Checks for scripts/sample_data/git_basics_batch8/, Batch 8's sample data.
 
-Purpose: verify the folder's file set (Part A only, for now), hygiene (ASCII, no
+Purpose: verify the folder's file set (Parts A and B), hygiene (ASCII, no
     local paths, no secrets, no stray e-mail addresses, no percent signs, no
-    base64 or data: fixtures), that its README lists every file, and that
-    Part A's three scripts still behave as their pages document against the
-    real committed sample data.
+    base64 or data: fixtures), that its README documents every file, and that
+    all seven of Batch 8's scripts still behave as their pages document
+    against the real committed sample data.
 Usage: python3 -B scripts/tests/test_batch8_sample_data.py
 Dependencies: stdlib
 Writes files: no
@@ -26,10 +26,46 @@ DATA = ROOT / "scripts" / "sample_data" / "git_basics_batch8"
 
 EXPECTED_FILES = {
     "schedule/schedule.json",
+    "schedule/schedule_broken.json",
     "slide_notes/Ch1_slideNotes_v20260115.md",
     "slide_notes/Ch1_slideNotes_v20260115_broken.md",
     "volumes/manifest.json",
     "volumes/manifest_off_convention.json",
+    "worker_briefs/completion_test.json",
+    "worker_briefs/outputs/doc-01.json",
+    "worker_briefs/outputs/doc-02.json",
+    "worker_briefs/outputs/doc-03.json",
+    "worker_briefs/outputs/doc-04.json",
+    "worker_briefs/outputs_broken/doc-01.json",
+    "worker_briefs/outputs_broken/doc-02.json",
+    "worker_briefs/outputs_broken/doc-03.json",
+    "worker_briefs/outputs_broken/doc-04.json",
+    "run_records/run.json",
+    "run_records/events.jsonl",
+    "citations/TEXT.md",
+    "citations/REFERENCES.json",
+    "handoffs/handoff.json",
+    "handoffs/handoff_narrative_only.json",
+}
+# README rows for a repetitive multi-file folder document the folder with a
+# glob, not one row per file; this set is what the README test checks for,
+# separate from EXPECTED_FILES above, which lists every real file on disk.
+README_DOCUMENTED = {
+    "schedule/schedule.json",
+    "schedule/schedule_broken.json",
+    "slide_notes/Ch1_slideNotes_v20260115.md",
+    "slide_notes/Ch1_slideNotes_v20260115_broken.md",
+    "volumes/manifest.json",
+    "volumes/manifest_off_convention.json",
+    "worker_briefs/completion_test.json",
+    "worker_briefs/outputs/*.json",
+    "worker_briefs/outputs_broken/*.json",
+    "run_records/run.json",
+    "run_records/events.jsonl",
+    "citations/TEXT.md",
+    "citations/REFERENCES.json",
+    "handoffs/handoff.json",
+    "handoffs/handoff_narrative_only.json",
 }
 ALLOWED_HOSTS = {"example.com", "example.org", "example.net"}
 EMAIL = re.compile(r"[A-Za-z0-9._%+-]+@([A-Za-z0-9.-]+\.[A-Za-z]{2,})")
@@ -78,12 +114,11 @@ def run(args: List[str]) -> "subprocess.CompletedProcess[str]":
 
 
 class FileSetTests(unittest.TestCase):
-    def test_part_a_files_exist(self) -> None:
+    def test_expected_files_exist(self) -> None:
         found = {
             p.relative_to(DATA).as_posix() for p in all_files() if p.name != "README.md"
         }
-        # Part B adds further sub-folders later; Part A's own files must all be present.
-        self.assertTrue(EXPECTED_FILES.issubset(found), found)
+        self.assertEqual(EXPECTED_FILES, found)
         self.assertTrue((DATA / "README.md").is_file())
 
 
@@ -129,9 +164,9 @@ class HygieneTests(unittest.TestCase):
 
 
 class ReadmeTests(unittest.TestCase):
-    def test_readme_lists_every_part_a_file(self) -> None:
+    def test_readme_documents_every_file(self) -> None:
         text = read_text(DATA / "README.md")
-        for name in sorted(EXPECTED_FILES):
+        for name in sorted(README_DOCUMENTED):
             self.assertIn(f"`{name}`", text, name)
 
     def test_license_line(self) -> None:
@@ -151,6 +186,16 @@ class CrossFolderScriptTests(unittest.TestCase):
         )
         self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
         self.assertIn("chapters=3 errors=0 warnings=0", proc.stdout)
+
+    def test_schedule_check_on_the_broken_schedule(self) -> None:
+        proc = run(
+            [
+                "scripts/ca/schedule_check.py",
+                "scripts/sample_data/git_basics_batch8/schedule/schedule_broken.json",
+            ]
+        )
+        self.assertEqual(proc.returncode, 1, proc.stdout + proc.stderr)
+        self.assertIn("chapters=3 errors=1 warnings=2", proc.stdout)
 
     def test_slide_notes_check_on_the_clean_sample(self) -> None:
         proc = run(
@@ -194,6 +239,89 @@ class CrossFolderScriptTests(unittest.TestCase):
         )
         self.assertEqual(proc.returncode, 1, proc.stdout + proc.stderr)
         self.assertIn("volumes=2 chapters=9 errors=1 warnings=0", proc.stdout)
+
+    def test_completion_signal_check_on_the_clean_outputs(self) -> None:
+        proc = run(
+            [
+                "scripts/op/completion_signal_check.py",
+                "scripts/sample_data/git_basics_batch8/worker_briefs/outputs",
+                "scripts/sample_data/git_basics_batch8/worker_briefs/"
+                "completion_test.json",
+            ]
+        )
+        self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
+        self.assertIn("outputs=4 errors=0", proc.stdout)
+
+    def test_completion_signal_check_on_the_broken_outputs(self) -> None:
+        proc = run(
+            [
+                "scripts/op/completion_signal_check.py",
+                "scripts/sample_data/git_basics_batch8/worker_briefs/outputs_broken",
+                "scripts/sample_data/git_basics_batch8/worker_briefs/"
+                "completion_test.json",
+            ]
+        )
+        self.assertEqual(proc.returncode, 1, proc.stdout + proc.stderr)
+        self.assertIn("missing-field: doc-02.json has no 'status'", proc.stdout)
+        self.assertIn("empty-field: doc-03.json field 'findings' is empty", proc.stdout)
+        self.assertIn("outputs=4 errors=2", proc.stdout)
+
+    def test_run_record_check_on_the_sample_run(self) -> None:
+        proc = run(
+            [
+                "scripts/op/run_record_check.py",
+                "scripts/sample_data/git_basics_batch8/run_records/run.json",
+            ]
+        )
+        self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
+        self.assertIn("steps=3 errors=0 warnings=0", proc.stdout)
+
+    def test_citation_key_check_on_the_sample_pair(self) -> None:
+        proc = run(
+            [
+                "scripts/op/citation_key_check.py",
+                "scripts/sample_data/git_basics_batch8/citations/TEXT.md",
+                "scripts/sample_data/git_basics_batch8/citations/REFERENCES.json",
+            ]
+        )
+        self.assertEqual(proc.returncode, 1, proc.stdout + proc.stderr)
+        self.assertIn(
+            "error undefined: citation key 'drain-on-shutdown' is used in "
+            "TEXT.md but not defined in REFERENCES.json",
+            proc.stdout,
+        )
+        self.assertIn(
+            "warning uncited: reference key 'graceful-shutdown' is defined "
+            "in REFERENCES.json but never used in TEXT.md",
+            proc.stdout,
+        )
+        self.assertIn("keys_used=4 errors=1 warnings=1", proc.stdout)
+
+    def test_handoff_completeness_check_on_the_clean_sample(self) -> None:
+        proc = run(
+            [
+                "scripts/op/handoff_completeness_check.py",
+                "scripts/sample_data/git_basics_batch8/handoffs/handoff.json",
+            ]
+        )
+        self.assertEqual(proc.returncode, 0, proc.stdout + proc.stderr)
+        self.assertIn("handoff=1 errors=0", proc.stdout)
+
+    def test_handoff_completeness_check_on_the_narrative_only_sample(self) -> None:
+        proc = run(
+            [
+                "scripts/op/handoff_completeness_check.py",
+                "scripts/sample_data/git_basics_batch8/handoffs/"
+                "handoff_narrative_only.json",
+            ]
+        )
+        self.assertEqual(proc.returncode, 1, proc.stdout + proc.stderr)
+        self.assertIn(
+            "error narrative-only: the hand-off has none of the required "
+            "structured fields",
+            proc.stdout,
+        )
+        self.assertIn("handoff=1 errors=1", proc.stdout)
 
 
 if __name__ == "__main__":

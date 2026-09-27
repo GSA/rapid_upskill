@@ -1,0 +1,138 @@
+{
+  "schema_version": "1.0.0",
+  "run": {
+    "id": "2026-09-26-1",
+    "workflow": "reference-catalog-refresh",
+    "status": "done",
+    "started_at": "2026-09-26T09:00:00Z",
+    "ended_at": "2026-09-26T09:42:00Z",
+    "operator": "the operator"
+  },
+  "steps": [
+    {
+      "id": "gather",
+      "name": "Gather candidate references",
+      "status": "done",
+      "start": "2026-09-26T09:00:00Z",
+      "end": "2026-09-26T09:15:00Z",
+      "reads": [],
+      "produces": ["candidates.json"],
+      "summary": "Collected candidate references from the source list.",
+      "batches": [
+        {
+          "size": 5,
+          "start": "2026-09-26T09:00:00Z",
+          "end": "2026-09-26T09:15:00Z",
+          "gate": {
+            "requested_at": "2026-09-26T09:15:00Z",
+            "resolved_at": "2026-09-26T09:16:00Z",
+            "decision": "approved"
+          }
+        }
+      ],
+      "agents": {"launched": 1, "cap": 3, "model": "a lighter-weight model"},
+      "retries": 0
+    },
+    {
+      "id": "verify",
+      "name": "Verify each reference",
+      "status": "done",
+      "start": "2026-09-26T09:16:00Z",
+      "end": "2026-09-26T09:40:00Z",
+      "reads": ["candidates.json"],
+      "produces": [],
+      "summary": "Checked every candidate reference; found no broken link this run.",
+      "batches": [
+        {
+          "size": 5,
+          "start": "2026-09-26T09:16:00Z",
+          "end": "2026-09-26T09:40:00Z",
+          "gate": {
+            "requested_at": "2026-09-26T09:40:00Z",
+            "resolved_at": "2026-09-26T09:40:30Z",
+            "decision": "approved"
+          }
+        }
+      ],
+      "agents": {
+        "launched": 2,
+        "cap": 3,
+        "model": "the default, full-capability model"
+      },
+      "retries": 1
+    },
+    {
+      "id": "publish",
+      "name": "Publish the refreshed catalog",
+      "status": "done",
+      "start": "2026-09-26T09:40:30Z",
+      "end": "2026-09-26T09:42:00Z",
+      "reads": ["candidates.json"],
+      "produces": ["catalog.md"],
+      "summary": "Published the refreshed catalog.",
+      "batches": [
+        {
+          "size": null,
+          "start": "2026-09-26T09:40:30Z",
+          "end": "2026-09-26T09:42:00Z",
+          "gate": {
+            "requested_at": "2026-09-26T09:41:00Z",
+            "resolved_at": "2026-09-26T09:41:30Z",
+            "decision": "not_required"
+          }
+        }
+      ],
+      "agents": {"launched": 1, "cap": 3, "model": "a lighter-weight model"},
+      "retries": 0
+    }
+  ],
+  "metrics": [
+    {
+      "id": "candidates_found",
+      "label": "Candidate references found",
+      "value": 5,
+      "unit": "count"
+    }
+  ],
+  "breakdowns": [
+    {
+      "id": "sources_by_type",
+      "label": "Sources by type",
+      "scale": "nominal",
+      "categories": ["article", "guide", "dataset"],
+      "counts": {"article": 3, "guide": 2, "dataset": 0}
+    },
+    {
+      "id": "sources_by_confidence",
+      "label": "Sources by confidence tier",
+      "scale": "ordinal",
+      "categories": ["low", "medium", "high"],
+      "counts": {"low": 0, "medium": 2, "high": 3}
+    },
+    {
+      "id": "checks_by_result",
+      "label": "Checks by result",
+      "scale": "status",
+      "categories": ["pass", "pass-with-notes", "blocked"],
+      "counts": {"pass": 1, "pass-with-notes": 0, "blocked": 0}
+    }
+  ],
+  "checks": [
+    {
+      "policy": "source-freshness-check",
+      "step": "verify",
+      "result": "pass",
+      "findings": []
+    }
+  ],
+  "budget": {
+    "limit": 20,
+    "estimated": 12,
+    "actual": 10,
+    "by_engine": [
+      {"engine": "a general web-search engine", "calls": 6},
+      {"engine": "a literature-search engine", "calls": 4}
+    ],
+    "planned_not_run": ["a follow-up search for one low-confidence source"]
+  }
+}

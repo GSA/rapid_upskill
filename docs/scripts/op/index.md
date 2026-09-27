@@ -15,4 +15,8 @@ Scripts for Operating practices.
 | ID | Title | Purpose |
 |---|---|---|
 | [X-OP-01](x-op-01.md) | LLM adapter with mock and OpenAI-compatible providers | Give every script one function, complete(prompt), that returns text from a language model. The default mock provider is deterministic and offline, so tests and dry runs need no network and no key. |
+| [X-OP-02](x-op-02.md) | Run record check | Check a run record JSON file's own required core, its breakdowns\[\] scale values, and whether a declared category is missing an explicit zero row. |
+| [X-OP-03](x-op-03.md) | Citation key check | Check a body-text excerpt's citation keys against a reference list, in both directions: a key used in the text but not defined in the reference list is an error, and a key defined but never used is a warning. |
+| [X-OP-04](x-op-04.md) | Hand-off completeness check | Check a hand-off document JSON file for the five required structured fields described below, and flag a purely narrative hand-off (free text, with none of them) as a finding rather than accepting it silently. |
+| [X-OP-05](x-op-05.md) | Completion signal check | Check a batch of worker output files against a declared completion test (required fields present and non-empty), so a file's mere existence, or a file merely being non-empty, is never mistaken for proof that the work behind it is actually finished. |
 {% endraw %}

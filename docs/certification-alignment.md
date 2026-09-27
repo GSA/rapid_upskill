@@ -108,7 +108,12 @@ On the sample schedule above, which has no problems, it prints one summary line:
 chapters=3 errors=0 warnings=0
 ```
 
-Break it on purpose: copy the file, then raise chapter 3's own total_minutes from 60 to 130 without changing its reading_minutes or active_minutes, and run the check again on the copy:
+Break it on purpose: a second, checked-in copy of the same schedule raises chapter 3's own total_minutes from 60 to 130 without changing its reading_minutes or active_minutes:
+
+```bash
+python3 -B scripts/ca/schedule_check.py \
+    scripts/sample_data/git_basics_batch8/schedule/schedule_broken.json
+```
 
 ```text
 error sum-mismatch: chapter 3 reading_minutes (45) + active_minutes (15) = 60, not total_minutes (130)
@@ -117,7 +122,7 @@ warning tier-order: chapter 3 (low, total 130) exceeds chapter 2 (medium, total 
 chapters=3 errors=1 warnings=2
 ```
 
-One field edit trips both checks at once: the stated total no longer matches its own parts, and the lowest-tier chapter now claims more weekly time than either higher-tier chapter. This script checks arithmetic and tier ordering only, on an invented schedule schema; it is a different, safe check from the broken chapter/question extractor described above, motivated by the same broader lesson that real pacing tooling can drift out of sync with its own inputs, not a stand-in for that script's own particular failure. See [Reading exit codes](stage-1/index.md#reading-exit-codes) on the Stage 1 index for what an exit code means generally.
+One field edit trips both checks at once: the stated total no longer matches its own parts, and the lowest-tier chapter now claims more weekly time than either higher-tier chapter. This script checks arithmetic and tier ordering only, on an invented schedule schema; it is a different, safe check from the broken chapter/question extractor described above, motivated by the same broader lesson that real pacing tooling can drift out of sync with its own inputs, not a stand-in for that script's own particular failure. The exit code is 1 whenever a finding is printed, as it is here, and 0 when the file is clean, as in the first run above. See [Reading exit codes](stage-1/index.md#reading-exit-codes) on the Stage 1 index for what an exit code means generally.
 
 ## Prompts
 

@@ -64,7 +64,7 @@ in the terms
 already defines.
 
 The second step is run for only a subset of chapters. An agent plans an
-external search per a research-methodology guide, then attaches a
+external search per two research-methodology guides, then attaches a
 small, capped number of citations to each slide, favoring recent,
 longer sources and well-known first authors. These are appended as reference
 links inside that slide's own presenter-script section.

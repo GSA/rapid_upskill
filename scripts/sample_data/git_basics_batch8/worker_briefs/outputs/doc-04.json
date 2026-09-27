@@ -1,0 +1,7 @@
+{
+  "document_id": "doc-04",
+  "status": "reviewed",
+  "findings": [
+    "two consecutive sections share the same heading text"
+  ]
+}

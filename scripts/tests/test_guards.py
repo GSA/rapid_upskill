@@ -172,6 +172,18 @@ class PythonVersionGuardTests(unittest.TestCase):
     def test_volume_manifest_check(self) -> None:
         self.check_guard("scripts/dl/volume_manifest_check.py")
 
+    def test_completion_signal_check(self) -> None:
+        self.check_guard("scripts/op/completion_signal_check.py")
+
+    def test_run_record_check(self) -> None:
+        self.check_guard("scripts/op/run_record_check.py")
+
+    def test_citation_key_check(self) -> None:
+        self.check_guard("scripts/op/citation_key_check.py")
+
+    def test_handoff_completeness_check(self) -> None:
+        self.check_guard("scripts/op/handoff_completeness_check.py")
+
     def test_current_python_is_not_blocked(self) -> None:
         result = run([str(REPO / "scripts/site/sync.py"), "--help"])
         self.assertEqual(result.returncode, 0, result.stderr)

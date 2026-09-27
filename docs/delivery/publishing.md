@@ -124,9 +124,11 @@ checked, not compiled.
 
 ## Worked illustration
 
-A small, invented volume manifest, using this guide's own running
-example, shows the book side's two mechanisms together. One volume
-carries chapters "3.9" and "3.10" side by side:
+A small, invented volume manifest, unrelated to the three-chapter Git
+Basics running example used elsewhere in this guide, shows the book
+side's two mechanisms together. It stands in for a much longer,
+multi-part book than the running example itself has chapters for. One
+volume carries chapters "3.9" and "3.10" side by side:
 
 ```json
 {
@@ -262,4 +264,4 @@ tooling; each is described only.
 - Final delivery approval for the book's finished volumes and the
   paper's finished manuscript.
 
-Next: [Delivery](index.md).
+Next: [Operating practices](../operating-practices/index.md).
