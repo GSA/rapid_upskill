@@ -208,4 +208,4 @@ its own use. This guide states the evidentiary record above; it does
 not set a bar for what counts as enough, and it states plainly that
 it cannot make that judgment for the reader.
 
-Next: [Contributing](contributing/index.md).
+Next: [Glossary](glossary.md).

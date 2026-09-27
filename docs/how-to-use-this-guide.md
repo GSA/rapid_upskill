@@ -57,6 +57,9 @@ Run every command in this guide from this folder, called the repository root.
 | Learn where people decide and how to batch work | [Human roles, gates and batching](human-roles-gates-and-batching.md) |
 | Check what your platform must offer | [Platform requirements](platform-requirements.md) |
 | Look up a term | [Glossary](glossary.md) |
+| Follow the running example through every stage in one thread | [Worked example, start to finish](worked-example.md) |
+| See what evidence actually backs this guide's own claims | [Evidence and limitations](evidence-and-limitations.md) |
+| Adapt this method to a new domain or platform | [Extending this guide](contributing/extending-this-guide.md) |
 
 ## Anatomy of a stage page
 

@@ -2,7 +2,7 @@
 title: "Contributing"
 nav_order: 90
 status: "draft"
-last_reviewed: "2026-09-21"
+last_reviewed: "2026-09-26"
 ---
 
 # Contributing
@@ -48,3 +48,4 @@ For the exact terms, read the [CC0 1.0 Universal legal code](https://creativecom
 - [Tooling](tooling.md): the checker, the sync tool, and local preview.
 - [Release checklist](release-checklist.md): automated and manual checks before a page is called stable.
 - [Your first prompt](first-prompt.md): a 15-minute walkthrough.
+- [Extending this guide](extending-this-guide.md): adapting this guide's own method to a new subject-matter domain, running example, or agentic platform.

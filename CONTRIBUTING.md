@@ -16,9 +16,18 @@ Use the issue tracker to suggest feature requests, report bugs, and ask question
 Generally speaking, you should fork this repository, make changes in your
 own fork, and then submit a pull-request.  All new code should have associated unit tests that validate implemented features and the presence or lack of defects.  Additionally, the code should follow any stylistic and architectural guidelines prescribed by the project. In the absence of such guidelines, mimic the styles and patterns in the existing code-base.
 
+## Contributing to the published guide
+
+This project's own published guide has a fuller contributor guide of its own, under [`docs/contributing/`](docs/contributing/index.md): the page
+template and front-matter rules ([Authoring conventions](docs/contributing/authoring-conventions.md)), the commands that check, sync, and test a change
+([Tooling](docs/contributing/tooling.md)), a 15-minute hands-on walkthrough ([Your first prompt](docs/contributing/first-prompt.md)), the full checklist
+a change must pass ([Release checklist](docs/contributing/release-checklist.md)), and how to adapt the guide's own method to a new domain or platform
+([Extending this guide](docs/contributing/extending-this-guide.md)). Read those pages before opening a pull request against `docs/`, `scripts/`, or
+`prompts/`.
+
 ## Further inquiry
 
-We encourage you to read this project's CONTRIBUTING policy (you are here), its [LICENSE](LICENSE.md), and its [README](README.md) and adhere to its [CODE_OF_CONDUCT](CODE_OF_CONDUCT.md).
+We encourage you to read this project's CONTRIBUTING policy (you are here), its [LICENSE](LICENSE.md), and its [README](README.md).
 
 If you have any questions or want to read more, check out the [GSA Open Source Policy](https://open.gsa.gov/oss-policy/) and [Guidance repository](https://github.com/GSA/open-source-policy), or just [shoot us an email](mailto:cto@gsa.gov).
 

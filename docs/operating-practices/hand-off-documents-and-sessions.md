@@ -178,4 +178,4 @@ This practice produces one artifact, in the structured shape above: a hand-off d
 
 None beyond the already-published [batch](../glossary.md#batch)-pause and plan-approval [gates](../glossary.md#gate); this page adds no new gate of its own. A person still decides whether a hand-off's own stated open decisions and remaining budget are accurate before trusting it, since no script here checks that.
 
-Next: [Operating practices](index.md).
+Next: [Worked example, start to finish](../worked-example.md).
