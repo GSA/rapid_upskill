@@ -2,7 +2,7 @@
 title: "Platform requirements"
 nav_order: 6
 status: "draft"
-last_reviewed: "2026-09-21"
+last_reviewed: "2026-09-26"
 ---
 
 # Platform requirements
@@ -118,4 +118,4 @@ These are questions to think through before you start. They have no score and ha
 5. Do you have lawful access to sources, and a certification outline if you align?
 6. Have you checked rate limits, cost, tutor platform size limits and credential storage?
 
-Next: [Glossary](glossary.md).
+Next: [Stage 1: Knowledge acquisition](stage-1/index.md).

@@ -3,7 +3,7 @@ title: "S1.7 Concept map and prerequisite hierarchy"
 parent: "Stage 1 Knowledge acquisition"
 nav_order: 9
 status: "draft"
-last_reviewed: "2026-09-24"
+last_reviewed: "2026-09-26"
 stage: "S1"
 sub_stage: "S1.7"
 prompts: ["P-S1-09"]
@@ -29,7 +29,8 @@ approved the result.
 This sub-stage takes in the canonical knowledge items and their typed
 relations from [S1.6 Knowledge items](knowledge-items.md). It hands on
 the map and the hierarchy to [S1.8 Coverage and gaps](coverage-and-gaps.md)
-and, once published, to later sub-stages that present material in
+and, now published, to later sub-stages such as [S2.1 Structural
+drafting](../stage-2/structural-drafting.md) that present material in
 dependency order.
 
 ## Why this way
