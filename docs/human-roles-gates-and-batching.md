@@ -1,6 +1,7 @@
 ---
 title: "Human roles, gates and batching"
-nav_order: 5
+parent: "Getting started"
+nav_order: 4
 status: "draft"
 last_reviewed: "2026-09-21"
 ---

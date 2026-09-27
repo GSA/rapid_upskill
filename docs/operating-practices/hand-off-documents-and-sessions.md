@@ -1,6 +1,7 @@
 ---
 title: "Hand-off documents and sessions"
 parent: "Operating practices"
+grand_parent: "Beyond the five stages"
 nav_order: 5
 status: "draft"
 last_reviewed: "2026-09-26"

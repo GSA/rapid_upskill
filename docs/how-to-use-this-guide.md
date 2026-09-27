@@ -1,6 +1,7 @@
 ---
 title: "How to use this guide"
-nav_order: 3
+parent: "Getting started"
+nav_order: 2
 status: "draft"
 last_reviewed: "2026-09-26"
 ---
@@ -44,21 +45,23 @@ Run every command in this guide from this folder, called the repository root.
 
 | Goal | Read |
 |---|---|
+| New to this guide: the framework's shape, what you need, and the running example | [Getting started](getting-started.md) |
 | See all five [stages](glossary.md#stage) on one page | [Pipeline overview](pipeline-overview.md) |
 | Follow one small sample program | [The running example](running-example.md) |
+| Learn where people decide and how to batch work | [Human roles, gates and batching](human-roles-gates-and-batching.md) |
+| Check what your platform must offer | [Platform requirements](platform-requirements.md) |
 | Work through Stage 1 with sample prompts and scripts | [Stage 1 Knowledge acquisition](stage-1/index.md) |
 | Work through Stage 2 with sample prompts and scripts | [Stage 2 Content development](stage-2/index.md) |
 | Work through Stage 3 with sample prompts and scripts | [Stage 3 Review and verification](stage-3/index.md) |
 | Work through Stage 4 with sample prompts | [Stage 4 AI-tutor coaching](stage-4/index.md) |
 | Work through Stage 5 with sample prompts and scripts | [Stage 5 Assessment development](stage-5/index.md) |
+| See what sits alongside or after the five stages | [Beyond the five stages](beyond-the-five-stages.md) |
 | See the parallel certification-alignment workstream | [Certification alignment](certification-alignment.md) |
 | See how delivery tooling turns chapters into slides, infographics, and finished volumes | [Delivery](delivery/index.md) |
 | Learn the cross-cutting operating practices behind every stage | [Operating practices](operating-practices/index.md) |
-| Learn where people decide and how to batch work | [Human roles, gates and batching](human-roles-gates-and-batching.md) |
-| Check what your platform must offer | [Platform requirements](platform-requirements.md) |
-| Look up a term | [Glossary](glossary.md) |
 | Follow the running example through every stage in one thread | [Worked example, start to finish](worked-example.md) |
 | See what evidence actually backs this guide's own claims | [Evidence and limitations](evidence-and-limitations.md) |
+| Look up a term | [Glossary](glossary.md) |
 | Adapt this method to a new domain or platform | [Extending this guide](contributing/extending-this-guide.md) |
 
 ## Anatomy of a stage page

@@ -1,6 +1,7 @@
 ---
 title: "Prompt-injection screening, as a cross-cutting practice"
 parent: "Operating practices"
+grand_parent: "Beyond the five stages"
 nav_order: 4
 stage: "OP"
 status: "draft"

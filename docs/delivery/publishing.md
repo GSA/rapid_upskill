@@ -1,6 +1,7 @@
 ---
 title: "Delivery: publishing"
 parent: "Delivery"
+grand_parent: "Beyond the five stages"
 nav_order: 2
 status: "draft"
 last_reviewed: "2026-09-26"

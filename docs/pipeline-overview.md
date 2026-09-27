@@ -1,8 +1,9 @@
 ---
 title: "Pipeline overview"
-nav_order: 2
+parent: "Getting started"
+nav_order: 1
 status: "draft"
-last_reviewed: "2026-09-26"
+last_reviewed: "2026-09-27"
 ---
 
 # Pipeline overview
@@ -75,11 +76,6 @@ The figure's bottom band lists checks that could apply. Some are outside the fra
 
 ## What the framework does not claim
 
-- No controlled comparison and no timing baseline, so no claim of time saved.
-- This guide does not report how the Layer 1 checks performed. Expert review (Layer 2) and the audit trail (Layer 3) are specified; no completed record was found. No record found is not evidence that something did not happen.
-- The framework assigns question ratings and misconception authoring to people. This guide does not claim that either was done.
-- No pilot with live examinee data, so test-question quality is a design goal, not a result.
-- The tutor's design cites published research for its design choices. This guide does not claim that the finished tutor achieves those effects.
-- The name of Stage 3 states its purpose, not its achievement.
+[Evidence and limitations](evidence-and-limitations.md#what-the-frameworks-own-design-does-not-claim) states, in one place, what this guide's own design does not claim: no controlled comparison, no report of how the Layer 1 checks performed, no claim that the tutor achieves the effects its own cited research reports, and more. [Human roles, gates and batching](human-roles-gates-and-batching.md#what-the-framework-says-people-do) covers the people-facing side of the same question: which roles the framework assigns without a confirmed record that the work was done.
 
 Next: [How to use this guide](how-to-use-this-guide.md).

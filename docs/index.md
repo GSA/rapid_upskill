@@ -27,7 +27,7 @@ The five stages are knowledge acquisition, content development, review and verif
 
 ## Where to start
 
-Start with the [Pipeline overview](pipeline-overview.md). It shows all five stages on one page. Then read [How to use this guide](how-to-use-this-guide.md). It says what you need and how each page is laid out. Every stage will use one small, fictional program, the [running example](running-example.md). Stage 1 through Stage 3 and Stage 5 are published with sample prompts and scripts, and Stage 4 with sample prompts; all five stages are now published. The [certification-alignment](certification-alignment.md) workstream and the [Delivery](delivery/index.md) tooling are also now described. The cross-cutting [operating-practices](operating-practices/index.md) pages are also now described. A [worked example](worked-example.md) traces the running example through every one of those in one continuous thread, and [Evidence and limitations](evidence-and-limitations.md) states plainly what backs this guide's own claims; together they close out the whole guide.
+Start with [Getting started](getting-started.md): the [Pipeline overview](pipeline-overview.md) shows all five stages on one page, [How to use this guide](how-to-use-this-guide.md) says what you need and how each page is laid out, and the [running example](running-example.md) is the one small, fictional program every stage uses. All five stages are now published, Stage 4 with sample prompts and every other stage with sample prompts and scripts. [Beyond the five stages](beyond-the-five-stages.md) gathers what sits alongside or after the framework's own core: the [certification-alignment](certification-alignment.md) workstream, the [Delivery](delivery/index.md) tooling, the cross-cutting [operating-practices](operating-practices/index.md) pages, a [worked example](worked-example.md) tracing the running example through all of it in one continuous thread, and [Evidence and limitations](evidence-and-limitations.md), which states plainly what backs this guide's own claims.
 
 ## Should you try this?
 
@@ -39,4 +39,4 @@ This guide is a method, not a product. It is written to be platform-neutral, so 
 
 The text, prompts, and scripts are released under CC0 1.0, a public domain dedication. To learn what that means, or to help, see [Contributing](contributing/index.md).
 
-Next: [Pipeline overview](pipeline-overview.md).
+Next: [Getting started](getting-started.md).

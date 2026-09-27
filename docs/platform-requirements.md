@@ -1,6 +1,7 @@
 ---
 title: "Platform requirements"
-nav_order: 6
+parent: "Getting started"
+nav_order: 5
 status: "draft"
 last_reviewed: "2026-09-26"
 ---

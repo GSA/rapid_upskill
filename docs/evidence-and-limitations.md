@@ -1,8 +1,9 @@
 ---
 title: "Evidence and limitations"
-nav_order: 76
+parent: "Beyond the five stages"
+nav_order: 5
 status: "draft"
-last_reviewed: "2026-09-26"
+last_reviewed: "2026-09-27"
 prompts: []
 scripts: []
 ---
@@ -24,24 +25,23 @@ guide does not state anywhere.
 ## Where it fits
 
 This page sits at the top level, cross-cutting every stage and
-workstream rather than belonging to any one of them. Several
-already-published pages already carry an evidentiary caveat of their
-own. [Pipeline overview](pipeline-overview.md#what-the-framework-does-not-claim)
-lists what the framework's own design does not claim.
-[S3.2 Layer 2 expert human review](stage-3/layer-2-expert-review.md#this-stages-own-honest-gap)
+workstream rather than belonging to any one of them. It gathers what
+this guide can and cannot claim into one place, rather than leaving it
+scattered: the framework's own general design limits (previously
+split out on Pipeline overview, moved here), three specific results
+the reference implementation's own certification-facing work
+supports, and the source manuscript's own stated limits. Two further
+already-published pages state a related, narrower point of their own,
+cross-linked rather than restated here: [S3.2 Layer 2 expert human
+review](stage-3/layer-2-expert-review.md#this-stages-own-honest-gap)
 states that expert review and the audit trail are specified, but no
-completed record of either was found. [Human roles, gates and
+completed record of either was found; [Human roles, gates and
 batching](human-roles-gates-and-batching.md#what-the-framework-says-people-do)
 makes a close point about the people-facing roles the framework
 assigns, adding that no record found is not evidence that the
-assigned work did not happen. This page does not restate any of that;
-it links back to each instead. It adds a narrower set of facts none
-of those pages covers: three specific results about the reference
-implementation's own certification-facing work, and the limits the
-source material states on all of its evidence. A reader who
-wants the whole evidentiary picture in one place, rather than
-gathered from four pages by hand, can start here and follow the three
-links above for the rest.
+assigned work did not happen. A reader who wants the whole evidentiary
+picture in one place, rather than gathered from several pages by hand,
+can start here.
 
 ## Why this way
 
@@ -77,9 +77,29 @@ manuscript reports about itself.
 
 | Step | Who | Basis |
 |---|---|---|
+| State the framework's own general design limits, not tied to the certification-facing results below | This guide | documented |
 | State three results about the reference implementation's own certification-facing work, in the exact substance this guide is approved to state | This guide | the manuscript's own self-report |
 | State the source manuscript's own admitted limits on all of its evidence, paraphrased rather than quoted | This guide | the manuscript's own self-report |
 | State plainly that the source manuscript reports further results beyond the three above, without naming or counting any of them | This guide | documented |
+
+### What the framework's own design does not claim
+
+Four further points are the framework's own general design limits,
+not tied to the certification-facing results below; each carries the
+plain `documented` basis this page uses elsewhere, not the narrower
+manuscript basis the next section uses.
+
+- No controlled comparison and no timing baseline exist anywhere in
+  the design, so this guide makes no claim of time saved against any
+  alternative way of building the same program.
+- This guide does not report how the [Layer
+  1](stage-3/layer-1-automated-detection.md) automated checks actually
+  performed once run.
+- The [AI tutor](stage-4/index.md)'s own design cites published
+  research for its design choices; this guide does not claim the
+  finished tutor actually achieves the effects that research reports.
+- Stage 3's own name, "Review and verification," states that stage's
+  own purpose, not that verification was achieved.
 
 ### The three approved results
 
@@ -96,12 +116,7 @@ read here as adding up to more than what it states on its own.
   administrative and structural standards. That assessment did not
   cover the accuracy of the program's content.
 - No psychometric pilot with live examinees has tested the test
-  questions this framework produces. [Pipeline
-  overview](pipeline-overview.md#what-the-framework-does-not-claim)
-  already states this design gap for the framework generally; it is
-  stated again here because a reader of this page needs the reference
-  implementation's own three results together, not spread across two
-  pages.
+  questions this framework produces.
 
 ### The source manuscript's own stated limits
 
@@ -167,12 +182,14 @@ page.
 - Every claim on this page carries the evidentiary tier stated beside
   it.
 - No claim on this page reaches beyond what its own tier supports.
-- A reader can name, from this page alone, the three approved
-  results, the source manuscript's own stated limits, and the fact
-  that further results exist outside this guide's approved scope.
-- A reader can point to the three already-published pages this page
-  cross-links, and can tell that this page adds new facts rather than
-  repeating theirs.
+- A reader can name, from this page alone, the framework's own general
+  design limits, the three approved results, the source manuscript's
+  own stated limits, and the fact that further results exist outside
+  this guide's approved scope.
+- A reader can point to the two already-published pages this page
+  still cross-links rather than restates (S3.2's own honest gap; Human
+  roles' own point about assigned-but-unconfirmed work), and can tell
+  that this page adds new facts rather than repeating theirs.
 
 ## Common failures
 

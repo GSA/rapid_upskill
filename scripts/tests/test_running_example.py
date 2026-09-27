@@ -537,7 +537,8 @@ class PageTests(unittest.TestCase):
         # The navigation order and the review date change as the site grows,
         # so only their shape is checked here.
         self.assertEqual(
-            set(self.meta), {"title", "nav_order", "status", "last_reviewed"}
+            set(self.meta),
+            {"title", "parent", "nav_order", "status", "last_reviewed"},
         )
         self.assertEqual(self.meta["title"], "The running example")
         self.assertIn(self.meta["status"], ("draft", "reviewed", "stable"))

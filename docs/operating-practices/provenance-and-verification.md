@@ -1,6 +1,7 @@
 ---
 title: "Provenance and verification discipline"
 parent: "Operating practices"
+grand_parent: "Beyond the five stages"
 nav_order: 3
 status: "draft"
 last_reviewed: "2026-09-26"

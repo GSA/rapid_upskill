@@ -1,6 +1,7 @@
 ---
 title: "Certification alignment"
-nav_order: 60
+parent: "Beyond the five stages"
+nav_order: 1
 status: "draft"
 last_reviewed: "2026-09-26"
 stage: "CA"

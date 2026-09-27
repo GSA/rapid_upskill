@@ -3,7 +3,7 @@ title: "S3.2 Layer 2 expert human review"
 parent: "Stage 3 Review and verification"
 nav_order: 2
 status: "draft"
-last_reviewed: "2026-09-25"
+last_reviewed: "2026-09-27"
 stage: "S3"
 sub_stage: "S3.2"
 prompts: ["P-S3-02"]
@@ -131,15 +131,12 @@ numbered steps above add.
 
 ## This stage's own honest gap
 
-[Pipeline overview](../pipeline-overview.md#what-the-framework-does-not-claim)
-already states the limit that applies here and at the next sub-stage:
-"Expert review (Layer 2) and the audit trail (Layer 3) are specified;
+Expert review (Layer 2) and the audit trail (Layer 3) are specified;
 no completed record was found. No record found is not evidence that
-something did not happen." This page does not restate that finding in
-different words. The checklist, the protocol and the script run below
-describe what this sub-stage specifies, not a record that a real
-chapter went through it. A team adopting this sub-stage still has to
-build its own record of who reviewed what, and when, since the
+something did not happen. The checklist, the protocol and the script
+run below describe what this sub-stage specifies, not a record that a
+real chapter went through it. A team adopting this sub-stage still has
+to build its own record of who reviewed what, and when, since the
 sourced design does not by itself leave that trail behind.
 
 ## Artifacts and formats
