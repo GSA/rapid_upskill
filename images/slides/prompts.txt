@@ -1,0 +1,286 @@
+### slide_01
+Create a professional, boardroom-ready infographic for one slide in a presentation to federal and enterprise executives.
+Visual style: Clean, boardroom-ready corporate infographic for federal and enterprise executives. 16:9. White background. Modern flat design, restrained blue-and-slate palette with a single warm accent. Simple flat line icons, strong visual hierarchy, generous whitespace, minimal text, professional sans-serif typography.
+HEADLINE (render prominently, keep wording): By 2030, Nearly Six in Ten Workers Need Retraining
+KEY POINTS (render as short labels/callouts, keep wording):
+- 59 of every 100 need retraining by 2030
+- 11 of them unlikely to receive it
+- Roughly 120 million workers at medium-term risk
+- 39% of core skills obsolete by 2030
+CONTEXT (for tone only, do not render verbatim): Start with the headline forecast.
+Turn the key numbers into large callout figures. Use simple icons to convey each concept. Do NOT invent any statistics, facts, company names, or logos beyond what is listed. Do not depict real brand logos or identifiable real people; use generic badge/seal/icon shapes instead. Render ONLY the headline and the key-point labels as text; do not add any descriptive caption, subtitle, watermark, or meta-label about the infographic itself or its audience. Balanced composition, no clutter, no lorem ipsum.
+
+### slide_02
+Create a professional, boardroom-ready infographic for one slide in a presentation to federal and enterprise executives.
+Visual style: Clean, boardroom-ready corporate infographic for federal and enterprise executives. 16:9. White background. Modern flat design, restrained blue-and-slate palette with a single warm accent. Simple flat line icons, strong visual hierarchy, generous whitespace, minimal text, professional sans-serif typography.
+HEADLINE (render prominently, keep wording): Two Clocks: Skills Decay Faster Than Programs Get Built
+KEY POINTS (render as short labels/callouts, keep wording):
+- Technical skills relevant about two and a half years
+- General skills relevant about five years
+- Median 15 days to close one gap
+- About 26 days for digital, IT skills
+- Gap widest where skills decay fastest
+CONTEXT (for tone only, do not render verbatim): Now the two clocks.
+Turn the key numbers into large callout figures. Use simple icons to convey each concept. Do NOT invent any statistics, facts, company names, or logos beyond what is listed. Do not depict real brand logos or identifiable real people; use generic badge/seal/icon shapes instead. Render ONLY the headline and the key-point labels as text; do not add any descriptive caption, subtitle, watermark, or meta-label about the infographic itself or its audience. Balanced composition, no clutter, no lorem ipsum.
+
+### slide_03
+Create a professional, boardroom-ready infographic for one slide in a presentation to federal and enterprise executives.
+Visual style: Clean, boardroom-ready corporate infographic for federal and enterprise executives. 16:9. White background. Modern flat design, restrained blue-and-slate palette with a single warm accent. Simple flat line icons, strong visual hierarchy, generous whitespace, minimal text, professional sans-serif typography.
+HEADLINE (render prominently, keep wording): Your Peers Already Doubt Their Machinery Can Execute
+KEY POINTS (render as short labels/callouts, keep wording):
+- 2017 survey, 116 executives, large organizations
+- More than one in four lack clarity
+- Almost one-third: HR cannot execute strategy
+- Well-resourced leaders, honest self-assessment
+CONTEXT (for tone only, do not render verbatim): This is the slide where you may recognize yourselves.
+Turn the key numbers into large callout figures. Use simple icons to convey each concept. Do NOT invent any statistics, facts, company names, or logos beyond what is listed. Do not depict real brand logos or identifiable real people; use generic badge/seal/icon shapes instead. Render ONLY the headline and the key-point labels as text; do not add any descriptive caption, subtitle, watermark, or meta-label about the infographic itself or its audience. Balanced composition, no clutter, no lorem ipsum.
+
+### slide_04
+Create a professional, boardroom-ready infographic for one slide in a presentation to federal and enterprise executives.
+Visual style: Clean, boardroom-ready corporate infographic for federal and enterprise executives. 16:9. White background. Modern flat design, restrained blue-and-slate palette with a single warm accent. Simple flat line icons, strong visual hierarchy, generous whitespace, minimal text, professional sans-serif typography.
+HEADLINE (render prominently, keep wording): The Question Is No Longer Whether, but How Fast
+KEY POINTS (render as short labels/callouts, keep wording):
+- Layoffs coexist with unfilled vacancies
+- Competencies change faster than workers adapt
+- Real constraint: how fast programs get produced
+- Frontier topics lack textbooks, instructors, item banks
+CONTEXT (for tone only, do not render verbatim): So let me reframe the whole problem.
+Turn the key numbers into large callout figures. Use simple icons to convey each concept. Do NOT invent any statistics, facts, company names, or logos beyond what is listed. Do not depict real brand logos or identifiable real people; use generic badge/seal/icon shapes instead. Render ONLY the headline and the key-point labels as text; do not add any descriptive caption, subtitle, watermark, or meta-label about the infographic itself or its audience. Balanced composition, no clutter, no lorem ipsum.
+
+### slide_05
+Create a professional, boardroom-ready infographic for one slide in a presentation to federal and enterprise executives.
+Visual style: Clean, boardroom-ready corporate infographic for federal and enterprise executives. 16:9. White background. Modern flat design, restrained blue-and-slate palette with a single warm accent. Simple flat line icons, strong visual hierarchy, generous whitespace, minimal text, professional sans-serif typography.
+HEADLINE (render prominently, keep wording): Everyone accelerates one stage
+KEY POINTS (render as short labels/callouts, keep wording):
+- Delivery: compressed lessons, retention fades to baseline
+- Production: materials generated, never claim-verified
+- Learning: real tutoring gains, needs existing materials
+- Program: whole lifecycle, prohibitive human cost
+- None spans acquisition through assessment
+CONTEXT (for tone only, do not render verbatim): Look at what the market actually sells, and a pattern jumps out: every tool is brilliant at exactly one stage.
+Turn the key numbers into large callout figures. Use simple icons to convey each concept. Do NOT invent any statistics, facts, company names, or logos beyond what is listed. Do not depict real brand logos or identifiable real people; use generic badge/seal/icon shapes instead. Render ONLY the headline and the key-point labels as text; do not add any descriptive caption, subtitle, watermark, or meta-label about the infographic itself or its audience. Balanced composition, no clutter, no lorem ipsum.
+
+### slide_06
+Create a professional, boardroom-ready infographic for one slide in a presentation to federal and enterprise executives.
+Visual style: Clean, boardroom-ready corporate infographic for federal and enterprise executives. 16:9. White background. Modern flat design, restrained blue-and-slate palette with a single warm accent. Simple flat line icons, strong visual hierarchy, generous whitespace, minimal text, professional sans-serif typography.
+HEADLINE (render prominently, keep wording): The four risks this creates
+KEY POINTS (render as short labels/callouts, keep wording):
+- Fragmentation: four tools, you own the seams
+- Verification: 60.33% hallucination on new material
+- Pedagogy: right next move only half the time
+- Measurement: self-graded means unprovable competency
+CONTEXT (for tone only, do not render verbatim): So what does buying one-stage tools actually cost you?
+Turn the key numbers into large callout figures. Use simple icons to convey each concept. Do NOT invent any statistics, facts, company names, or logos beyond what is listed. Do not depict real brand logos or identifiable real people; use generic badge/seal/icon shapes instead. Render ONLY the headline and the key-point labels as text; do not add any descriptive caption, subtitle, watermark, or meta-label about the infographic itself or its audience. Balanced composition, no clutter, no lorem ipsum.
+
+### slide_07
+Create a professional, boardroom-ready infographic for one slide in a presentation to federal and enterprise executives.
+Visual style: Clean, boardroom-ready corporate infographic for federal and enterprise executives. 16:9. White background. Modern flat design, restrained blue-and-slate palette with a single warm accent. Simple flat line icons, strong visual hierarchy, generous whitespace, minimal text, professional sans-serif typography.
+HEADLINE (render prominently, keep wording): One pipeline, five stages, two kinds of speed
+KEY POINTS (render as short labels/callouts, keep wording):
+- Five stages, from knowledge to assessment
+- Production efficiency compresses scarce expert time
+- Learning efficiency shortens learner time-to-competency
+- Human experts steer and verify every stage
+- Any un-accelerated stage bottlenecks everything
+CONTEXT (for tone only, do not render verbatim): Here is the whole pipeline in one line: acquire the knowledge, develop the content, verify it, coach with an AI tutor, then build the assessment.
+Turn the key numbers into large callout figures. Use simple icons to convey each concept. Do NOT invent any statistics, facts, company names, or logos beyond what is listed. Do not depict real brand logos or identifiable real people; use generic badge/seal/icon shapes instead. Render ONLY the headline and the key-point labels as text; do not add any descriptive caption, subtitle, watermark, or meta-label about the infographic itself or its audience. Balanced composition, no clutter, no lorem ipsum.
+
+### slide_08
+Create a professional, boardroom-ready infographic for one slide in a presentation to federal and enterprise executives.
+Visual style: Clean, boardroom-ready corporate infographic for federal and enterprise executives. 16:9. White background. Modern flat design, restrained blue-and-slate palette with a single warm accent. Simple flat line icons, strong visual hierarchy, generous whitespace, minimal text, professional sans-serif typography.
+HEADLINE (render prominently, keep wording): Stage 1: Map the domain before writing a word
+KEY POINTS (render as short labels/callouts, keep wording):
+- Four-step KDEG domain-mapping procedure
+- Four-level prerequisite dependency hierarchy
+- Each level builds on the one below
+- Roughly 3,000-page knowledge base
+CONTEXT (for tone only, do not render verbatim): Before anyone writes curriculum, you map the territory.
+Turn the key numbers into large callout figures. Use simple icons to convey each concept. Do NOT invent any statistics, facts, company names, or logos beyond what is listed. Do not depict real brand logos or identifiable real people; use generic badge/seal/icon shapes instead. Render ONLY the headline and the key-point labels as text; do not add any descriptive caption, subtitle, watermark, or meta-label about the infographic itself or its audience. Balanced composition, no clutter, no lorem ipsum.
+
+### slide_09
+Create a professional, boardroom-ready infographic for one slide in a presentation to federal and enterprise executives.
+Visual style: Clean, boardroom-ready corporate infographic for federal and enterprise executives. 16:9. White background. Modern flat design, restrained blue-and-slate palette with a single warm accent. Simple flat line icons, strong visual hierarchy, generous whitespace, minimal text, professional sans-serif typography.
+HEADLINE (render prominently, keep wording): Stage 2: Draft fast, hold the shape constant
+KEY POINTS (render as short labels/callouts, keep wording):
+- Fixed five-part chapter skeleton
+- Three to eight SMART objectives each
+- "One New Element" rule per section
+- 70/20/10 cumulative spaced review
+- Six-pass revision on every chapter
+CONTEXT (for tone only, do not render verbatim): Chapters start as AI-generated drafts, then get disciplined into shape.
+Turn the key numbers into large callout figures. Use simple icons to convey each concept. Do NOT invent any statistics, facts, company names, or logos beyond what is listed. Do not depict real brand logos or identifiable real people; use generic badge/seal/icon shapes instead. Render ONLY the headline and the key-point labels as text; do not add any descriptive caption, subtitle, watermark, or meta-label about the infographic itself or its audience. Balanced composition, no clutter, no lorem ipsum.
+
+### slide_10
+Create a professional, boardroom-ready infographic for one slide in a presentation to federal and enterprise executives.
+Visual style: Clean, boardroom-ready corporate infographic for federal and enterprise executives. 16:9. White background. Modern flat design, restrained blue-and-slate palette with a single warm accent. Simple flat line icons, strong visual hierarchy, generous whitespace, minimal text, professional sans-serif typography.
+HEADLINE (render prominently, keep wording): Stage 3: Treat the draft as suspect until checked
+KEY POINTS (render as short labels/callouts, keep wording):
+- Three layers: automated, expert, audit
+- RAGAS-based four-part accuracy standard
+- Four-type hallucination taxonomy
+- Defects caught before learners study
+CONTEXT (for tone only, do not render verbatim): Stage three assumes the AI-drafted content is wrong until proven otherwise.
+Turn the key numbers into large callout figures. Use simple icons to convey each concept. Do NOT invent any statistics, facts, company names, or logos beyond what is listed. Do not depict real brand logos or identifiable real people; use generic badge/seal/icon shapes instead. Render ONLY the headline and the key-point labels as text; do not add any descriptive caption, subtitle, watermark, or meta-label about the infographic itself or its audience. Balanced composition, no clutter, no lorem ipsum.
+
+### slide_11
+Create a professional, boardroom-ready infographic for one slide in a presentation to federal and enterprise executives.
+Visual style: Clean, boardroom-ready corporate infographic for federal and enterprise executives. 16:9. White background. Modern flat design, restrained blue-and-slate palette with a single warm accent. Simple flat line icons, strong visual hierarchy, generous whitespace, minimal text, professional sans-serif typography.
+HEADLINE (render prominently, keep wording): Stage 3, honestly: the checks flag it, human experts steer the fix
+KEY POINTS (render as short labels/callouts, keep wording):
+- 95% accuracy on 20-example sample
+- 0 invalid references among 268 checked
+- Only 5 of 10 chapters passed progression
+- Assessment bank was at 63% of target
+- Experts steer the AI-accelerated remediation
+CONTEXT (for tone only, do not render verbatim): Here is what that pass actually found, exactly as reported.
+Turn the key numbers into large callout figures. Use simple icons to convey each concept. Do NOT invent any statistics, facts, company names, or logos beyond what is listed. Do not depict real brand logos or identifiable real people; use generic badge/seal/icon shapes instead. Render ONLY the headline and the key-point labels as text; do not add any descriptive caption, subtitle, watermark, or meta-label about the infographic itself or its audience. Balanced composition, no clutter, no lorem ipsum.
+
+### slide_12
+Create a professional, boardroom-ready infographic for one slide in a presentation to federal and enterprise executives.
+Visual style: Clean, boardroom-ready corporate infographic for federal and enterprise executives. 16:9. White background. Modern flat design, restrained blue-and-slate palette with a single warm accent. Simple flat line icons, strong visual hierarchy, generous whitespace, minimal text, professional sans-serif typography.
+HEADLINE (render prominently, keep wording): Stage 4: A tutor that asks instead of answers
+KEY POINTS (render as short labels/callouts, keep wording):
+- 16 named protocols, fixed selection priority
+- Six principles constrain every protocol
+- Errors diagnosed against a misconception catalog
+- Integrity risk checked first, always
+CONTEXT (for tone only, do not render verbatim): The tutor is not one general prompt.
+Turn the key numbers into large callout figures. Use simple icons to convey each concept. Do NOT invent any statistics, facts, company names, or logos beyond what is listed. Do not depict real brand logos or identifiable real people; use generic badge/seal/icon shapes instead. Render ONLY the headline and the key-point labels as text; do not add any descriptive caption, subtitle, watermark, or meta-label about the infographic itself or its audience. Balanced composition, no clutter, no lorem ipsum.
+
+### slide_13
+Create a professional, boardroom-ready infographic for one slide in a presentation to federal and enterprise executives.
+Visual style: Clean, boardroom-ready corporate infographic for federal and enterprise executives. 16:9. White background. Modern flat design, restrained blue-and-slate palette with a single warm accent. Simple flat line icons, strong visual hierarchy, generous whitespace, minimal text, professional sans-serif typography.
+HEADLINE (render prominently, keep wording): Stage 5: Build the exam by construction, not by hand
+KEY POINTS (render as short labels/callouts, keep wording):
+- Distractors keyed to documented misconceptions
+- Stem plans scaled to difficulty
+- 30/50/20 easy-medium-hard split
+- 530-question bank, 10-domain 53-skill blueprint
+CONTEXT (for tone only, do not render verbatim): Most exams get written off the chapter prose.
+Turn the key numbers into large callout figures. Use simple icons to convey each concept. Do NOT invent any statistics, facts, company names, or logos beyond what is listed. Do not depict real brand logos or identifiable real people; use generic badge/seal/icon shapes instead. Render ONLY the headline and the key-point labels as text; do not add any descriptive caption, subtitle, watermark, or meta-label about the infographic itself or its audience. Balanced composition, no clutter, no lorem ipsum.
+
+### slide_14
+Create a professional, boardroom-ready infographic for one slide in a presentation to federal and enterprise executives.
+Visual style: Clean, boardroom-ready corporate infographic for federal and enterprise executives. 16:9. White background. Modern flat design, restrained blue-and-slate palette with a single warm accent. Simple flat line icons, strong visual hierarchy, generous whitespace, minimal text, professional sans-serif typography.
+HEADLINE (render prominently, keep wording): Who does what: humans keep the judgment, AI takes the volume
+KEY POINTS (render as short labels/callouts, keep wording):
+- Humans: blueprints, SME review, misconceptions, ratings
+- AI: drafting, condensation, cross-referencing volume
+- Humans steer and verify; AI executes at scale
+- Expert judgment captured as reusable infrastructure
+CONTEXT (for tone only, do not render verbatim): So who actually does what.
+Turn the key numbers into large callout figures. Use simple icons to convey each concept. Do NOT invent any statistics, facts, company names, or logos beyond what is listed. Do not depict real brand logos or identifiable real people; use generic badge/seal/icon shapes instead. Render ONLY the headline and the key-point labels as text; do not add any descriptive caption, subtitle, watermark, or meta-label about the infographic itself or its audience. Balanced composition, no clutter, no lorem ipsum.
+
+### slide_15
+Create a professional, boardroom-ready infographic for one slide in a presentation to federal and enterprise executives.
+Visual style: Clean, boardroom-ready corporate infographic for federal and enterprise executives. 16:9. White background. Modern flat design, restrained blue-and-slate palette with a single warm accent. Simple flat line icons, strong visual hierarchy, generous whitespace, minimal text, professional sans-serif typography.
+HEADLINE (render prominently, keep wording): An Existence Proof: Three Passes, Not a Rate
+KEY POINTS (render as short labels/callouts, keep wording):
+- Three learners studied the knowledge base only
+- All three passed the NVIDIA NCP-AAI exam
+- Scored by NVIDIA's appointed certification vendor
+- Fourteen more learners currently in progress
+- Existence proof at n=3, not a rate
+CONTEXT (for tone only, do not render verbatim): Start with the cleanest signal.
+Turn the key numbers into large callout figures. Use simple icons to convey each concept. Do NOT invent any statistics, facts, company names, or logos beyond what is listed. Do not depict real brand logos or identifiable real people; use generic badge/seal/icon shapes instead. Render ONLY the headline and the key-point labels as text; do not add any descriptive caption, subtitle, watermark, or meta-label about the infographic itself or its audience. Balanced composition, no clutter, no lorem ipsum.
+
+### slide_16
+Create a professional, boardroom-ready infographic for one slide in a presentation to federal and enterprise executives.
+Visual style: Clean, boardroom-ready corporate infographic for federal and enterprise executives. 16:9. White background. Modern flat design, restrained blue-and-slate palette with a single warm accent. Simple flat line icons, strong visual hierarchy, generous whitespace, minimal text, professional sans-serif typography.
+HEADLINE (render prominently, keep wording): Two Cohorts, Kept Strictly Separate
+KEY POINTS (render as short labels/callouts, keep wording):
+- .edu cohort: two passed the real NCP-AAI
+- Passed after roughly three and a half months
+- Federal cohort: ~600 registered, ~120 weekly attendees
+- Twenty-nine sat the final exam, 27 passed
+- Federal exam was our own four-case exam
+CONTEXT (for tone only, do not render verbatim): Now scale, across two cohorts we keep strictly apart, because they are different people.
+Turn the key numbers into large callout figures. Use simple icons to convey each concept. Do NOT invent any statistics, facts, company names, or logos beyond what is listed. Do not depict real brand logos or identifiable real people; use generic badge/seal/icon shapes instead. Render ONLY the headline and the key-point labels as text; do not add any descriptive caption, subtitle, watermark, or meta-label about the infographic itself or its audience. Balanced composition, no clutter, no lorem ipsum.
+
+### slide_17
+Create a professional, boardroom-ready infographic for one slide in a presentation to federal and enterprise executives.
+Visual style: Clean, boardroom-ready corporate infographic for federal and enterprise executives. 16:9. White background. Modern flat design, restrained blue-and-slate palette with a single warm accent. Simple flat line icons, strong visual hierarchy, generous whitespace, minimal text, professional sans-serif typography.
+HEADLINE (render prominently, keep wording): A Test an Exam Cannot Run
+KEY POINTS (render as short labels/callouts, keep wording):
+- Knowledge base fed a systematic risk analysis
+- Produced 1,267 risk items across 14 domains
+- Tests knowledge-base completeness and structure
+- Presented to ~500 US federal employees
+- Under peer review, not yet published
+CONTEXT (for tone only, do not render verbatim): An exam tests a learner.
+Turn the key numbers into large callout figures. Use simple icons to convey each concept. Do NOT invent any statistics, facts, company names, or logos beyond what is listed. Do not depict real brand logos or identifiable real people; use generic badge/seal/icon shapes instead. Render ONLY the headline and the key-point labels as text; do not add any descriptive caption, subtitle, watermark, or meta-label about the infographic itself or its audience. Balanced composition, no clutter, no lorem ipsum.
+
+### slide_18
+Create a professional, boardroom-ready infographic for one slide in a presentation to federal and enterprise executives.
+Visual style: Clean, boardroom-ready corporate infographic for federal and enterprise executives. 16:9. White background. Modern flat design, restrained blue-and-slate palette with a single warm accent. Simple flat line icons, strong visual hierarchy, generous whitespace, minimal text, professional sans-serif typography.
+HEADLINE (render prominently, keep wording): An Independent Standards Body Reviewed the Program
+KEY POINTS (render as short labels/callouts, keep wording):
+- NASBA reviewed and approved the program
+- Approved for continuing professional education credits
+- Assesses program design and delivery
+- Not technical accuracy or learning outcomes
+- Independence from all parties is the point
+CONTEXT (for tone only, do not render verbatim): The third signal comes from a place with no stake in our success.
+Turn the key numbers into large callout figures. Use simple icons to convey each concept. Do NOT invent any statistics, facts, company names, or logos beyond what is listed. Do not depict real brand logos or identifiable real people; use generic badge/seal/icon shapes instead. Render ONLY the headline and the key-point labels as text; do not add any descriptive caption, subtitle, watermark, or meta-label about the infographic itself or its audience. Balanced composition, no clutter, no lorem ipsum.
+
+### slide_19
+Create a professional, boardroom-ready infographic for one slide in a presentation to federal and enterprise executives.
+Visual style: Clean, boardroom-ready corporate infographic for federal and enterprise executives. 16:9. White background. Modern flat design, restrained blue-and-slate palette with a single warm accent. Simple flat line icons, strong visual hierarchy, generous whitespace, minimal text, professional sans-serif typography.
+HEADLINE (render prominently, keep wording): A Year Ago, There Was Nothing to Study From
+KEY POINTS (render as short labels/callouts, keep wording):
+- NCP-AAI had no prep materials
+- I wrote a book to prepare myself
+- Read it, sat the exam, passed
+- Prep books still scarce on Amazon today
+- Barriers to upskilling exceed what they seem
+CONTEXT (for tone only, do not render verbatim): Let me tell you why this is personal.
+Turn the key numbers into large callout figures. Use simple icons to convey each concept. Do NOT invent any statistics, facts, company names, or logos beyond what is listed. Do not depict real brand logos or identifiable real people; use generic badge/seal/icon shapes instead. Render ONLY the headline and the key-point labels as text; do not add any descriptive caption, subtitle, watermark, or meta-label about the infographic itself or its audience. Balanced composition, no clutter, no lorem ipsum.
+
+### slide_20
+Create a professional, boardroom-ready infographic for one slide in a presentation to federal and enterprise executives.
+Visual style: Clean, boardroom-ready corporate infographic for federal and enterprise executives. 16:9. White background. Modern flat design, restrained blue-and-slate palette with a single warm accent. Simple flat line icons, strong visual hierarchy, generous whitespace, minimal text, professional sans-serif typography.
+HEADLINE (render prominently, keep wording): New Certifications Arrive Without Textbooks
+KEY POINTS (render as short labels/callouts, keep wording):
+- New certification means no preparation corpora
+- Assessment banks scarce or entirely absent
+- No pool of trained instructors exists
+- Conventional design builds these artifacts sequentially
+- Teaching adds a stage: train instructors first
+CONTEXT (for tone only, do not render verbatim): My empty shelf was not bad luck — it is structural.
+Turn the key numbers into large callout figures. Use simple icons to convey each concept. Do NOT invent any statistics, facts, company names, or logos beyond what is listed. Do not depict real brand logos or identifiable real people; use generic badge/seal/icon shapes instead. Render ONLY the headline and the key-point labels as text; do not add any descriptive caption, subtitle, watermark, or meta-label about the infographic itself or its audience. Balanced composition, no clutter, no lorem ipsum.
+
+### slide_21
+Create a professional, boardroom-ready infographic for one slide in a presentation to federal and enterprise executives.
+Visual style: Clean, boardroom-ready corporate infographic for federal and enterprise executives. 16:9. White background. Modern flat design, restrained blue-and-slate palette with a single warm accent. Simple flat line icons, strong visual hierarchy, generous whitespace, minimal text, professional sans-serif typography.
+HEADLINE (render prominently, keep wording): Build Inside the Window, Before It Closes
+KEY POINTS (render as short labels/callouts, keep wording):
+- Technical skills stay relevant about 2.5 years
+- Frontier build cycle runs slower than decay
+- Pipeline produced certified professionals within window
+- One slow stage re-imposes the bottleneck
+CONTEXT (for tone only, do not render verbatim): Here is the clock you are racing.
+Turn the key numbers into large callout figures. Use simple icons to convey each concept. Do NOT invent any statistics, facts, company names, or logos beyond what is listed. Do not depict real brand logos or identifiable real people; use generic badge/seal/icon shapes instead. Render ONLY the headline and the key-point labels as text; do not add any descriptive caption, subtitle, watermark, or meta-label about the infographic itself or its audience. Balanced composition, no clutter, no lorem ipsum.
+
+### slide_22
+Create a professional, boardroom-ready infographic for one slide in a presentation to federal and enterprise executives.
+Visual style: Clean, boardroom-ready corporate infographic for federal and enterprise executives. 16:9. White background. Modern flat design, restrained blue-and-slate palette with a single warm accent. Simple flat line icons, strong visual hierarchy, generous whitespace, minimal text, professional sans-serif typography.
+HEADLINE (render prominently, keep wording): The Stakes Are Bigger Than One Learner
+KEY POINTS (render as short labels/callouts, keep wording):
+- Ages 22 to 25: 16% relative employment decline
+- Most AI-exposed occupations, firm shocks controlled
+- Value shifts toward verification-grade expertise
+- Capacity converts exposure into readiness
+CONTEXT (for tone only, do not render verbatim): This is not only about the people already in your workforce.
+Turn the key numbers into large callout figures. Use simple icons to convey each concept. Do NOT invent any statistics, facts, company names, or logos beyond what is listed. Do not depict real brand logos or identifiable real people; use generic badge/seal/icon shapes instead. Render ONLY the headline and the key-point labels as text; do not add any descriptive caption, subtitle, watermark, or meta-label about the infographic itself or its audience. Balanced composition, no clutter, no lorem ipsum.
+
+### slide_23
+Create a professional, boardroom-ready infographic for one slide in a presentation to federal and enterprise executives.
+Visual style: Clean, boardroom-ready corporate infographic for federal and enterprise executives. 16:9. White background. Modern flat design, restrained blue-and-slate palette with a single warm accent. Simple flat line icons, strong visual hierarchy, generous whitespace, minimal text, professional sans-serif typography.
+HEADLINE (render prominently, keep wording): Infrastructure for Building Capacity at Speed
+KEY POINTS (render as short labels/callouts, keep wording):
+- Not a promise that everyone passes
+- Design, artifact, external signals — no control group
+- Three passes are existence proof, not rate
+- Build capacity at the speed domains change
+CONTEXT (for tone only, do not render verbatim): So here is the single thing to carry out of this room.
+Turn the key numbers into large callout figures. Use simple icons to convey each concept. Do NOT invent any statistics, facts, company names, or logos beyond what is listed. Do not depict real brand logos or identifiable real people; use generic badge/seal/icon shapes instead. Render ONLY the headline and the key-point labels as text; do not add any descriptive caption, subtitle, watermark, or meta-label about the infographic itself or its audience. Balanced composition, no clutter, no lorem ipsum.

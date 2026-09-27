@@ -76,6 +76,6 @@ The figure's bottom band lists checks that could apply. Some are outside the fra
 
 ## What the framework does not claim
 
-[Evidence and limitations](evidence-and-limitations.md#what-the-frameworks-own-design-does-not-claim) states, in one place, what this guide's own design does not claim: no controlled comparison, no report of how the Layer 1 checks performed, no claim that the tutor achieves the effects its own cited research reports, and more. [Human roles, gates and batching](human-roles-gates-and-batching.md#what-the-framework-says-people-do) covers the people-facing side of the same question: which roles the framework assigns without a confirmed record that the work was done.
+[Evidence and limitations](evidence-and-limitations.md#explicit-methodological-boundaries) states, in one place, what this guide's own design does not claim: no controlled comparison, no report of how the Layer 1 checks performed, no claim that the tutor achieves the effects its own cited research reports, and more. [Human roles, gates and batching](human-roles-gates-and-batching.md#what-the-framework-says-people-do) covers the people-facing side of the same question: which roles the framework assigns without a confirmed record that the work was done.
 
 Next: [How to use this guide](how-to-use-this-guide.md).

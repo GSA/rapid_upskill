@@ -27,7 +27,7 @@ The five stages are knowledge acquisition, content development, review and verif
 
 ## Where to start
 
-Start with [Getting started](getting-started.md): the [Pipeline overview](pipeline-overview.md) shows all five stages on one page, [How to use this guide](how-to-use-this-guide.md) says what you need and how each page is laid out, and the [running example](running-example.md) is the one small, fictional program every stage uses. All five stages are now published, Stage 4 with sample prompts and every other stage with sample prompts and scripts. [Beyond the five stages](beyond-the-five-stages.md) gathers what sits alongside or after the framework's own core: the [certification-alignment](certification-alignment.md) workstream, the [Delivery](delivery/index.md) tooling, the cross-cutting [operating-practices](operating-practices/index.md) pages, a [worked example](worked-example.md) tracing the running example through all of it in one continuous thread, and [Evidence and limitations](evidence-and-limitations.md), which states plainly what backs this guide's own claims.
+If you are deciding whether rapid upskilling belongs in your strategy, read [The case for rapid upskilling](the-case-for-rapid-upskilling.md) first. To try the method, start with [Getting started](getting-started.md): the [Pipeline overview](pipeline-overview.md) shows all five stages on one page, [How to use this guide](how-to-use-this-guide.md) says what you need and how each page is laid out, and the [running example](running-example.md) is the one small, fictional program every stage uses. All five stages are now published, Stage 4 with sample prompts and every other stage with sample prompts and scripts. [Beyond the five stages](beyond-the-five-stages.md) gathers what sits alongside or after the framework's own core: the [certification-alignment](certification-alignment.md) workstream, the [Delivery](delivery/index.md) tooling, the cross-cutting [operating-practices](operating-practices/index.md) pages, a [worked example](worked-example.md) tracing the running example through all of it in one continuous thread, and [Evidence and limitations](evidence-and-limitations.md), which states plainly what backs this guide's own claims.
 
 ## Should you try this?
 
@@ -35,8 +35,8 @@ Before you start, answer the six questions in the [Readiness checklist (not a va
 
 ## What this guide is
 
-This guide is a method, not a product. It is written to be platform-neutral, so you can adapt it to your [agentic platform](glossary.md#agentic-platform). It describes a design and how the reference implementation was run, as of September 2026. It makes no claims about results.
+This guide is a method, not a product. It is written to be platform-neutral, so you can adapt it to your [agentic platform](glossary.md#agentic-platform). It describes a design and how the reference implementation was run, as of September 2026. It reports only the results stated on [Evidence and limitations](evidence-and-limitations.md), and it labels every projection as a projection.
 
 The text, prompts, and scripts are released under CC0 1.0, a public domain dedication. To learn what that means, or to help, see [Contributing](contributing/index.md).
 
-Next: [Getting started](getting-started.md).
+Next: [The case for rapid upskilling](the-case-for-rapid-upskilling.md).

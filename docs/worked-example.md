@@ -88,4 +88,4 @@ This page adapts nothing of its own. It narrates a run that is already adaptable
 
 This page states no new gate. It only narrates where the already-published gates fall along this one thread. In order: the blueprint's approval before search planning begins, the batch pauses across Stage 1, the draft approval before condensation, the tiering and escalation decisions in Stage 3, the protocol-library approval before any tutoring session runs, the stem-plan approval and the assembled-quiz approval in Stage 5, and the rating and schedule approvals in certification alignment. A reader who wants the full list of who can fill each role, and what each gate kind requires, still has to read [Human roles, gates and batching](human-roles-gates-and-batching.md) and each stage's own approvals table. This page only points at where each one sits along one worked thread.
 
-Next: [Evidence and limitations](evidence-and-limitations.md).
+Next: [Glossary](glossary.md).
