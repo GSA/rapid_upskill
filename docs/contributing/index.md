@@ -48,4 +48,5 @@ For the exact terms, read the [CC0 1.0 Universal legal code](https://creativecom
 - [Tooling](tooling.md): the checker, the sync tool, and local preview.
 - [Release checklist](release-checklist.md): automated and manual checks before a page is called stable.
 - [Your first prompt](first-prompt.md): a 15-minute walkthrough.
+- [Styling the site](styling.md): change the colors, fonts and layout through a theme preset.
 - [Extending this guide](extending-this-guide.md): adapting this guide's own method to a new subject-matter domain, running example, or agentic platform.

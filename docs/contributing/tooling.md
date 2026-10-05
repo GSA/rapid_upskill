@@ -30,6 +30,7 @@ The `-B` flag stops Python from writing `__pycache__` folders.
 | `python3 -B scripts/site/sync.py --write --prune` | Applies the plan and deletes stale images and stale generated pages. Any other stale file is only reported, never deleted, and the exit status is still 0. |
 | `python3 -B scripts/tests/run_all.py` | Runs every test offline and prints one summary line. Exits with status 1 on any failure or error. |
 | `node --check docs/assets/js/copy-announce.js` | Checks the JavaScript syntax without running the file. |
+| `python3 .github/scripts/check_theme.py` | Checks the theme presets: same tokens in each, text colors readable (WCAG AA), no hard-coded colors in the stylesheet. See [Styling the site](styling.md). |
 
 - `--check` cannot be combined with `--write` or `--prune`. That is a usage error. The sync tool exits with status 2 for a usage error or an input it cannot read.
 - When a prompt or script cannot become a page, the sync tool writes nothing. It prints `sync: <path>: <message>` on standard error and exits with status 2. The checker then reports that file as `<path>:1 R11 cannot generate pages: <message>`, next to the rule error that caused it, such as R08 for a prompt.

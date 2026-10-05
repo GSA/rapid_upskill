@@ -6,8 +6,10 @@ last_reviewed: "2026-09-26"
 ---
 
 # Rapid Upskilling Pipeline
+{: .nd-display }
 
 This guide teaches a method for building an [upskilling program](glossary.md#upskilling-program). It comes with sample prompts and scripts. The method is a framework of five [stages](glossary.md#stage).
+{: .nd-lede }
 
 Its premise is that AI does the volume work while people keep the judgment calls the framework assigns them, staying [in the loop](glossary.md#human-in-the-loop) wherever a decision matters. For example, an [agent](glossary.md#agent) reads many source documents and drafts a chapter. A person decides which sources to admit and whether the draft is right. [Human roles, gates and batching](human-roles-gates-and-batching.md) covers who decides what.
 
