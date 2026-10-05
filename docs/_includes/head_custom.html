@@ -1,1 +1,44 @@
-<!-- Intentionally empty for now. Dark mode is deferred until the site can be rendered and checked. -->
+{%- comment -%}
+  Turns the chosen theme preset (docs/_data/themes/<theme_preset>.yml) into CSS variables named
+  --nd-<token>, for the light theme and, if the preset has a `dark:` block, the dark theme.
+  All site CSS reads these variables and contains no colours of its own. The small script applies
+  a saved light/dark choice before the page paints; the button itself comes from theme-toggle.js.
+{%- endcomment -%}
+{%- assign nd_theme = site.data.themes[site.theme_preset] -%}
+{%- if nd_theme %}
+{%- capture nd_dark_vars -%}
+{%- for t in nd_theme.dark %}
+  --nd-{{ t[0] }}: {{ t[1] }};
+{%- endfor %}
+{%- endcapture -%}
+<style id="nd-tokens">
+:root {
+  color-scheme: light;
+{%- for t in nd_theme.tokens %}
+  --nd-{{ t[0] }}: {{ t[1] }};
+{%- endfor %}
+}
+{%- if nd_theme.dark %}
+:root[data-theme="dark"] {
+  color-scheme: dark;{{ nd_dark_vars }}
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    color-scheme: dark;{{ nd_dark_vars }}
+  }
+}
+{%- endif %}
+</style>
+{%- if nd_theme.dark %}
+<script>
+(function () {
+  try {
+    var saved = localStorage.getItem("nd-theme");
+    if (saved === "light" || saved === "dark") document.documentElement.setAttribute("data-theme", saved);
+  } catch (e) { /* storage blocked: follow the device setting */ }
+})();
+</script>
+<script src="{{ '/assets/js/theme-toggle.js' | relative_url }}" defer></script>
+{%- endif %}
+<meta name="theme-color" content="{{ nd_theme.tokens.surface | default: '#ffffff' }}">
+{%- endif %}

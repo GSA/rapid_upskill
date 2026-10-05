@@ -1,0 +1,14 @@
+// Home page: display headline and lede (set with {: .nd-display } and {: .nd-lede } in index.md).
+.nd-display {
+  font-size: var(--nd-hero-size) !important;
+  line-height: 0.98;
+  letter-spacing: var(--nd-tracking-heading);
+  margin: 0.5rem 0 1.5rem;
+}
+.nd-lede {
+  font-size: 1.25rem !important;
+  line-height: 1.4;
+  color: var(--nd-ink-soft);
+  max-width: 38em;
+  font-weight: var(--nd-weight-body) !important;
+}

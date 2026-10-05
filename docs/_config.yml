@@ -7,6 +7,10 @@ baseurl: "/rapid_upskill"
 source_repo_url: "https://github.com/GSA/rapid_upskill"   # our own keys; the theme does not use them
 source_branch: "master"               # confirmed with `git branch --show-current`
 strict_front_matter: true
+# Visual style: names a file in _data/themes/ (ndstudio, classic, or your own). See contributing/styling.md.
+theme_preset: ndstudio
+seal: /assets/gsa-seal.png            # emblem above the site title; leave empty for none
+seal_alt: U.S. General Services Administration seal
 search_enabled: true
 enable_copy_code_button: true
 heading_anchors: true
